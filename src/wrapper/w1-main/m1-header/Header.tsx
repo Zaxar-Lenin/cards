@@ -13,9 +13,6 @@ function Header() {
             <NavLink to = {Routers.ERROR}>ERROR</NavLink>
             <NavLink to = {Routers.ENTERING_NEW_PASS}>ENTERING_NEW_PASS</NavLink>
             <NavLink to = {Routers.PASS_RECOV}>PASS_RECOV</NavLink>
-            <NavLink to = {Routers.PASS_RECOV}>ggggggggggggggggg</NavLink>
-            <NavLink to = {Routers.PASS_RECOV}>PASS_RECOV</NavLink>
-            <NavLink to = {Routers.PASS_RECOV}>PASS_RECOV</NavLink>
         </div>
     );
 }
