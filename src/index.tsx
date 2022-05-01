@@ -3,7 +3,7 @@ import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './wrapper/App';
 import reportWebVitals from './reportWebVitals';
-import {BrowserRouter} from "react-router-dom";
+import {BrowserRouter, HashRouter} from "react-router-dom";
 import {Provider} from "react-redux";
 import {store} from "./store/store";
 
@@ -11,15 +11,13 @@ const root = ReactDOM.createRoot(
     document.getElementById('root') as HTMLElement
 );
 root.render(
-    <BrowserRouter>
-    <React.StrictMode>
-
+    <HashRouter>
+        <React.StrictMode>
             <Provider store={store}>
                 <App/>
             </Provider>
-
-    </React.StrictMode>
-    </BrowserRouter>
+        </React.StrictMode>
+    </HashRouter>
 );
 
 // If you want to start measuring performance in your app, pass a function

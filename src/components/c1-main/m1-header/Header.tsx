@@ -6,7 +6,7 @@ import {Routers} from "../routers";
 function Header() {
     return (
         <div className={s.header}>
-            <NavLink to = {Routers.LOGIN}>LOGIN</NavLink>
+            <NavLink className={s.list} to = {Routers.LOGIN}>LOGIN</NavLink>
             <NavLink to = {Routers.LOGOUT}>LOGOUT</NavLink>
             <NavLink to = {Routers.TEST}>TEST</NavLink>
             <NavLink to = {Routers.PROFILE}>PROFILE</NavLink>
