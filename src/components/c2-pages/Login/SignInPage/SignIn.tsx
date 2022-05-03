@@ -10,10 +10,6 @@ export const SignIn = () => {
             </div>
             <div className={s.body}>
                 <LoginForm/>
-                {/*<input type="text"/>*/}
-                {/*<input type="text"/>*/}
-                {/*<div>Forgot Password</div>*/}
-                {/*<button>22</button>*/}
             </div>
 
         </div>

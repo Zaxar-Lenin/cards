@@ -11,8 +11,8 @@ type ErrorType = {
 export const LoginForm = () => {
     const formik = useFormik({
         initialValues: {
-            email: '',
-            password: '',
+            email: 'testforcardproject@list.ru',
+            password: '1q2a3z3e',
         },
         validate: (value) => {
             const errors: ErrorType = {};
@@ -51,15 +51,16 @@ export const LoginForm = () => {
 
                 <TextField
                     sx={{width: '250px', marginTop: '25px'}}
+                    type='password'
                     size="small"
                     id="password"
                     name="password"
                     label="Password"
                     variant="standard"
-                    value={formik.values.email}
+                    value={formik.values.password}
                     onChange={formik.handleChange}
-                    error={formik.touched.email && Boolean(formik.errors.email)}
-                    helperText={formik.touched.email && formik.errors.email}
+                    error={formik.touched.password && Boolean(formik.errors.password)}
+                    helperText={formik.touched.password && formik.errors.password}
                     onBlur={formik.handleBlur}
                 />
                 <div

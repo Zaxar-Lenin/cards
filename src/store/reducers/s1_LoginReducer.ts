@@ -1,13 +1,18 @@
-const initial = {}
-type InitialType = typeof initial
+import {createSlice, PayloadAction} from '@reduxjs/toolkit';
 
-type ActionLoginType = {
-    type: string
+const InitialSate = {
+    isLoggedIn: false
 }
 
-export const loginReducer = (state: InitialType = initial,action: ActionLoginType): InitialType => {
-    switch (action.type) {
-        default:
-            return state
+const slice = createSlice({
+    name: 'login',
+    initialState: InitialSate,
+    reducers: {
+        setIsLogged(state,action: PayloadAction<{value: boolean}>){
+        state.isLoggedIn = action.payload.value;
+        }
     }
-}
+})
+
+export const loginReducer = slice.reducer
+export const {setIsLogged} = slice.actions
