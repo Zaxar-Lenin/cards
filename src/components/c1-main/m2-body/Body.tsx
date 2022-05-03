@@ -9,13 +9,14 @@ import Error from "./b5-error/Error";
 import Profile from "./b3-profile/Profile";
 import Test from "./b4-test/Test";
 import PasswordEntering from "./b6-passwordEntering/PasswordEntering";
+import {SignIn} from '../../c2-pages/Login/SignInPage/SignIn';
 
 function Body() {
     return (
         <div className={s.body}>
             <Routes >
                 {/*<Route path={'/card'} element ={<Navigate to = {Routers.LOGIN} />}/>*/}
-                <Route path = {Routers.LOGIN} element={<Login/>}/>
+                <Route path = {Routers.LOGIN} element={<SignIn/>}/>
                 <Route path = {Routers.LOGOUT} element={<LogOut/>}/>
                 <Route path = {Routers.ERROR} element={<Error/>}/>
                 <Route path = {Routers.PROFILE} element={<Profile/>}/>
