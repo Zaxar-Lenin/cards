@@ -2,7 +2,7 @@ import {instance} from './instance';
 
 export const loginAPI = {
     login(data: LoginParamsType) {
-        instance.post<ResponseType>('auth/login', data)
+        return instance.post<ResponseType>('auth/login', data)
     },
 }
 

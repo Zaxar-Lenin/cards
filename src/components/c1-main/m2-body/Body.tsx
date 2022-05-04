@@ -15,7 +15,7 @@ function Body() {
     return (
         <div className={s.body}>
             <Routes >
-                {/*<Route path={'/card'} element ={<Navigate to = {Routers.LOGIN} />}/>*/}
+                <Route path={'*'} element ={<Navigate to = {Routers.LOGIN} />}/>
                 <Route path = {Routers.LOGIN} element={<SignIn/>}/>
                 <Route path = {Routers.LOGOUT} element={<LogOut/>}/>
                 <Route path = {Routers.ERROR} element={<Error/>}/>

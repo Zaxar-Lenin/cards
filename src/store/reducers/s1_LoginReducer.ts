@@ -1,16 +1,19 @@
-import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {createAction, createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import {loginAPI, LoginParamsType} from '../../API/loginAPI';
 
 const InitialSate = {
     isLoggedIn: false
 }
 
+export const setIsLogged = createAction<{value: boolean}>('type/setIsAction')
+
 export const loginTC = createAsyncThunk('login/loginTC', async (data: LoginParamsType, thunkAPI) => {
     try {
         const res = await loginAPI.login(data)
-        return {value: true}
+        thunkAPI.dispatch(setIsLogged({value: true}))
+        //return {value: true}
     } catch (e) {
-        return {value: false}
+        //return {value: false}
     }
 })
 
@@ -23,8 +26,11 @@ const slice = createSlice({
         // }
     },
     extraReducers: (builder) => {
-        builder.addCase(loginTC.fulfilled, (state, action) => {
-            state.isLoggedIn = action.payload.value
+        // builder.addCase(loginTC.fulfilled, (state, action) => {
+        //      state.isLoggedIn = action.payload.value
+        //  })
+        builder.addCase(setIsLogged, (state, action)=>{
+            state.isLoggedIn = action.payload.value;
         })
     }
 })

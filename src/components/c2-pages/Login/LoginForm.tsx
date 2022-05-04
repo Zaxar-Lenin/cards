@@ -1,7 +1,9 @@
 import React from 'react';
-import {useFormik} from 'formik';
-import {Button, TextField} from '@mui/material';
+import {Field, useFormik} from 'formik';
+import {Button, Checkbox, TextField} from '@mui/material';
 import s from './LoginForm.module.css'
+import {loginTC} from '../../../store/reducers/s1_LoginReducer';
+import {useDispatch} from 'react-redux';
 
 type ErrorType = {
     email?: string
@@ -9,10 +11,16 @@ type ErrorType = {
 }
 
 export const LoginForm = () => {
+
+    const dispatch = useDispatch();
+
+    const label = { inputProps: { type: 'checkbox'} }
+
     const formik = useFormik({
         initialValues: {
             email: 'testforcardproject@list.ru',
             password: '1q2a3z3e',
+            rememberme: true
         },
         validate: (value) => {
             const errors: ErrorType = {};
@@ -28,7 +36,8 @@ export const LoginForm = () => {
             return errors
         },
         onSubmit: values => {
-            alert(JSON.stringify(values));
+            const params = {email: values.email, password: values.password, rememberMe: values.rememberme}
+            dispatch(loginTC(params))
         },
     });
     return (
@@ -72,6 +81,13 @@ export const LoginForm = () => {
                             size='small'
                             type="submit">
                         Login</Button>
+                </div>
+                <div className={s.rememberMe}>
+                    <Checkbox {...label} size="small"
+                              onChange={formik.handleChange}
+                              name="rememberme"
+                    sx={{marginTop:'3px'}}/>
+                    Remember me
                 </div>
                 <div className={s.loginFooter} >
                     Don't have an account?

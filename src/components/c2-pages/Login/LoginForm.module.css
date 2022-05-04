@@ -37,3 +37,11 @@
 .signUp:hover {
     color: rgba(33, 38, 143, 0.21);
 }
+
+.rememberMe{
+    margin-top: 4%;
+    font-size: 15px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}

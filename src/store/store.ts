@@ -7,7 +7,6 @@ import {testReducer} from './reducers/s5_TestReducer';
 import {passEnteringReducer} from './reducers/s6_PassEnteringReducer';
 import {passRecovReducer} from './reducers/s7_PassRecovReducer';
 import {configureStore} from '@reduxjs/toolkit';
-import thunkMiddleware from 'redux-thunk'
 
 const rootReducer = combineReducers({
     login: loginReducer,
@@ -25,5 +24,4 @@ export const store = configureStore({
     reducer: rootReducer,
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware()
-            .prepend(thunkMiddleware)
 })
