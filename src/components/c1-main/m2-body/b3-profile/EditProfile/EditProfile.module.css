@@ -1,0 +1,30 @@
+.edit_profile{
+    border: 1px solid black;
+    margin: 0 0 10px 0;
+    padding: 10px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 300px;
+}
+
+.image img{
+    width: 150px;
+}
+
+.name{
+
+}
+
+.status{
+
+}
+
+.button{
+    width: 110px;
+    height: 30px;
+    border: 1px solid black;
+    text-align: center;
+    cursor: pointer;
+}

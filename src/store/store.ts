@@ -1,4 +1,5 @@
-import {applyMiddleware, combineReducers, createStore} from "redux";
+import {configureStore} from "@reduxjs/toolkit";
+import {combineReducers} from "redux";
 import thunk from "redux-thunk";
 import {loginReducer} from "./reducers/s1_LoginReducer";
 import {logOutReducer} from "./reducers/s2_LogOutReducer";
@@ -18,6 +19,10 @@ const rootReducer = combineReducers({
     passRecov: passRecovReducer
 })
 
-export const store = createStore(rootReducer,applyMiddleware(thunk))
+export const store = configureStore({
+    reducer: rootReducer,
+    middleware: (getDefaultMiddleware) => getDefaultMiddleware()
+        .prepend(thunk),
+})
 
 export type StoreType = ReturnType<typeof rootReducer>

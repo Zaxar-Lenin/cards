@@ -9,6 +9,7 @@ import Error from "./b5-error/Error";
 import Profile from "./b3-profile/Profile";
 import Test from "./b4-test/Test";
 import PasswordEntering from "./b6-passwordEntering/PasswordEntering";
+import {PersonalInformation} from "./PersonalInformation/PersonalInformation";
 
 function Body() {
     return (
@@ -22,6 +23,7 @@ function Body() {
                 <Route path = {Routers.TEST} element={<Test/>}/>
                 <Route path = {Routers.ENTERING_NEW_PASS} element={<PasswordEntering/>}/>
                 <Route path = {Routers.PASS_RECOV} element={<PasswordRecov/>}/>
+                <Route path = {Routers.PERSONAL_INFORMATION} element={<PersonalInformation/>}/>
             </Routes>
         </div>
     );
