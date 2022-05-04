@@ -20,7 +20,7 @@ export const LoginForm = () => {
         initialValues: {
             email: 'testforcardproject@list.ru',
             password: '1q2a3z3e',
-            rememberme: true
+            rememberme: false
         },
         validate: (value) => {
             const errors: ErrorType = {};

@@ -1,0 +1,17 @@
+.container {
+    max-width: 350px;
+    max-height: 600px;
+    background: white;
+    margin: 60px auto 0;
+    border-radius: 8px;
+}
+
+.header {
+    display: flex;
+    justify-content: center;
+    padding-top: 25px;
+    padding-bottom: 40px;
+}
+
+.body {
+}
