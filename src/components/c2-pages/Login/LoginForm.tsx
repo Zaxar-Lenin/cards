@@ -1,9 +1,10 @@
 import React from 'react';
-import {Field, useFormik} from 'formik';
+import {useFormik} from 'formik';
 import {Button, Checkbox, TextField} from '@mui/material';
 import s from './LoginForm.module.css'
 import {loginTC} from '../../../store/reducers/s1_LoginReducer';
 import {useDispatch} from 'react-redux';
+import {useNavigate} from 'react-router-dom';
 
 type ErrorType = {
     email?: string
@@ -12,9 +13,10 @@ type ErrorType = {
 
 export const LoginForm = () => {
 
+    const navigate = useNavigate()
     const dispatch = useDispatch();
 
-    const label = { inputProps: { type: 'checkbox'} }
+    const label = {inputProps: {type: 'checkbox'}}
 
     const formik = useFormik({
         initialValues: {
@@ -42,10 +44,10 @@ export const LoginForm = () => {
     });
     return (
         <form onSubmit={formik.handleSubmit}>
-            <div className={s.textFields} >
+            <div className={s.textFields}>
                 <TextField
                     sx={{width: '250px'}}
-                    margin='normal'
+                    margin="normal"
                     size="small"
                     id="email"
                     name="email"
@@ -60,7 +62,7 @@ export const LoginForm = () => {
 
                 <TextField
                     sx={{width: '250px', marginTop: '25px'}}
-                    type='password'
+                    type="password"
                     size="small"
                     id="password"
                     name="password"
@@ -72,13 +74,19 @@ export const LoginForm = () => {
                     helperText={formik.touched.password && formik.errors.password}
                     onBlur={formik.handleBlur}
                 />
-                <div
-                    className={s.forgotPass}>Forgot Password
+                <div onClick={() => navigate('/login/forgot')}
+                     className={s.forgotPass}>Forgot Password
                 </div>
                 <div className={s.loginButton}>
                     <Button variant="contained"
-                            sx={{borderRadius: '15px', width: '170px', height: '25px', textTransform: 'initial', fontSize: '16px'}}
-                            size='small'
+                            sx={{
+                                borderRadius: '15px',
+                                width: '170px',
+                                height: '25px',
+                                textTransform: 'initial',
+                                fontSize: '16px'
+                            }}
+                            size="small"
                             type="submit">
                         Login</Button>
                 </div>
@@ -86,10 +94,10 @@ export const LoginForm = () => {
                     <Checkbox {...label} size="small"
                               onChange={formik.handleChange}
                               name="rememberme"
-                    sx={{marginTop:'3px'}}/>
+                              sx={{marginTop: '3px'}}/>
                     Remember me
                 </div>
-                <div className={s.loginFooter} >
+                <div className={s.loginFooter}>
                     Don't have an account?
                     <span className={s.signUp}> Sign Up</span>
                 </div>

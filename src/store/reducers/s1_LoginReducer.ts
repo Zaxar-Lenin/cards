@@ -1,11 +1,21 @@
-import {createAction, createAsyncThunk, createSlice} from '@reduxjs/toolkit';
+import {createAction, createAsyncThunk, createSlice, isRejectedWithValue} from '@reduxjs/toolkit';
 import {loginAPI, LoginParamsType} from '../../API/loginAPI';
 
-const InitialSate = {
-    isLoggedIn: false
+type InitialSateType = {
+    isLoggedIn: boolean,
+    info: null | string,
+    errorMessage: null | string
+    changePassMsg: string
 }
 
-export const setIsLogged = createAction<{value: boolean}>('type/setIsAction')
+const InitialSate: InitialSateType = {
+    isLoggedIn: false,
+    info: null,
+    errorMessage: null,
+    changePassMsg: ''
+}
+
+export const setIsLogged = createAction<{ value: boolean }>('login/setIsLoggedIn')
 
 export const loginTC = createAsyncThunk('login/loginTC', async (data: LoginParamsType, thunkAPI) => {
     try {
@@ -14,6 +24,23 @@ export const loginTC = createAsyncThunk('login/loginTC', async (data: LoginParam
         //return {value: true}
     } catch (e) {
         //return {value: false}
+    }
+})
+
+export const resetPassword = createAsyncThunk('login/resetPassword', async (email: string, thunkApi) => {
+    try {
+        const res = await loginAPI.resetPassword(email)
+    } catch (e: any) {
+        return thunkApi.rejectWithValue(e.response.data.error)
+    }
+})
+
+export const setNewPassword = createAsyncThunk('logins/setNewPassword', async (param: { newPass: string, token: string }, thunkApi) => {
+    try {
+        const res = await loginAPI.setNewPassword(param.newPass, param.token)
+        return res.data
+    } catch (e) {
+
     }
 })
 
@@ -26,11 +53,21 @@ const slice = createSlice({
         // }
     },
     extraReducers: (builder) => {
-        // builder.addCase(loginTC.fulfilled, (state, action) => {
-        //      state.isLoggedIn = action.payload.value
-        //  })
-        builder.addCase(setIsLogged, (state, action)=>{
+        builder.addCase(setIsLogged, (state, action) => {
             state.isLoggedIn = action.payload.value;
+        })
+        // builder.addCase(setResetPassword, (state, action) => {
+        //     state.info = action.payload.info as string
+        // })
+        builder.addCase(resetPassword.fulfilled, (state, action) => {
+            state.info = action.payload ? action.payload : ''
+            state.errorMessage = ''
+        })
+        builder.addCase(resetPassword.rejected, (state, action) => {
+            state.errorMessage = action.payload as string
+        })
+        builder.addCase(setNewPassword.fulfilled, (state, action) => {
+            // state.changePassMsg = action.payload
         })
     }
 })

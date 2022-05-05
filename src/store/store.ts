@@ -7,6 +7,7 @@ import {testReducer} from './reducers/s5_TestReducer';
 import {passEnteringReducer} from './reducers/s6_PassEnteringReducer';
 import {passRecovReducer} from './reducers/s7_PassRecovReducer';
 import {configureStore} from '@reduxjs/toolkit';
+import {useDispatch} from 'react-redux';
 
 const rootReducer = combineReducers({
     login: loginReducer,
@@ -25,3 +26,6 @@ export const store = configureStore({
     middleware: (getDefaultMiddleware) =>
         getDefaultMiddleware()
 })
+
+export type AppDispatchType = typeof store.dispatch
+export const useAppDispatch = ()=> useDispatch<AppDispatchType>()
