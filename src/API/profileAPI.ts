@@ -1,8 +1,25 @@
 import {instance} from "./instance";
-import {IMG_PROFILE} from "../components/c1-main/m2-body/b3-profile/EditProfile/EditProfile";
+import {IMG_PROFILE} from "../store/reducers/s4_ProfileReducer";
+
+
+export type UserProfile = {
+    _id: string;
+    email: string;
+    name: string;
+    avatar?: string;
+    publicCardPacksCount: number; // количество колод
+    created: Date;
+    updated: Date;
+    isAdmin: boolean;
+    verified: boolean; // подтвердил ли почту
+    rememberMe: boolean;
+}
+
+
+
 
 export const profileAPI = {
     setNameAndImg(name: string,avatar: string = IMG_PROFILE){
-        instance.put("auth/me",{name,avatar})
+        instance.put<{updatedUser: UserProfile,error: string}>("auth/me",{name,avatar})
     }
 }

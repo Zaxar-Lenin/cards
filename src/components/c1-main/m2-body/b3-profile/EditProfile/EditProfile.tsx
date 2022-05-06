@@ -2,11 +2,18 @@ import React, {useState} from 'react';
 import s from "./EditProfile.module.css"
 import {Navigate} from 'react-router-dom';
 import {Routers} from "../../../routers";
-
-export const IMG_PROFILE = "https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg"
+import {useCustomSelector} from "../../../../../store/store";
 
 export const EditProfile = () => {
+
+    const name = useCustomSelector<string>(state => state.profile.name)
+
+    const avatar = useCustomSelector<string | undefined>(state => state.profile.avatar)
+
+    const email = useCustomSelector<string>(state => state.profile.email)
+
     const [edit, setEdit] = useState(false)
+
     const handlerButton = () => {
         setEdit(true)
     }
@@ -17,10 +24,10 @@ export const EditProfile = () => {
     return (
         <div className={s.edit_profile}>
             <div className={s.image}>
-                <img src={IMG_PROFILE} alt=""/>
+                <img src={avatar} alt=""/>
             </div>
-            <div className={s.name}>IVan Dav</div>
-            <div className={s.status}>FrontEnd</div>
+            <div className={s.name}>{name}</div>
+            <div className={s.status}>{email}</div>
             <div onClick={handlerButton} className={s.button}>Edit Profile</div>
         </div>
     );

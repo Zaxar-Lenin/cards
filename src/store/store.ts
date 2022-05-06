@@ -1,6 +1,6 @@
 import {configureStore} from "@reduxjs/toolkit";
 import {combineReducers} from "redux";
-import thunk from "redux-thunk";
+import {TypedUseSelectorHook, useSelector} from "react-redux";
 import {loginReducer} from "./reducers/s1_LoginReducer";
 import {logOutReducer} from "./reducers/s2_LogOutReducer";
 import {errorReducer} from "./reducers/s3_ErrorReducer";
@@ -21,8 +21,7 @@ const rootReducer = combineReducers({
 
 export const store = configureStore({
     reducer: rootReducer,
-    middleware: (getDefaultMiddleware) => getDefaultMiddleware()
-        .prepend(thunk),
 })
 
 export type StoreType = ReturnType<typeof rootReducer>
+export const useCustomSelector: TypedUseSelectorHook<StoreType> = useSelector
