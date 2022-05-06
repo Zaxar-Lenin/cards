@@ -1,5 +1,4 @@
 import {applyMiddleware, combineReducers, createStore} from "redux";
-import thunk from "redux-thunk";
 import {loginReducer} from "./reducers/s1_LoginReducer";
 import {logOutReducer} from "./reducers/s2_LogOutReducer";
 import {errorReducer} from "./reducers/s3_ErrorReducer";
@@ -7,6 +6,7 @@ import {profileReducer} from "./reducers/s4_ProfileReducer";
 import {testReducer} from "./reducers/s5_TestReducer";
 import {passEnteringReducer} from "./reducers/s6_PassEnteringReducer";
 import {passRecovReducer} from "./reducers/s7_PassRecovReducer";
+import {configureStore} from "@reduxjs/toolkit";
 
 const rootReducer = combineReducers({
     login: loginReducer,
@@ -18,6 +18,9 @@ const rootReducer = combineReducers({
     passRecov: passRecovReducer
 })
 
-export const store = createStore(rootReducer,applyMiddleware(thunk))
+export const store = configureStore({
+    reducer: rootReducer
+})
 
-export type StoreType = ReturnType<typeof rootReducer>
+export type RootState = ReturnType<typeof rootReducer>;
+export type AppDispatch = typeof store.dispatch;
