@@ -12,6 +12,7 @@ import {SignIn} from '../../c2-pages/Login/SignInPage/SignIn';
 import {SendEmailWindow} from '../../c2-pages/Login/EmailSendWindow/SendEmailWindow';
 import {EmailConfirmation} from '../../c2-pages/Login/EmailSendWindow/EmailConfirmation/EmailConfirmation';
 import {CreateNewPassword} from '../../c2-pages/Login/EmailSendWindow/CreatNewPasswordWindow/CreateNewPassword';
+import {PersonalInformation} from "./PersonalInformation/PersonalInformation";
 
 function Body() {
     return (
@@ -29,7 +30,7 @@ function Body() {
                 <Route path = {Routers.TEST} element={<Test/>}/>
                 <Route path = {Routers.ENTERING_NEW_PASS} element={<PasswordEntering/>}/>
                 <Route path = {Routers.PASS_RECOV} element={<PasswordRecov/>}/>
-
+                <Route path = {Routers.PERSONAL_INFORMATION} element={<PersonalInformation/>}/>
             </Routes>
         </div>
     );

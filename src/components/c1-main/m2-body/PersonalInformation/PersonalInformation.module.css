@@ -1,0 +1,27 @@
+ .personal{
+     max-width: 400px;
+     margin: 0 auto;
+     padding: 25px 10px;
+ }
+ .image img{
+     width: 150px;
+ }
+ .inputBox{
+     margin: 0 0 20px 0;
+ }
+
+ .inputS{
+     width: 300px;
+     margin: 0 0 10px 0;
+ }
+
+ .button_box{
+     display: flex;
+     justify-content: space-between;
+     width: 300px;
+     margin: 0 auto;
+ }
+ .button_box button{
+     border-radius: 20px;
+     width: 100px;
+ }
