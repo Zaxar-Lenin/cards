@@ -1,15 +1,16 @@
 import React from 'react';
 import s from './CreateNewPassword.module.css';
 import {ResetPassForm} from '../EmailForm/ResetPassForm';
-import {useDispatch} from 'react-redux';
 import {useParams} from 'react-router-dom';
 import {setNewPassword} from '../../../../../store/reducers/s1_LoginReducer';
+import {useAppDispatch} from '../../../../../Hooks/hooks';
 
 export const CreateNewPassword = () => {
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
     const params = useParams()
+    console.log(params)
 
-    const sendNewPassword = (value: string)=> {
+    const sendNewPassword = (value: string) => {
         dispatch(setNewPassword({newPass: value, token: 'as12354'}))
     }
 
@@ -19,7 +20,9 @@ export const CreateNewPassword = () => {
                 <h3>Create new password</h3>
             </div>
             <div className={s.body}>
-                <ResetPassForm buttonName={'Create new password'} onClick={sendNewPassword}>
+                <ResetPassForm buttonName={'Create new password'} onClick={sendNewPassword}
+                               label={'Password'}
+                               type={'password'}>
                     Create new password
                 </ResetPassForm>
             </div>

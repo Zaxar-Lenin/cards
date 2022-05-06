@@ -10,7 +10,7 @@ export const loginAPI = {
             from: 'test-front-admin <ai73a@yandex.by>',
             message: `<div style="background-color: lime; padding: 15px">
             password recovery link: 
-            <a href='https://neko-back.herokuapp.com/2.0/#/set-new-password/$token$'>
+            <a href='https://neko-back.herokuapp.com/2.0/#/set-new-password-/$token$'>
             link</a>
             </div>`
         })

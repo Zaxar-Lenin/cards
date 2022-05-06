@@ -1,20 +1,21 @@
 import React, {ChangeEvent, useState} from 'react';
 import s from './Email.module.css'
 import {Button, TextField} from '@mui/material';
-import {useDispatch, useSelector} from 'react-redux';
-import {resetPassword} from '../../../../../store/reducers/s1_LoginReducer';
-import {AppRootStateType} from '../../../../../store/store';
+import {useAppSelector} from '../../../../../Hooks/hooks';
 
 type FromType = {
     buttonName: string
     children: React.ReactNode
     onClick: (value: string)=> void
+    label: string
+    type?: string
 }
 
-export const ResetPassForm = ({buttonName, children, onClick}: FromType) => {
+export const ResetPassForm = ({buttonName, children, onClick, label, type}: FromType) => {
 
     const [value, setValue] = useState('')
-    const error = useSelector<AppRootStateType, string | null >(state => state.login.errorMessage)
+
+    const error = useAppSelector<string | null>(state=> state.login.errorMessage)
 
     const onChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
         setValue(e.currentTarget.value)
@@ -32,10 +33,11 @@ export const ResetPassForm = ({buttonName, children, onClick}: FromType) => {
                         sx={{width: '293px'}}
                         margin="normal"
                         size="small"
-                        label="Email"
+                        label={label}
                         variant="standard"
                         value={value}
                         onChange={onChangeHandler}
+                        type={type}
                     />
                 </div>
                 <div className={s.description}>

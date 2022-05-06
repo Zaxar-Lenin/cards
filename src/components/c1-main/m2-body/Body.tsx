@@ -1,14 +1,13 @@
 import React from 'react';
-import { Routes,Route, Navigate } from 'react-router-dom';
-import s from "./Body.module.css"
-import {Routers} from "../routers";
-import Login from "./b1-login/Login";
-import PasswordRecov from "./b7-passwordRecov/PasswordRecov";
-import LogOut from "./b2-logOut/LogOut";
-import Error from "./b5-error/Error";
-import Profile from "./b3-profile/Profile";
-import Test from "./b4-test/Test";
-import PasswordEntering from "./b6-passwordEntering/PasswordEntering";
+import {Navigate, Route, Routes} from 'react-router-dom';
+import s from './Body.module.css'
+import {Routers} from '../routers';
+import PasswordRecov from './b7-passwordRecov/PasswordRecov';
+import LogOut from './b2-logOut/LogOut';
+import Error from './b5-error/Error';
+import Profile from './b3-profile/Profile';
+import Test from './b4-test/Test';
+import PasswordEntering from './b6-passwordEntering/PasswordEntering';
 import {SignIn} from '../../c2-pages/Login/SignInPage/SignIn';
 import {SendEmailWindow} from '../../c2-pages/Login/EmailSendWindow/SendEmailWindow';
 import {EmailConfirmation} from '../../c2-pages/Login/EmailSendWindow/EmailConfirmation/EmailConfirmation';
@@ -22,7 +21,7 @@ function Body() {
                 <Route path = {Routers.LOGIN} element={<SignIn/>}/>
                 <Route path = {`${Routers.LOGIN}/forgot`} element={(<SendEmailWindow/>)}/>
                 <Route path = {`${Routers.LOGIN}/instruction`} element={(<EmailConfirmation/>)}/>
-                <Route path = {`${Routers.LOGIN}/newpassword`} element={(<CreateNewPassword/>)}/>
+                <Route path = {`${Routers.LOGIN}/newpassword/*`} element={(<CreateNewPassword/>)}/>
 
                 <Route path = {Routers.LOGOUT} element={<LogOut/>}/>
                 <Route path = {Routers.ERROR} element={<Error/>}/>

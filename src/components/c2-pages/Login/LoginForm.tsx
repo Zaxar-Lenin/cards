@@ -3,8 +3,8 @@ import {useFormik} from 'formik';
 import {Button, Checkbox, TextField} from '@mui/material';
 import s from './LoginForm.module.css'
 import {loginTC} from '../../../store/reducers/s1_LoginReducer';
-import {useDispatch} from 'react-redux';
 import {useNavigate} from 'react-router-dom';
+import {useAppDispatch} from '../../../Hooks/hooks';
 
 type ErrorType = {
     email?: string
@@ -14,7 +14,7 @@ type ErrorType = {
 export const LoginForm = () => {
 
     const navigate = useNavigate()
-    const dispatch = useDispatch();
+    const dispatch = useAppDispatch();
 
     const label = {inputProps: {type: 'checkbox'}}
 
