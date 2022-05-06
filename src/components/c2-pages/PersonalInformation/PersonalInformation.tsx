@@ -2,19 +2,19 @@ import React, {useState} from 'react';
 import s from "./PersonalInformation.module.css"
 import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
-import {Routers} from "../../routers";
+import {Routers} from "../../c1-main/routers";
 import {Navigate} from "react-router-dom";
 import {useDispatch} from "react-redux";
-import {useCustomSelector} from "../../../../store/store";
-import {updateNameAndImg} from "../../../../API/thunk";
+import {updateNameAndImg} from "../../../API/thunk";
 import {useFormik} from "formik";
+import {useAppSelector} from '../../../Hooks/hooks';
 
 export const PersonalInformation = () => {
-    const name = useCustomSelector<string>(state => state.profile.name)
+    const name = useAppSelector<string>(state => state.profile.name)
 
-    const avatar = useCustomSelector<string | undefined>(state => state.profile.avatar)
+    const avatar = useAppSelector<string | undefined>(state => state.profile.avatar)
 
-    const email = useCustomSelector<string>(state => state.profile.email)
+    const email = useAppSelector<string>(state => state.profile.email)
 
     const [edit, setEdit] = useState(true)
 

@@ -5,14 +5,14 @@ import {Routers} from '../routers';
 import PasswordRecov from './b7-passwordRecov/PasswordRecov';
 import LogOut from './b2-logOut/LogOut';
 import Error from './b5-error/Error';
-import Profile from './b3-profile/Profile';
+import Profile from '../../c2-pages/Profile/Profile';
 import Test from './b4-test/Test';
 import PasswordEntering from './b6-passwordEntering/PasswordEntering';
 import {SignIn} from '../../c2-pages/Login/SignInPage/SignIn';
 import {SendEmailWindow} from '../../c2-pages/Login/EmailSendWindow/SendEmailWindow';
 import {EmailConfirmation} from '../../c2-pages/Login/EmailSendWindow/EmailConfirmation/EmailConfirmation';
 import {CreateNewPassword} from '../../c2-pages/Login/EmailSendWindow/CreatNewPasswordWindow/CreateNewPassword';
-import {PersonalInformation} from "./PersonalInformation/PersonalInformation";
+import {PersonalInformation} from "../../c2-pages/PersonalInformation/PersonalInformation";
 
 function Body() {
     return (

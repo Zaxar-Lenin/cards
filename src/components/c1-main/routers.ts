@@ -1,4 +1,4 @@
-import {PersonalInformation} from "./m2-body/PersonalInformation/PersonalInformation";
+import {PersonalInformation} from "../c2-pages/PersonalInformation/PersonalInformation";
 
 export const enum Routers {
     LOGIN = "/login",

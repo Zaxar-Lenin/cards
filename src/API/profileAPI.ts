@@ -19,7 +19,7 @@ export type UserProfile = {
 
 
 export const profileAPI = {
-    setNameAndImg(name: string,avatar: string = IMG_PROFILE){
-        instance.put<{updatedUser: UserProfile,error: string}>("auth/me",{name,avatar})
+    setNameAndImg(name: string,avatar: string = ''){
+        return instance.put<{updatedUser: UserProfile,error: string}>("auth/me",{name,avatar})
     }
 }

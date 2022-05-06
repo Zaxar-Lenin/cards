@@ -1,16 +1,16 @@
 import React, {useState} from 'react';
 import s from "./EditProfile.module.css"
 import {Navigate} from 'react-router-dom';
-import {Routers} from "../../../routers";
-import {useCustomSelector} from "../../../../../store/store";
+import {Routers} from "../../../c1-main/routers";
+import {useAppSelector} from '../../../../Hooks/hooks';
 
 export const EditProfile = () => {
 
-    const name = useCustomSelector<string>(state => state.profile.name)
+    const name = useAppSelector<string>(state => state.profile.name)
 
-    const avatar = useCustomSelector<string | undefined>(state => state.profile.avatar)
+    const avatar = useAppSelector<string | undefined>(state => state.profile.avatar)
 
-    const email = useCustomSelector<string>(state => state.profile.email)
+    const email = useAppSelector<string>(state => state.profile.email)
 
     const [edit, setEdit] = useState(false)
 
