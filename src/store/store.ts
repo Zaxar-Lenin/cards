@@ -7,11 +7,13 @@ import {testReducer} from './reducers/s5_TestReducer';
 import {passEnteringReducer} from './reducers/s6_PassEnteringReducer';
 import {passRecovReducer} from './reducers/s7_PassRecovReducer';
 import {configureStore} from '@reduxjs/toolkit';
+import {registrationReducer} from "./reducers/s8_RegistrationReducer";
 
 const rootReducer = combineReducers({
     login: loginReducer,
     logOut: logOutReducer,
     error: errorReducer,
+    registration: registrationReducer,
     profile: profileReducer,
     test: testReducer,
     passEntering: passEnteringReducer,

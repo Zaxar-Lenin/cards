@@ -17,7 +17,9 @@ const InitialSate: InitialSateType = {
 
 export const setIsLogged = createAction<{ value: boolean }>('login/setIsLoggedIn')
 
-export const loginTC = createAsyncThunk('login/loginTC', async (data: LoginParamsType, thunkAPI) => {
+export const loginTC = createAsyncThunk(
+    'login/loginTC',
+    async (data: LoginParamsType, thunkAPI) => {
     try {
         const res = await loginAPI.login(data)
         thunkAPI.dispatch(setIsLogged({value: true}))

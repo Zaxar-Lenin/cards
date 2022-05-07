@@ -13,6 +13,7 @@ import {SendEmailWindow} from '../../c2-pages/Login/EmailSendWindow/SendEmailWin
 import {EmailConfirmation} from '../../c2-pages/Login/EmailSendWindow/EmailConfirmation/EmailConfirmation';
 import {CreateNewPassword} from '../../c2-pages/Login/EmailSendWindow/CreatNewPasswordWindow/CreateNewPassword';
 import {PersonalInformation} from "../../c2-pages/PersonalInformation/PersonalInformation";
+import {Registration} from "../../c2-pages/Registration/Registration";
 
 function Body() {
     return (
@@ -25,6 +26,7 @@ function Body() {
                 <Route path = {`${Routers.LOGIN}/newpassword/*`} element={(<CreateNewPassword/>)}/>
 
                 <Route path = {Routers.LOGOUT} element={<LogOut/>}/>
+                <Route path = {Routers.REGISTRATION} element={<Registration/>}/>
                 <Route path = {Routers.ERROR} element={<Error/>}/>
                 <Route path = {Routers.PROFILE} element={<Profile/>}/>
                 <Route path = {Routers.TEST} element={<Test/>}/>
