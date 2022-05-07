@@ -1,17 +1,17 @@
 import {useNavigate} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../../Hooks/hooks";
 import {useFormik} from "formik";
-import {loginTC} from "../../../store/reducers/s1_LoginReducer";
 import style from "../Login/LoginForm.module.css";
-import {Button, Checkbox, TextField} from "@mui/material";
+import {Button, TextField} from "@mui/material";
 import React from "react";
 import styleSignIn from '../Login/SignInPage/SignIn.module.css'
 import {registerUser} from "../../../store/reducers/s8_RegistrationReducer";
-import {useSelector} from "react-redux";
+import regButtonStyle from './Registration.module.css'
 
 type ErrorType = {
-    email?: string
-    password?: string
+    email?: string;
+    password?: string;
+    repeatPassword?: string;
 }
 
 export const Registration = () => {
@@ -21,11 +21,11 @@ export const Registration = () => {
 
     const registrationSuccess = useAppSelector(state => state.registration.registrationSuccess)
 
-
     const formik = useFormik({
         initialValues: {
-            email: 'testforcardproject@list.ru',
-            password: '1q2a3z3e'
+            email: '',
+            password: '',
+            repeatPassword: ''
         },
         validate: (value) => {
             const errors: ErrorType = {};
@@ -37,6 +37,12 @@ export const Registration = () => {
             }
             if (!value.password) {
                 errors.password = 'Required password';
+            }
+            if (!value.repeatPassword) {
+                errors.repeatPassword = 'Required password';
+            }
+            if (value.password !== value.repeatPassword) {
+                errors.repeatPassword = 'Please, check passwords'
             }
             return errors;
         },
@@ -90,22 +96,22 @@ export const Registration = () => {
                             sx={{width: '250px', marginTop: '25px'}}
                             type="password"
                             size="small"
-                            id="password"
-                            name="password"
-                            label="Password"
+                            id="repeatPassword"
+                            name="repeatPassword"
+                            label="Repeat password"
                             variant="standard"
-                            value={formik.values.password}
+                            value={formik.values.repeatPassword}
                             onChange={formik.handleChange}
-                            error={formik.touched.password && Boolean(formik.errors.password)}
-                            helperText={formik.touched.password && formik.errors.password}
+                            error={formik.touched.repeatPassword && Boolean(formik.errors.repeatPassword)}
+                            helperText={formik.touched.repeatPassword && formik.errors.repeatPassword}
                             onBlur={formik.handleBlur}
                         />
-                        <div>
-                            <div className={style.loginButton}>
+                        <div className={regButtonStyle.buttonRegistrationGroup}>
+                            <div className={`${style.loginButton} ${regButtonStyle.cancelButton}`}>
                                 <Button variant="text"
                                         sx={{
                                             borderRadius: '15px',
-                                            width: '170px',
+                                            width: '100px',
                                             height: '25px',
                                             textTransform: 'initial',
                                             fontSize: '16px',
@@ -117,18 +123,18 @@ export const Registration = () => {
                                         onClick={() => navigate('/login')}>
                                     Cancel</Button>
                             </div>
-                            <div className={style.loginButton}>
+                            <div className={`${style.loginButton} ${regButtonStyle.registerButton}`}>
                                 <Button variant="contained"
                                         sx={{
                                             borderRadius: '15px',
-                                            width: '170px',
+                                            width: '140px',
                                             height: '25px',
                                             textTransform: 'initial',
                                             fontSize: '16px'
                                         }}
                                         size="small"
                                         type="submit"
-                                        >
+                                >
                                     Register
                                 </Button>
                             </div>

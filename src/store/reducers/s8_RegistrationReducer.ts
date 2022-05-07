@@ -14,8 +14,8 @@ export const registerUser = createAsyncThunk(
     'registration/registerUser',
     async (params: { email: string, password: string }, {dispatch, rejectWithValue}) => {
         try {
-            const response = await registrationAPI.register({email: params.email, password: params.password})
-            dispatch(successfulRegistration(true))
+            const response = await registrationAPI.register({email: params.email, password: params.password});
+            dispatch(successfulRegistration(true));
         } catch (e: any) {
 
         }
@@ -32,6 +32,6 @@ const registrationSlice = createSlice({
     },
 })
 
-const {successfulRegistration} = registrationSlice.actions
+const {successfulRegistration} = registrationSlice.actions;
 
 export const registrationReducer = registrationSlice.reducer;
