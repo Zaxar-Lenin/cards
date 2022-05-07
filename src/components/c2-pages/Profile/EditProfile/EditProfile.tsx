@@ -6,11 +6,11 @@ import {useAppSelector} from '../../../../Hooks/hooks';
 
 export const EditProfile = () => {
 
-    const name = useAppSelector<string>(state => state.profile.name)
+    const name = useAppSelector<string>(state => state.profile.profile.name)
 
-    const avatar = useAppSelector<string | undefined>(state => state.profile.avatar)
+    const avatar = useAppSelector<string | undefined>(state => state.profile.profile.avatar)
 
-    const email = useAppSelector<string>(state => state.profile.email)
+    const email = useAppSelector<string>(state => state.profile.profile.email)
 
     const [edit, setEdit] = useState(false)
 

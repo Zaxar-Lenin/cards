@@ -26,7 +26,7 @@ export type LoginParamsType = {
     rememberMe: boolean
 }
 
-type ResponseType = {
+export type ResponseType = {
     _id: string;
     email: string;
     rememberMe: boolean;

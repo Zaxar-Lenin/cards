@@ -1,30 +1,50 @@
-import {createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {UserProfile} from '../../API/profileAPI';
-import {updateNameAndImg} from '../../API/thunk';
+import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {profileAPI} from '../../API/profileAPI';
+import {ResponseType} from "../../API/loginAPI"
 
 export const IMG_PROFILE = "https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg"
 
-type InitialType = {
-    name: string,
-    email: string,
-    avatar: string | undefined
+
+const initial = {
+    profile: {} as ResponseType
 }
 
-const initial: InitialType= {
-    name: "",
-    email: "",
-    avatar: IMG_PROFILE,
-}
+type InitialType = typeof initial
+
+
+
+export const updateNameAndImg = createAsyncThunk(
+    'profile/updateNameAndImg',
+    async ({avatar, name}: { avatar: string | undefined, name: string }, thunkAPI) => {
+        const response = await profileAPI.setNameAndImg(name, avatar)
+        return response.data.updatedUser
+    }
+)
+
+export const setDataUser = createAsyncThunk(
+    'profile/setDataUser',
+    async (_, thunkAPI) => {
+        const response = await profileAPI.authMe()
+        return response.data.addedUser
+    }
+)
 
 
 export const slice = createSlice({
     name: "profile",
     initialState: initial,
-    reducers: {},
+    reducers: {
+        setAllData(state, action: PayloadAction<ResponseType>){
+            state.profile = action.payload
+        }
+    },
     extraReducers: {
-        [updateNameAndImg.fulfilled.type]: (state, action: PayloadAction<UserProfile>) => {
-            state.name = action.payload.name
-            state.avatar = action.payload.avatar
+        [updateNameAndImg.fulfilled.type]: (state, action: PayloadAction<ResponseType>) => {
+            state.profile.avatar = action.payload.avatar
+            state.profile.name = action.payload.name
+        },
+        [setDataUser.fulfilled.type]: (state, action: PayloadAction<ResponseType>) => {
+            state.profile = action.payload
         }
     },
 })
@@ -35,6 +55,6 @@ export const profileReducer = slice.reducer
 
 
 //action
-const {} = slice.actions
+export const {setAllData} = slice.actions
 
 

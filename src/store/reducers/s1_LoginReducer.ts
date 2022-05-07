@@ -1,5 +1,6 @@
-import {createAction, createAsyncThunk, createSlice, isRejectedWithValue} from '@reduxjs/toolkit';
+import {createAction, createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import {loginAPI, LoginParamsType} from '../../API/loginAPI';
+import {setAllData, setDataUser} from "./s4_ProfileReducer";
 
 type InitialSateType = {
     isLoggedIn: boolean,
@@ -21,6 +22,7 @@ export const loginTC = createAsyncThunk('login/loginTC', async (data: LoginParam
     try {
         const res = await loginAPI.login(data)
         thunkAPI.dispatch(setIsLogged({value: true}))
+        thunkAPI.dispatch(setAllData(res.data))
         //return {value: true}
     } catch (e) {
         //return {value: false}
