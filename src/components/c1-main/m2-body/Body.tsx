@@ -19,7 +19,7 @@ function Body() {
     return (
         <div className={s.body}>
             <Routes >
-                <Route path={'/'} element ={<Navigate to = {Routers.LOGIN} />}/>
+                {/*<Route path={'/'} element ={<Navigate to = {Routers.LOGIN} />}/>*/}
                 <Route path = {Routers.LOGIN} element={<SignIn/>}/>
                 <Route path = {`${Routers.LOGIN}/forgot`} element={(<SendEmailWindow/>)}/>
                 <Route path = {`${Routers.LOGIN}/instruction`} element={(<EmailConfirmation/>)}/>

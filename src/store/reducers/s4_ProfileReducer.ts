@@ -1,6 +1,7 @@
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {profileAPI} from '../../API/profileAPI';
 import {ResponseType} from "../../API/loginAPI"
+import {setIsLogged} from './s1_LoginReducer';
 
 export const IMG_PROFILE = "https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg"
 
@@ -24,8 +25,10 @@ export const updateNameAndImg = createAsyncThunk(
 export const setDataUser = createAsyncThunk(
     'profile/setDataUser',
     async (_, thunkAPI) => {
+        console.log('setDataUser')
         const response = await profileAPI.authMe()
-        return response.data.addedUser
+        thunkAPI.dispatch(setIsLogged({value: true}))
+        return response.data
     }
 )
 

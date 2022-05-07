@@ -23,8 +23,8 @@ export const loginTC = createAsyncThunk(
     async (data: LoginParamsType, thunkAPI) => {
     try {
         const res = await loginAPI.login(data)
-        thunkAPI.dispatch(setIsLogged({value: true}))
         thunkAPI.dispatch(setAllData(res.data))
+        thunkAPI.dispatch(setIsLogged({value: true}))
         //return {value: true}
     } catch (e) {
         //return {value: false}
