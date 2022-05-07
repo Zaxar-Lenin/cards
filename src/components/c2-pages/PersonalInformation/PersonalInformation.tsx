@@ -4,31 +4,31 @@ import TextField from '@mui/material/TextField';
 import Button from '@mui/material/Button';
 import {Routers} from "../../c1-main/routers";
 import {Navigate} from "react-router-dom";
-import {useDispatch} from "react-redux";
-import {updateNameAndImg} from "../../../API/thunk";
 import {useFormik} from "formik";
-import {useAppSelector} from '../../../Hooks/hooks';
+import {useAppDispatch, useAppSelector} from '../../../Hooks/hooks';
+import {updateNameAndImg} from "../../../store/reducers/s4_ProfileReducer";
 
 export const PersonalInformation = () => {
-    const name = useAppSelector<string>(state => state.profile.name)
+    const name = useAppSelector<string>(state => state.profile.profile.name)
 
-    const avatar = useAppSelector<string | undefined>(state => state.profile.avatar)
+    const avatar = useAppSelector<string | undefined>(state => state.profile.profile.avatar)
 
-    const email = useAppSelector<string>(state => state.profile.email)
+    const email = useAppSelector<string>(state => state.profile.profile.email)
 
     const [edit, setEdit] = useState(true)
 
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
 
     const formik = useFormik({
         initialValues: {
-            Name: name,
-            avatar,
+            name: name,
+            avatar: avatar,
             email: email,
         },
         onSubmit: values => {
-            dispatch(updateNameAndImg({name: values.Name, avatar: values.avatar}))
+            dispatch(updateNameAndImg({name: values.name, avatar: values.avatar}))
             setEdit(false)
+            console.log(values)
         },
     });
 
@@ -52,14 +52,14 @@ export const PersonalInformation = () => {
                 <div className={s.inputBox}>
                     <TextField
                         className={s.inputS}
-                        id="standard-basic"
+                        id="name"
                         label="Nickname"
                         variant="standard"
                         {...formik.getFieldProps}
                     />
                     <TextField
                         className={s.inputS}
-                        id="standard-basic"
+                        id="email"
                         label="Email"
                         variant="standard"
                         {...formik.getFieldProps}
@@ -69,7 +69,7 @@ export const PersonalInformation = () => {
                     <Button onClick={handlerCancelButton}
                             className={s.buttonD}
                             variant="contained">Cancel</Button>
-                    <Button type={"submit"}
+                    <Button type="submit"
                             className={s.buttonD}
                             variant="contained">Save</Button>
                 </div>

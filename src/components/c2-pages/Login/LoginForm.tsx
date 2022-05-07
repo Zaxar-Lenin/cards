@@ -3,8 +3,9 @@ import {useFormik} from 'formik';
 import {Button, Checkbox, TextField} from '@mui/material';
 import s from './LoginForm.module.css'
 import {loginTC} from '../../../store/reducers/s1_LoginReducer';
-import {useNavigate} from 'react-router-dom';
-import {useAppDispatch} from '../../../Hooks/hooks';
+import {Navigate, useNavigate} from 'react-router-dom';
+import {useAppDispatch, useAppSelector} from '../../../Hooks/hooks';
+import {Routers} from "../../c1-main/routers";
 
 type ErrorType = {
     email?: string
@@ -15,13 +16,14 @@ export const LoginForm = () => {
 
     const navigate = useNavigate()
     const dispatch = useAppDispatch();
+    const isLoggedIn = useAppSelector(state => state.login.isLoggedIn)
 
     const label = {inputProps: {type: 'checkbox'}}
 
     const formik = useFormik({
         initialValues: {
             email: 'testforcardproject@list.ru',
-            password: '1q2a3z3e',
+            password: '12345678',
             rememberme: false
         },
         validate: (value) => {
@@ -42,6 +44,10 @@ export const LoginForm = () => {
             dispatch(loginTC(params))
         },
     });
+
+    if (isLoggedIn){
+        return <Navigate to={Routers.PROFILE}/>
+    }
     return (
         <form onSubmit={formik.handleSubmit}>
             <div className={s.textFields}>

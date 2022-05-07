@@ -1,25 +1,16 @@
 import {instance} from "./instance";
 import {IMG_PROFILE} from "../store/reducers/s4_ProfileReducer";
+import {ResponseType} from "./loginAPI"
 
-
-export type UserProfile = {
-    _id: string;
-    email: string;
-    name: string;
-    avatar?: string;
-    publicCardPacksCount: number; // количество колод
-    created: Date;
-    updated: Date;
-    isAdmin: boolean;
-    verified: boolean; // подтвердил ли почту
-    rememberMe: boolean;
-}
 
 
 
 
 export const profileAPI = {
-    setNameAndImg(name: string,avatar: string = ''){
-        return instance.put<{updatedUser: UserProfile,error: string}>("auth/me",{name,avatar})
+    setNameAndImg(name: string,avatar: string = IMG_PROFILE){
+        return instance.put<{updatedUser: ResponseType}>("auth/me",{name,avatar})
+    },
+    authMe(){
+        return instance.post<{addedUser: ResponseType}>("auth/me",{})
     }
 }
