@@ -28,7 +28,7 @@ export const PersonalInformation = () => {
         onSubmit: values => {
             dispatch(updateNameAndImg({name: values.name, avatar: values.avatar}))
             setEdit(false)
-            console.log(values)
+
         },
     });
 
@@ -55,14 +55,14 @@ export const PersonalInformation = () => {
                         id="name"
                         label="Nickname"
                         variant="standard"
-                        {...formik.getFieldProps}
+                        {...formik.getFieldProps('name')}
                     />
                     <TextField
                         className={s.inputS}
                         id="email"
                         label="Email"
                         variant="standard"
-                        {...formik.getFieldProps}
+                        {...formik.getFieldProps('email')}
                     />
                 </div>
                 <div className={s.button_box}>
