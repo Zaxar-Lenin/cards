@@ -8,6 +8,7 @@ function Header() {
         <div className={s.header}>
             <NavLink className={s.list} to = {Routers.LOGIN}>LOGIN</NavLink>
             <NavLink to = {Routers.LOGOUT}>LOGOUT</NavLink>
+            <NavLink to = {Routers.REGISTRATION}>REGISTRATION</NavLink>
             <NavLink to = {Routers.TEST}>TEST</NavLink>
             <NavLink to = {Routers.PROFILE}>PROFILE</NavLink>
             <NavLink to = {Routers.ERROR}>ERROR</NavLink>
