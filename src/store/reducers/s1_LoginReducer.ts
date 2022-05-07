@@ -38,6 +38,7 @@ export const resetPassword = createAsyncThunk('login/resetPassword', async (emai
 export const setNewPassword = createAsyncThunk('logins/setNewPassword', async (param: { newPass: string, token: string }, thunkApi) => {
     try {
         const res = await loginAPI.setNewPassword(param.newPass, param.token)
+        //нужен запрос на authMe
         return res.data
     } catch (e) {
 
@@ -56,9 +57,6 @@ const slice = createSlice({
         builder.addCase(setIsLogged, (state, action) => {
             state.isLoggedIn = action.payload.value;
         })
-        // builder.addCase(setResetPassword, (state, action) => {
-        //     state.info = action.payload.info as string
-        // })
         builder.addCase(resetPassword.fulfilled, (state, action) => {
             state.info = action.payload ? action.payload : ''
             state.errorMessage = ''

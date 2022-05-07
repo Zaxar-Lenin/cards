@@ -10,7 +10,7 @@ export const loginAPI = {
             from: 'test-front-admin <ai73a@yandex.by>',
             message: `<div style="background-color: lime; padding: 15px">
             password recovery link: 
-            <a href='https://neko-back.herokuapp.com/2.0/#/set-new-password-/$token$'>
+            <a href='https://zaxar-lenin.github.io/cards/#/login/newpassword/$token$'>
             link</a>
             </div>`
         })
@@ -19,7 +19,6 @@ export const loginAPI = {
         return instance.post('/auth/set-new-password', {password:newPass, resetPasswordToken: passwordToken})
     }
 }
-
 
 export type LoginParamsType = {
     email: string

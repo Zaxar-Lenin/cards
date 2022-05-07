@@ -49,8 +49,7 @@ export const LoginForm = () => {
                     sx={{width: '250px'}}
                     margin="normal"
                     size="small"
-                    id="email"
-                    name="email"
+
                     label="Email"
                     variant="standard"
                     value={formik.values.email}

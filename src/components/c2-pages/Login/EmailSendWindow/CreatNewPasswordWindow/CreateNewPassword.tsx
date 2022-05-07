@@ -7,11 +7,13 @@ import {useAppDispatch} from '../../../../../Hooks/hooks';
 
 export const CreateNewPassword = () => {
     const dispatch = useAppDispatch()
-    const params = useParams()
-    console.log(params)
+    const params = useParams<'*'>()
+    console.log(params['*'])
+    const token = params['*']
+
 
     const sendNewPassword = (value: string) => {
-        dispatch(setNewPassword({newPass: value, token: 'as12354'}))
+        dispatch(setNewPassword({newPass: value, token: token as string}))
     }
 
     return (
