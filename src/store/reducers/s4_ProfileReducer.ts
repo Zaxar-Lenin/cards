@@ -2,7 +2,7 @@ import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {profileAPI} from '../../API/profileAPI';
 import {ResponseType} from "../../API/loginAPI"
 import {setIsLogged} from './s1_LoginReducer';
-import {setisInitialized} from './s9-AppReducer';
+import {setisInitialized, setisLoading} from './s9-AppReducer';
 
 export const IMG_PROFILE = "https://t3.ftcdn.net/jpg/03/46/83/96/360_F_346839683_6nAPzbhpSkIpb8pmAwufkC7c5eD7wYws.jpg"
 
@@ -26,11 +26,18 @@ export const updateNameAndImg = createAsyncThunk(
 export const setDataUser = createAsyncThunk(
     'profile/setDataUser',
     async (_, thunkAPI) => {
-        thunkAPI.dispatch(setisInitialized({value: true}))
-        const response = await profileAPI.authMe()
-        thunkAPI.dispatch(setIsLogged({value: true}))
-        thunkAPI.dispatch(setisInitialized({value: false}))
-        return response.data
+        thunkAPI.dispatch(setisLoading({value: true}))
+        try{
+            const response = await profileAPI.authMe()
+            thunkAPI.dispatch(setIsLogged({value: true}))
+            thunkAPI.dispatch(setisInitialized({value: true}))
+            thunkAPI.dispatch(setisLoading({value: false}))
+            return response.data
+        }
+        catch(e){
+            thunkAPI.dispatch(setisInitialized({value: true}))
+        }
+
     }
 )
 

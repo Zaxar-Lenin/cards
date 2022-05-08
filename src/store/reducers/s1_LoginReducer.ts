@@ -1,7 +1,7 @@
 import {createAction, createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import {loginAPI, LoginParamsType} from '../../API/loginAPI';
 import {setAllData, setDataUser} from "./s4_ProfileReducer";
-import {setisInitialized} from './s9-AppReducer';
+import {setisInitialized, setisLoading} from './s9-AppReducer';
 
 type InitialStateType = {
     isLoggedIn: boolean,
@@ -22,12 +22,14 @@ export const setIsLogged = createAction<{ value: boolean }>('login/setIsLoggedIn
 export const loginTC = createAsyncThunk(
     'login/loginTC',
     async (data: LoginParamsType, thunkAPI) => {
+        thunkAPI.dispatch(setisLoading({value: true}))
+        thunkAPI.dispatch(setisInitialized({value: false}))
     try {
-        thunkAPI.dispatch(setisInitialized({value: true}))
         const res = await loginAPI.login(data)
         thunkAPI.dispatch(setAllData(res.data))
         thunkAPI.dispatch(setIsLogged({value: true}))
-        thunkAPI.dispatch(setisInitialized({value: false}))
+        thunkAPI.dispatch(setisLoading({value: false}))
+        thunkAPI.dispatch(setisInitialized({value: true}))
         //return {value: true}
     } catch (e) {
         //return {value: false}
@@ -46,11 +48,13 @@ export const setNewPassword = createAsyncThunk('logins/setNewPassword', async (p
     try {
         const res = await loginAPI.setNewPassword(param.newPass, param.token)
         //нужен запрос на authMe
+        thunkApi.dispatch(setAllData(res.data))
         return res.data
     } catch (e) {
 
     }
 })
+
 
 const slice = createSlice({
     name: 'login',
