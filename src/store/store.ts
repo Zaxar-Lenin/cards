@@ -8,6 +8,7 @@ import {passEnteringReducer} from './reducers/s6_PassEnteringReducer';
 import {passRecovReducer} from './reducers/s7_PassRecovReducer';
 import {configureStore} from '@reduxjs/toolkit';
 import {registrationReducer} from "./reducers/s8_RegistrationReducer";
+import {loader} from './reducers/s9-AppReducer';
 
 const rootReducer = combineReducers({
     login: loginReducer,
@@ -17,7 +18,8 @@ const rootReducer = combineReducers({
     profile: profileReducer,
     test: testReducer,
     passEntering: passEnteringReducer,
-    passRecov: passRecovReducer
+    passRecov: passRecovReducer,
+    app: loader
 })
 
 export type AppRootStateType = ReturnType<typeof rootReducer>

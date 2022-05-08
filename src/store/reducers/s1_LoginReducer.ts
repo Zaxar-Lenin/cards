@@ -1,15 +1,16 @@
 import {createAction, createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import {loginAPI, LoginParamsType} from '../../API/loginAPI';
 import {setAllData, setDataUser} from "./s4_ProfileReducer";
+import {setisInitialized} from './s9-AppReducer';
 
-type InitialSateType = {
+type InitialStateType = {
     isLoggedIn: boolean,
     info: null | string,
     errorMessage: null | string
     changePassMsg: string
 }
 
-const InitialSate: InitialSateType = {
+const InitialState: InitialStateType = {
     isLoggedIn: false,
     info: null,
     errorMessage: null,
@@ -22,9 +23,11 @@ export const loginTC = createAsyncThunk(
     'login/loginTC',
     async (data: LoginParamsType, thunkAPI) => {
     try {
+        thunkAPI.dispatch(setisInitialized({value: true}))
         const res = await loginAPI.login(data)
         thunkAPI.dispatch(setAllData(res.data))
         thunkAPI.dispatch(setIsLogged({value: true}))
+        thunkAPI.dispatch(setisInitialized({value: false}))
         //return {value: true}
     } catch (e) {
         //return {value: false}
@@ -51,7 +54,7 @@ export const setNewPassword = createAsyncThunk('logins/setNewPassword', async (p
 
 const slice = createSlice({
     name: 'login',
-    initialState: InitialSate,
+    initialState: InitialState,
     reducers: {
         // setIsLogged(state, action: PayloadAction<{ value: boolean }>) {
         //     state.isLoggedIn = action.payload.value;
