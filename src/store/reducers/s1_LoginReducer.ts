@@ -28,11 +28,12 @@ export const loginTC = createAsyncThunk(
         const res = await loginAPI.login(data)
         thunkAPI.dispatch(setAllData(res.data))
         thunkAPI.dispatch(setIsLogged({value: true}))
-        thunkAPI.dispatch(setisLoading({value: false}))
+
+    } catch (e: any) {
+            return thunkAPI.rejectWithValue(e.response.data.error)
+    }finally {
         thunkAPI.dispatch(setisInitialized({value: true}))
-        //return {value: true}
-    } catch (e) {
-        //return {value: false}
+        thunkAPI.dispatch(setisLoading({value: false}))
     }
 })
 
@@ -47,11 +48,11 @@ export const resetPassword = createAsyncThunk('login/resetPassword', async (emai
 export const setNewPassword = createAsyncThunk('logins/setNewPassword', async (param: { newPass: string, token: string }, thunkApi) => {
     try {
         const res = await loginAPI.setNewPassword(param.newPass, param.token)
-        //нужен запрос на authMe
-        thunkApi.dispatch(setAllData(res.data))
+        // thunkApi.dispatch(setAllData(res.data))
+        thunkApi.dispatch(setIsLogged({value: false}))
         return res.data
-    } catch (e) {
-
+    } catch (e: any) {
+        return thunkApi.rejectWithValue(e.response.data.error)
     }
 })
 
@@ -89,6 +90,13 @@ const slice = createSlice({
         builder.addCase(setNewPassword.fulfilled, (state, action) => {
             // state.changePassMsg = action.payload
         })
+        builder.addCase(setNewPassword.rejected, (state, action) => {
+            // state.changePassMsg = action.payload
+        })
+        builder.addCase(loginTC.rejected, (state, action) => {
+            state.errorMessage = action.payload as string
+        })
+
     }
 })
 

@@ -15,7 +15,7 @@ export const ResetPassForm = ({buttonName, children, onClick, label, type}: From
 
     const [value, setValue] = useState('')
 
-    const error = useAppSelector<string | null>(state=> state.login.errorMessage)
+    const errorMsg = useAppSelector<string | null>(state=> state.login.errorMessage)
 
     const onChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
         setValue(e.currentTarget.value)
@@ -56,7 +56,7 @@ export const ResetPassForm = ({buttonName, children, onClick, label, type}: From
                             type="submit"
                             onClick={onClickHandler}>
                         {buttonName}</Button>
-                    <div>{error}</div>
+                    {errorMsg && <div>{errorMsg}</div>}
                 </div>
             </div>
         </>

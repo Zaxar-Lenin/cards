@@ -17,6 +17,7 @@ export const LoginForm = () => {
     const navigate = useNavigate()
     const dispatch = useAppDispatch();
     const isLoggedIn = useAppSelector(state => state.login.isLoggedIn)
+    const errorMsg = useAppSelector(state => state.login.errorMessage)
 
     const label = {inputProps: {type: 'checkbox'}}
 
@@ -51,6 +52,7 @@ export const LoginForm = () => {
     return (
         <form onSubmit={formik.handleSubmit}>
             <div className={s.textFields}>
+                {errorMsg && <div style={{color: 'red'}}>{errorMsg}</div>}
                 <TextField
                     sx={{width: '250px'}}
                     margin="normal"
@@ -104,7 +106,7 @@ export const LoginForm = () => {
                 </div>
                 <div className={s.loginFooter}>
                     Don't have an account?
-                    <span className={s.signUp}> Sign Up</span>
+                    <span onClick={()=>navigate(Routers.REGISTRATION)} className={s.signUp}> Sign Up</span>
                 </div>
             </div>
         </form>

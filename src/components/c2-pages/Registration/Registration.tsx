@@ -20,6 +20,7 @@ export const Registration = () => {
     const dispatch = useAppDispatch();
 
     const registrationSuccess = useAppSelector(state => state.registration.registrationSuccess)
+    const errorMsg = useAppSelector(state => state.registration.errorMessage)
 
     const formik = useFormik({
         initialValues: {
@@ -64,6 +65,7 @@ export const Registration = () => {
             <div className={styleSignIn.body}>
                 <form onSubmit={formik.handleSubmit}>
                     <div className={style.textFields}>
+                        {errorMsg && <div style={{color: 'red'}}>{errorMsg}</div>}
                         <TextField
                             sx={{width: '250px'}}
                             margin="normal"
