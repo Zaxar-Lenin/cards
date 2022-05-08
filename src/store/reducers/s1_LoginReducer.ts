@@ -57,6 +57,7 @@ export const setNewPassword = createAsyncThunk('logins/setNewPassword', async (p
 
 export const logOut = createAsyncThunk('login/logOut', async (_, thunkAPI) => {
     try{
+
         const res = loginAPI.logOut()
         thunkAPI.dispatch(setIsLogged({value: false}))
     }
