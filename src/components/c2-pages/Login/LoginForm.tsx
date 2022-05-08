@@ -5,8 +5,7 @@ import s from './LoginForm.module.css'
 import {loginTC} from '../../../store/reducers/s1_LoginReducer';
 import {Navigate, useNavigate} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from '../../../Hooks/hooks';
-import {Routers} from "../../c1-main/routers";
-import {Preloader} from '../../../Assets/Preloader/Preloader';
+import {Routers} from '../../c1-main/routers';
 
 type ErrorType = {
     email?: string

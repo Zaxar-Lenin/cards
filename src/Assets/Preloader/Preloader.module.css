@@ -5,13 +5,11 @@
     top:50%;
     left:50%;
     transform:translate(-50%,-50%);
-    background:#000;
-    opacity: 0.5;
-    filter: blur(10px) contrast(20);
+    filter: blur(1px) contrast(20);
 }
 .blob1,.blob2{
-    width:70px;
-    height:70px;
+    width:50px;
+    height:50px;
     position:absolute;
     background:#fff;
     border-radius:50%;
@@ -25,7 +23,7 @@
 .blob2{
     left:80%;
     animation:osc-r 2.5s ease infinite;
-    background:#0ff;
+    background: rgba(33, 38, 143, 0.23);
 }
 @keyframes osc-l{
     0%{left:45%;}

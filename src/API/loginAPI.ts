@@ -17,6 +17,9 @@ export const loginAPI = {
     },
     setNewPassword(newPass: string, passwordToken: string){
         return instance.post('/auth/set-new-password', {password:newPass, resetPasswordToken: passwordToken})
+    },
+    logOut(){
+        return instance.delete('/auth/me')
     }
 }
 

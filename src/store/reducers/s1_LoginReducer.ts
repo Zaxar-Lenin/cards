@@ -1,6 +1,6 @@
 import {createAction, createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import {loginAPI, LoginParamsType} from '../../API/loginAPI';
-import {setAllData, setDataUser} from "./s4_ProfileReducer";
+import {setAllData} from './s4_ProfileReducer';
 import {setisInitialized, setisLoading} from './s9-AppReducer';
 
 type InitialStateType = {
@@ -51,6 +51,16 @@ export const setNewPassword = createAsyncThunk('logins/setNewPassword', async (p
         thunkApi.dispatch(setAllData(res.data))
         return res.data
     } catch (e) {
+
+    }
+})
+
+export const logOut = createAsyncThunk('login/logOut', async (_, thunkAPI) => {
+    try{
+        const res = loginAPI.logOut()
+        thunkAPI.dispatch(setIsLogged({value: false}))
+    }
+    catch (e) {
 
     }
 })
