@@ -1,0 +1,19 @@
+.container{
+    min-width: 1008px;
+    min-height: 636px;
+    background: #FEFEFF;
+    display: flex;
+}
+
+.packsOptions {
+    max-width: 243px;
+    max-height: 100%;
+    background:#ECECF9;
+    border: 1px solid;
+}
+
+.packList{
+    width: 100%;
+    height: 100%;
+    border: 1px solid;
+}

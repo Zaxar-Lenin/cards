@@ -14,6 +14,7 @@ import {EmailConfirmation} from '../../c2-pages/Login/EmailSendWindow/EmailConfi
 import {CreateNewPassword} from '../../c2-pages/Login/EmailSendWindow/CreatNewPasswordWindow/CreateNewPassword';
 import {PersonalInformation} from "../../c2-pages/PersonalInformation/PersonalInformation";
 import {Registration} from "../../c2-pages/Registration/Registration";
+import {PackList} from '../../с3-packs/PackList';
 
 function Body() {
     return (
@@ -33,6 +34,7 @@ function Body() {
                 <Route path = {Routers.ENTERING_NEW_PASS} element={<PasswordEntering/>}/>
                 <Route path = {Routers.PASS_RECOV} element={<PasswordRecov/>}/>
                 <Route path = {Routers.PERSONAL_INFORMATION} element={<PersonalInformation/>}/>
+                <Route path = {'/packlist'} element={<PackList/>}/>
             </Routes>
         </div>
     );
