@@ -51,14 +51,18 @@ export const PersonalInformation = () => {
             <form onSubmit={formik.handleSubmit}>
                 <div className={s.inputBox}>
                     <TextField
-                        className={s.inputS}
+                        style={{
+                            width: '100%'
+                        }}
                         id="name"
                         label="Nickname"
                         variant="standard"
                         {...formik.getFieldProps('name')}
                     />
                     <TextField
-                        className={s.inputS}
+                        style={{
+                            width: '100%'
+                        }}
                         id="email"
                         label="Email"
                         variant="standard"
@@ -67,10 +71,10 @@ export const PersonalInformation = () => {
                 </div>
                 <div className={s.button_box}>
                     <Button onClick={handlerCancelButton}
-                            className={s.buttonD}
+                            style={{backgroundColor: '#600707'}}
                             variant="contained">Cancel</Button>
                     <Button type="submit"
-                            className={s.buttonD}
+                            style={{backgroundColor: '#600707'}}
                             variant="contained">Save</Button>
                 </div>
             </form>

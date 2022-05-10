@@ -1,27 +1,45 @@
- .personal{
-     max-width: 400px;
-     margin: 0 auto;
-     padding: 25px 10px;
- }
- .image img{
-     width: 150px;
- }
- .inputBox{
-     margin: 0 0 20px 0;
- }
+.personal {
+    max-width: 400px;
+    margin: 0 auto;
+    padding: 25px 10px;
+    background-color: #c2a6a6;
+    border-radius: 10px;
+}
 
- .inputS{
-     width: 300px;
-     margin: 0 0 10px 0;
- }
+.personal h3 {
+    color: #2a2a2c;
+    font-size: 23px;
+    text-align: center;
+    margin: 0 0 15px 0;
+}
+.image{
+    text-align: center;
+}
+.image img {
+    width: 150px;
+    text-align: center;
+    border-radius: 50%;
+}
 
- .button_box{
-     display: flex;
-     justify-content: space-between;
-     width: 300px;
-     margin: 0 auto;
- }
- .button_box button{
-     border-radius: 20px;
-     width: 100px;
- }
+.inputBox {
+    margin: 0 auto 20px auto;
+    display: flex;
+    flex-direction: column;
+    min-height: 130px;
+    justify-content: space-between;
+    align-items: center;
+    max-width: 300px;
+}
+
+
+.button_box {
+    display: flex;
+    justify-content: space-between;
+    width: 300px;
+    margin: 10px auto;
+}
+
+.button_box button {
+    border-radius: 20px;
+    width: 100px;
+}
