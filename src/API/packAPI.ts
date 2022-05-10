@@ -43,9 +43,7 @@ export type GetParamsType = {
 export const packAPI = {
     getPackList(params: Partial<GetParamsType>) {
         return instance.get<PackLists>(`cards/pack`, {params})
-            .then((res) => {
-                res.data
-            })
+            .then(res => res.data)
     },
 
 }

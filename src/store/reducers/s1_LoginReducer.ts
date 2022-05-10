@@ -45,7 +45,7 @@ export const resetPassword = createAsyncThunk('login/resetPassword', async (emai
     }
 })
 
-export const setNewPassword = createAsyncThunk('logins/setNewPassword', async (param: { newPass: string, token: string }, thunkApi) => {
+export const setNewPassword = createAsyncThunk('login/setNewPassword', async (param: { newPass: string, token: string }, thunkApi) => {
     try {
         const res = await loginAPI.setNewPassword(param.newPass, param.token)
         // thunkApi.dispatch(setAllData(res.data))

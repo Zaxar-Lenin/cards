@@ -1,7 +1,6 @@
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {setisInitialized, setisLoading} from './s9-AppReducer';
-import {GetParamsType, packAPI, PackCrards} from "../../API/packAPI";
-import {AppRootStateType, RootState} from "../store";
+import {GetParamsType, packAPI, PackCrards, PackLists} from '../../API/packAPI';
+import {RootState} from '../store';
 
 export type Query = {
     cardPacksTotalCount: number | null,
@@ -18,8 +17,6 @@ export type InitialStateType = {
     queryParams: GetParamsType,
 
 }
-
-
 
 const InitialState: InitialStateType = {
     cardPacks: [],
@@ -40,10 +37,10 @@ export const getPacksList = createAsyncThunk(
     'pack/getPacksList',
     async (_, {dispatch,getState,rejectWithValue}) => {
         try {
-
-            const {packList} = getState() as RootState
-            const res = await packAPI.getPackList(packList.queryParams)
-            return res
+            //закоментил пока, чтобы не падало приложение
+            // const {packList} = getState()
+            // const res = await packAPI.getPackList(packList.queryParams)
+            // return res
 
         } catch (e: any) {
             return rejectWithValue(e.response.data.error)
@@ -51,13 +48,10 @@ export const getPacksList = createAsyncThunk(
     })
 
 
-const packSlice = createSlice({
+const slice = createSlice({
     name: 'packList',
     initialState: InitialState,
     reducers: {
-        // setIsLogged(state, action: PayloadAction<{ value: boolean }>) {
-        //     state.isLoggedIn = action.payload.value;
-        // }
     },
     extraReducers: {
         [getPacksList.fulfilled.type]: (state, action: PayloadAction<PackLists>) => {
@@ -66,5 +60,5 @@ const packSlice = createSlice({
     }
 })
 
-export const packReducer = packSlice.reducer
+export const packReducer = slice.reducer
 // export const {setIsLogged} = slice.actions
