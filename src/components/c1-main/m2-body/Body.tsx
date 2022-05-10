@@ -34,7 +34,7 @@ function Body() {
                 <Route path = {Routers.ENTERING_NEW_PASS} element={<PasswordEntering/>}/>
                 <Route path = {Routers.PASS_RECOV} element={<PasswordRecov/>}/>
                 <Route path = {Routers.PERSONAL_INFORMATION} element={<PersonalInformation/>}/>
-                <Route path = {'/packlist'} element={<PackList/>}/>
+                <Route path = {Routers.PACK_LIST} element={<PackList/>}/>
             </Routes>
         </div>
     );

@@ -1,7 +1,24 @@
-import React from 'react';
+import React, {useEffect} from 'react';
 import s from './PackList.module.css';
+import {useDispatch} from "react-redux";
+import {Navigate} from "react-router-dom";
+import {Routers} from "../c1-main/routers";
+import {useAppSelector} from "../../Hooks/hooks";
+import { getPacksList } from '../../store/reducers/PackListReducer';
 
 export const PackList = () => {
+
+    const isLoggedIn = useAppSelector(state => state.login.isLoggedIn)
+
+    const dispatch = useDispatch()
+
+    useEffect(()=> {
+        // dispatch(getPacksList())
+    },[])
+
+    if (!isLoggedIn){
+        return <Navigate to={Routers.LOGIN}/>
+    }
     return (
        <div className={s.container}>
            <div className={s.packsOptions}>

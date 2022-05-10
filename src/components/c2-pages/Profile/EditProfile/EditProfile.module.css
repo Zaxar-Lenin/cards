@@ -1,5 +1,4 @@
 .edit_profile{
-    border: 1px solid black;
     margin: 0 0 10px 0;
     padding: 10px;
     display: flex;
@@ -7,24 +6,36 @@
     align-items: center;
     justify-content: space-between;
     min-height: 300px;
+    min-width: 400px;
+    /*background-color: rgba(192, 166, 182, 0.8);*/
+    background-color: #c2a6a6;
+    border-radius: 10px;
 }
 
 .image img{
     width: 150px;
+    border-radius: 50%;
 }
 
 .name{
-
+    font-size: 22px;
+    color: #312f2f;
 }
 
 .status{
-
+    font-size: 22px;
+    color: #565050;
 }
 
 .button{
+    margin: 10px 0 0 5px;
     width: 110px;
     height: 30px;
-    border: 1px solid black;
+    border: 1px solid #807373;
+    /*background-color: #7d7ead;*/
     text-align: center;
     cursor: pointer;
+    color: #6a817a;
+    box-shadow: 1px -1px #75757e ;
+    border-radius: 2px;
 }

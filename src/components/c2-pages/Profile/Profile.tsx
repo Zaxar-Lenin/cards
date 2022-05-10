@@ -14,13 +14,9 @@ function Profile() {
     }
 
     return (
-        <>
         <div className={s.profile}>
-            <div className={s.profile_box}>
               <EditProfile/>
-            </div>
         </div>
-        </>
     );
 }
 
