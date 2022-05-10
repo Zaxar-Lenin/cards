@@ -1,19 +1,96 @@
 .container{
-    min-width: 1008px;
-    min-height: 636px;
+    min-width: 850px;
+    min-height: 536px;
     background: #FEFEFF;
     display: flex;
+    border-radius: 8px;
 }
 
 .packsOptions {
-    max-width: 243px;
+    min-width: 243px;
     max-height: 100%;
     background:#ECECF9;
-    border: 1px solid;
+    border-radius: 8px;
+    /*border: 1px solid;*/
 }
 
 .packList{
     width: 100%;
     height: 100%;
-    border: 1px solid;
+    /*border: 1px solid;*/
 }
+
+.optionsButton {
+    display: flex;
+    flex-direction: column;
+    margin-top: 17px;
+    margin-left: 15px;
+}
+
+.optionsButton .buttonsMyAll {
+    display: flex;
+    margin-top: 13px;
+}
+
+.buttonsMyAll button{
+    width: 45%;
+    height: 25px;
+    border-radius: 1px;
+    border: 0;
+    background: #FFFFFF
+}
+.buttonsMyAll button:hover {
+    background: rgba(209, 203, 236, 0.99);
+}
+
+
+.optionsRange {
+    margin-top: 45px;
+    margin-left: 15px;
+}
+
+.optionsRange div {
+    /*margin-top: 15%;*/
+    margin: 2em 1px
+}
+
+.packList h3 {
+    margin-top: 12px;
+    margin-left: 38px;
+    position: relative;
+}
+
+.packList .packlistSearch{
+    margin-left: 38px;
+    margin-top: 15px;
+}
+
+.packlistSearch span {
+    margin-left: 24px;
+}
+
+.packlistSearch span button {
+    width: 25%;
+    height: 25px;
+    border-radius: 30px;
+    background: #21268F;
+    border: 0;
+    color: white;
+    font-weight: 500;
+    font-size: 13px;
+}
+
+.packlistTable {
+    margin-top: 15px;
+    margin-left: 38px;
+}
+
+.packlistPagination {
+    margin-top: 15px;
+    margin-left: 38px;
+    margin-bottom: 29px;
+}
+
+
+
+
