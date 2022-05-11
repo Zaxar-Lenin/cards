@@ -1,0 +1,40 @@
+.headerStyle {
+    height: 57px;
+    width: 100%;
+    background: #EBE0E9;
+    position: sticky;
+}
+
+.buttons {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100%;
+    border: 1px;
+}
+
+.buttons > button {
+    height: 100%;
+    width: 153px;
+    border: 0;
+    background: #EBE0E9;
+    outline: none;
+    cursor: pointer;
+}
+
+button:hover{
+    background: #DCCCDB;
+}
+
+.active{
+    background: red;
+}
+
+
+.packlistButton {
+
+}
+
+.profileButton {
+
+}

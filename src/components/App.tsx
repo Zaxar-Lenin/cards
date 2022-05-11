@@ -4,6 +4,7 @@ import Main from './c1-main/Main';
 import {setDataUser} from '../store/reducers/s4_ProfileReducer';
 import {useAppDispatch, useAppSelector} from '../Hooks/hooks';
 import {Preloader} from '../Assets/Preloader/Preloader';
+import { MainHeader } from './c1-main/m1-header/MainHeader/MainHeader';
 
 export const App = () => {
     const dispatch = useAppDispatch()
@@ -19,9 +20,12 @@ export const App = () => {
 
 
     return (
+        <>
+            <MainHeader/>
         <div className="App">
             <Main/>
         </div>
+        </>
     )
 }
 
