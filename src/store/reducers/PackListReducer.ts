@@ -1,4 +1,4 @@
-import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
+import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {GetParamsType, packAPI, PackCrards} from '../../API/packAPI';
 import {RootState} from '../store';
 
@@ -24,9 +24,9 @@ const InitialState: InitialStateType = {
         packName: '',
         min: 0,
         max: 0,
-        sortPacks: 0,
+        sortPacks: "0update",
         page: 0,
-        pageCount: 0,
+        pageCount: 10,
         user_id: '',
     }
 
@@ -43,6 +43,7 @@ export const getPacksList = createAsyncThunk(
         } catch (e: any) {
             return rejectWithValue(e.response.data.error)
         }
+
     })
 
 
@@ -50,6 +51,9 @@ const packSlice = createSlice({
     name: 'packList',
     initialState: InitialState,
     reducers: {
+        updateSortPacks(state: InitialStateType,action: PayloadAction<string>){
+            state.queryParams.sortPacks = action.payload
+        }
     },
     extraReducers: (builder) => {
         builder.addCase(getPacksList.fulfilled, (state, action) => {
@@ -59,4 +63,6 @@ const packSlice = createSlice({
 })
 
 export const packReducer = packSlice.reducer
-// export const {setIsLogged} = slice.actions
+
+
+export const {updateSortPacks} = packSlice.actions

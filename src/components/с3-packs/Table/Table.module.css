@@ -1,0 +1,15 @@
+.sort {
+    cursor: pointer;
+}
+
+.sort1 span:after {
+    content: "";
+    border: 10px solid transparent;
+    border-top: 10px solid green;
+}
+
+.sort0 span:after {
+    content: "";
+    border: 10px solid transparent;
+    border-bottom: 10px solid red;
+}

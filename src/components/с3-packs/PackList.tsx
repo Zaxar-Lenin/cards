@@ -5,17 +5,19 @@ import {Navigate} from "react-router-dom";
 import {Routers} from "../c1-main/routers";
 import {useAppSelector} from "../../Hooks/hooks";
 import { getPacksList } from '../../store/reducers/PackListReducer';
-import {CustomTable} from "./Table/Table";
+import {CustomTable} from "./Table/CustomTable";
 
 export const PackList = () => {
 
     const isLoggedIn = useAppSelector(state => state.login.isLoggedIn)
 
+    const sortPacks = useAppSelector(state => state.packList.queryParams.sortPacks)
+
     const dispatch = useDispatch()
 
     useEffect(()=> {
         dispatch(getPacksList())
-    },[])
+    },[sortPacks])
 
     if (!isLoggedIn){
         return <Navigate to={Routers.LOGIN}/>
