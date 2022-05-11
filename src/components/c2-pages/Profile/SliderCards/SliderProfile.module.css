@@ -1,3 +1,4 @@
 .slider{
+    grid-area: slider;
     border: 1px solid black;
 }

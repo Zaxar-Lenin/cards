@@ -19,11 +19,12 @@
 .blob1{
     left:20%;
     animation:osc-l 2.5s ease infinite;
+    background: rgba(164,66,183,0.8);
 }
 .blob2{
     left:80%;
     animation:osc-r 2.5s ease infinite;
-    background: rgba(33, 38, 143, 0.23);
+    background: rgba(49,86,183,0.65);
 }
 @keyframes osc-l{
     0%{left:45%;}
