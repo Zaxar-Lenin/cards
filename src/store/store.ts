@@ -24,8 +24,6 @@ const rootReducer = combineReducers({
     packList: packReducer,
 })
 
-export type AppRootStateType = ReturnType<typeof rootReducer>
-
 export const store = configureStore({
     reducer: rootReducer,
     middleware: (getDefaultMiddleware) =>

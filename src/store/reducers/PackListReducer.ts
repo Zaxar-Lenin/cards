@@ -1,5 +1,5 @@
-import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {GetParamsType, packAPI, PackCrards, PackLists} from '../../API/packAPI';
+import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
+import {GetParamsType, packAPI, PackCrards} from '../../API/packAPI';
 import {RootState} from '../store';
 
 export type Query = {
@@ -37,28 +37,26 @@ export const getPacksList = createAsyncThunk(
     'pack/getPacksList',
     async (_, {dispatch,getState,rejectWithValue}) => {
         try {
-            //закоментил пока, чтобы не падало приложение
-            // const {packList} = getState()
-            // const res = await packAPI.getPackList(packList.queryParams)
-            // return res
-
+            const store = getState() as RootState
+            const res = await packAPI.getPackList(store.packList.queryParams)
+            return res
         } catch (e: any) {
             return rejectWithValue(e.response.data.error)
         }
     })
 
 
-const slice = createSlice({
+const packSlice = createSlice({
     name: 'packList',
     initialState: InitialState,
     reducers: {
     },
-    extraReducers: {
-        [getPacksList.fulfilled.type]: (state, action: PayloadAction<PackLists>) => {
+    extraReducers: (builder) => {
+        builder.addCase(getPacksList.fulfilled, (state, action) => {
             state.cardPacks = action.payload.cardPacks
-        }
+        })
     }
 })
 
-export const packReducer = slice.reducer
+export const packReducer = packSlice.reducer
 // export const {setIsLogged} = slice.actions

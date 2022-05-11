@@ -5,6 +5,7 @@ import {Navigate} from "react-router-dom";
 import {Routers} from "../c1-main/routers";
 import {useAppSelector} from "../../Hooks/hooks";
 import { getPacksList } from '../../store/reducers/PackListReducer';
+import {CustomTable} from "./Table/Table";
 
 export const PackList = () => {
 
@@ -13,7 +14,7 @@ export const PackList = () => {
     const dispatch = useDispatch()
 
     useEffect(()=> {
-        // dispatch(getPacksList())
+        dispatch(getPacksList())
     },[])
 
     if (!isLoggedIn){
@@ -39,7 +40,7 @@ export const PackList = () => {
                <div className={s.packlistSearch}><input type="text"/>
                    <span><button>Add new pack</button></span>
                </div>
-               <div className={s.packlistTable}>Здесь таблица</div>
+               <div className={s.packlistTable}><CustomTable/></div>
                <div className={s.packlistPagination}>здесь пагинация</div>
            </div>
        </div>
