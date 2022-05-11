@@ -24,7 +24,7 @@ const InitialState: InitialStateType = {
         packName: '',
         min: 0,
         max: 0,
-        sortPacks: '0updated',
+        sortPacks: "0update",
         page: 0,
         pageCount: 100,
         user_id: '',
@@ -35,7 +35,7 @@ const InitialState: InitialStateType = {
 
 export const getPacksList = createAsyncThunk(
     'packList/getPacksList',
-    async (_, {dispatch, getState, rejectWithValue}) => {
+    async (_, {dispatch,getState,rejectWithValue}) => {
         try {
             const store = getState() as RootState;
             const res = await packAPI.getPackList(store.packList.queryParams);
@@ -70,10 +70,9 @@ export const deletePackList = createAsyncThunk(
             await packAPI.deletePackList({id: data.id});
             dispatch(getPacksList());
         } catch (e: any) {
-
         }
-    }
-)
+    })
+
 
 const packSlice = createSlice({
     name: 'packList',
@@ -82,16 +81,18 @@ const packSlice = createSlice({
         setSearchValue: (state, action: PayloadAction<string>) => {
             state.queryParams.packName = action.payload;
 
+        },
+        updateSortPacks(state: InitialStateType,action: PayloadAction<string>){
+            state.queryParams.sortPacks = action.payload
         }
     },
     extraReducers: (builder) => {
         builder.addCase(getPacksList.fulfilled, (state, action) => {
             state.cardPacks = action.payload.cardPacks
-        });
+        })
     }
 })
 
 
-export const {setSearchValue} = packSlice.actions
+export const {setSearchValue,updateSortPacks} = packSlice.actions
 export const packReducer = packSlice.reducer
-// export const {setIsLogged} = slice.actions

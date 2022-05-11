@@ -1,31 +1,32 @@
-import React, {ChangeEvent, useEffect, useState} from 'react';
+import React, {useEffect} from 'react';
 import s from './PackList.module.css';
 import {useDispatch} from "react-redux";
 import {Navigate} from "react-router-dom";
 import {Routers} from "../c1-main/routers";
-import {useAppSelector} from "../../Hooks/hooks";
+import {useAppDispatch, useAppSelector} from "../../Hooks/hooks";
 import {addPackList, getPacksList} from '../../store/reducers/PackListReducer';
-import {CustomTable} from "./Table/Table";
 import {Search} from "./p2-Search/Search";
+import {CustomTable} from "./Table/CustomTable";
 
 export const PackList = () => {
-    const isLoggedIn = useAppSelector(state => state.login.isLoggedIn);
-    const packName = useAppSelector(state => state.packList.queryParams.packName)
 
-    const dispatch = useDispatch();
+    const isLoggedIn = useAppSelector(state => state.login.isLoggedIn)
+    const packName = useAppSelector(state => state.packList.queryParams.packName)
+    const sortPacks = useAppSelector(state => state.packList.queryParams.sortPacks)
+
+    const dispatch = useAppDispatch()
 
     useEffect(() => {
         dispatch(getPacksList());
-    }, [packName]);
+    }, [packName, sortPacks]);
 
     const addPackClickHandler = () => {
         dispatch(addPackList({}));
     }
 
-    if (!isLoggedIn) {
+    if (!isLoggedIn){
         return <Navigate to={Routers.LOGIN}/>
     }
-
     return (
         <div className={s.container}>
             <div className={s.packsOptions}>
