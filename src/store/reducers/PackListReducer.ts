@@ -24,7 +24,7 @@ const InitialState: InitialStateType = {
         packName: '',
         min: 0,
         max: 0,
-        sortPacks: "0update",
+        sortPacks: '',
         page: 0,
         pageCount: 100,
         user_id: '',

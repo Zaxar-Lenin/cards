@@ -6,7 +6,7 @@ import TableContainer from '@mui/material/TableContainer';
 import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
-import {useAppSelector} from "../../../Hooks/hooks";
+import {useAppDispatch, useAppSelector} from '../../../Hooks/hooks';
 import {ButtonsForPacks} from "../p1-ButtonsForPacks/ButtonsForPacks";
 import s from "./Table.module.css"
 import {useDispatch} from "react-redux";
@@ -19,7 +19,7 @@ export const CustomTable = () => {
 
     const sortPacks = useAppSelector(state => state.packList.queryParams.sortPacks)
 
-    const dispatch = useDispatch()
+    const dispatch = useAppDispatch()
 
     const CorrectData = (data: string): string => {
         return data.slice(0, 10).split('-').reverse().join('.');
@@ -87,7 +87,7 @@ export const CustomTable = () => {
                             <TableCell align="right">{row.cardsCount}</TableCell>
                             <TableCell align="right">{CorrectData(row.updated)}</TableCell>
                             <TableCell align="right">{row.user_name}</TableCell>
-                            <TableCell align="right">{<ButtonsForPacks/>}</TableCell>
+                            <TableCell align="right">{<ButtonsForPacks packId={row._id} ownerId={row.user_id}/>}</TableCell>
                         </TableRow>
                     ))}
                 </TableBody>
