@@ -2,16 +2,19 @@
     display: grid;
     grid-template-row: 1fr;
     grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 20px 20px;
+    grid-template-areas:
+            "delete edit learn";
 }
 
 .deleteButtonStyle {
-
+    grid-area: delete;
 }
 
 .editButtonStyle {
-
+    grid-area: edit;
 }
 
 .learnButtonStyle {
-
+    grid-area: learn;
 }
