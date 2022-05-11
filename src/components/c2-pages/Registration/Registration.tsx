@@ -2,7 +2,8 @@ import {useNavigate} from "react-router-dom";
 import {useAppDispatch, useAppSelector} from "../../../Hooks/hooks";
 import {useFormik} from "formik";
 import style from "../Login/LoginForm.module.css";
-import {Button, TextField} from "@mui/material";
+import Button from "@mui/material/Button";
+import TextField from "@mui/material/TextField";
 import React from "react";
 import styleSignIn from '../Login/SignInPage/SignIn.module.css'
 import {registerUser} from "../../../store/reducers/s8_RegistrationReducer";

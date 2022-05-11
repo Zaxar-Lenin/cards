@@ -1,0 +1,17 @@
+.mainButtonsStyle {
+    display: grid;
+    grid-template-row: 1fr;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.deleteButtonStyle {
+
+}
+
+.editButtonStyle {
+
+}
+
+.learnButtonStyle {
+
+}

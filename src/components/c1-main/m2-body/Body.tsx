@@ -15,6 +15,7 @@ import {CreateNewPassword} from '../../c2-pages/Login/EmailSendWindow/CreatNewPa
 import {PersonalInformation} from "../../c2-pages/PersonalInformation/PersonalInformation";
 import {Registration} from "../../c2-pages/Registration/Registration";
 import {PackList} from '../../с3-packs/PackList';
+import {ButtonsForPacks} from "../../с3-packs/p1-ButtonsForPacks/ButtonsForPacks";
 
 function Body() {
     return (
@@ -30,7 +31,7 @@ function Body() {
                 <Route path = {Routers.REGISTRATION} element={<Registration/>}/>
                 <Route path = {Routers.ERROR} element={<Error/>}/>
                 <Route path = {Routers.PROFILE} element={<Profile/>}/>
-                <Route path = {Routers.TEST} element={<Test/>}/>
+                <Route path = {Routers.TEST} element={<ButtonsForPacks/>}/>
                 <Route path = {Routers.ENTERING_NEW_PASS} element={<PasswordEntering/>}/>
                 <Route path = {Routers.PASS_RECOV} element={<PasswordRecov/>}/>
                 <Route path = {Routers.PERSONAL_INFORMATION} element={<PersonalInformation/>}/>
