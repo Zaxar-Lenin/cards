@@ -33,17 +33,40 @@ export type GetParamsType = {
     packName: string
     min: number
     max: number
-    sortPacks: number
+    sortPacks: string
     page: number
     pageCount: number
     user_id: string
+}
+
+export type PostParamsType = {
+        name?: string;
+        deckCover?: string;
+        private?: boolean;
+
+}
+
+export type DeleteParamsType = {
+    id: string | undefined;
+}
+
+export type PutParamsType = {
+    cardsPack: {
+        _id: string;
+        name: string;
+    }
 }
 
 
 export const packAPI = {
     getPackList(params: Partial<GetParamsType>) {
         return instance.get<PackLists>(`cards/pack`, {params})
-            .then(res => res.data)
+            .then(res => res.data);
     },
-
+    postPackList(cardsPack: PostParamsType) {
+        return instance.post('cards/pack', {cardsPack});
+    },
+    deletePackList(params: DeleteParamsType) {
+        return instance.delete('cards/pack', {params});
+    }
 }

@@ -34,7 +34,7 @@ export const CustomTable = () => {
                 <TableBody>
                     {cardPacks.map((row) => (
                         <TableRow
-                            key={row.more_id}
+                            key={row._id}
                             sx={{ '&:last-child td, &:last-child th': { border: 0 } }}
                         >
                             <TableCell component="th" scope="row">
@@ -43,7 +43,7 @@ export const CustomTable = () => {
                             <TableCell align="right">{row.cardsCount}</TableCell>
                             <TableCell align="right">{CorrectData(row.updated)}</TableCell>
                             <TableCell align="right">{row.user_name}</TableCell>
-                            <TableCell align="right">{<ButtonsForPacks/>}</TableCell>
+                            <TableCell align="right">{<ButtonsForPacks packId={row._id} ownerId={row.user_id}/>}</TableCell>
                         </TableRow>
                     ))}
                 </TableBody>

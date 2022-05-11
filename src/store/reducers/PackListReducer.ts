@@ -1,5 +1,5 @@
-import {createAsyncThunk, createSlice} from '@reduxjs/toolkit';
-import {GetParamsType, packAPI, PackCrards} from '../../API/packAPI';
+import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
+import {DeleteParamsType, GetParamsType, packAPI, PackCrards, PostParamsType} from '../../API/packAPI';
 import {RootState} from '../store';
 
 export type Query = {
@@ -24,9 +24,9 @@ const InitialState: InitialStateType = {
         packName: '',
         min: 0,
         max: 0,
-        sortPacks: 0,
+        sortPacks: '0updated',
         page: 0,
-        pageCount: 0,
+        pageCount: 100,
         user_id: '',
     }
 
@@ -34,29 +34,64 @@ const InitialState: InitialStateType = {
 
 
 export const getPacksList = createAsyncThunk(
-    'pack/getPacksList',
-    async (_, {dispatch,getState,rejectWithValue}) => {
+    'packList/getPacksList',
+    async (_, {dispatch, getState, rejectWithValue}) => {
         try {
-            const store = getState() as RootState
-            const res = await packAPI.getPackList(store.packList.queryParams)
-            return res
+            const store = getState() as RootState;
+            const res = await packAPI.getPackList(store.packList.queryParams);
+            return res;
         } catch (e: any) {
-            return rejectWithValue(e.response.data.error)
+            return rejectWithValue(e.response.data.error);
         }
     })
 
+export const addPackList = createAsyncThunk(
+    'packList/addPackList',
+    async (data: PostParamsType, {dispatch, rejectWithValue}) => {
+        try {
+            await packAPI.postPackList(
+                {
+                    name: data.name,
+                    deckCover: data.deckCover,
+                    private: data.private
+                }
+            )
+            dispatch(getPacksList());
+        } catch (e: any) {
+
+        }
+    }
+)
+
+export const deletePackList = createAsyncThunk(
+    'packList/deletePackList',
+    async (data: DeleteParamsType, {dispatch, rejectWithValue}) => {
+        try {
+            await packAPI.deletePackList({id: data.id});
+            dispatch(getPacksList());
+        } catch (e: any) {
+
+        }
+    }
+)
 
 const packSlice = createSlice({
     name: 'packList',
     initialState: InitialState,
     reducers: {
+        setSearchValue: (state, action: PayloadAction<string>) => {
+            state.queryParams.packName = action.payload;
+
+        }
     },
     extraReducers: (builder) => {
         builder.addCase(getPacksList.fulfilled, (state, action) => {
             state.cardPacks = action.payload.cardPacks
-        })
+        });
     }
 })
 
+
+export const {setSearchValue} = packSlice.actions
 export const packReducer = packSlice.reducer
 // export const {setIsLogged} = slice.actions
