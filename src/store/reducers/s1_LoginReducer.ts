@@ -21,50 +21,51 @@ export const setIsLogged = createAction<{ value: boolean }>('login/setIsLoggedIn
 
 export const loginTC = createAsyncThunk(
     'login/loginTC',
-    async (data: LoginParamsType, thunkAPI) => {
-        thunkAPI.dispatch(setisLoading({value: true}))
-        thunkAPI.dispatch(setisInitialized({value: false}))
+    async (data: LoginParamsType, {rejectWithValue, dispatch}) => {
+        dispatch(setisLoading({value: true}))
+        dispatch(setisInitialized({value: false}))
     try {
         const res = await loginAPI.login(data)
-        thunkAPI.dispatch(setAllData(res.data))
-        thunkAPI.dispatch(setIsLogged({value: true}))
-        thunkAPI.dispatch(setisViewHeader({value: true}))
+        dispatch(setAllData(res.data))
+        dispatch(setIsLogged({value: true}))
+        dispatch(setisViewHeader({value: true}))
 
     } catch (e: any) {
-            return thunkAPI.rejectWithValue(e.response.data.error)
+            return rejectWithValue(e.response.data.error)
     }finally {
-        thunkAPI.dispatch(setisInitialized({value: true}))
-        thunkAPI.dispatch(setisLoading({value: false}))
+        dispatch(setisInitialized({value: true}))
+        dispatch(setisLoading({value: false}))
     }
 })
 
-export const resetPassword = createAsyncThunk('login/resetPassword', async (email: string, thunkApi) => {
+export const resetPassword = createAsyncThunk('login/resetPassword', async (email: string, {dispatch, rejectWithValue}) => {
     try {
         const res = await loginAPI.resetPassword(email)
     } catch (e: any) {
-        return thunkApi.rejectWithValue(e.response.data.error)
+        return rejectWithValue(e.response.data.error)
     }
 })
 
-export const setNewPassword = createAsyncThunk('login/setNewPassword', async (param: { newPass: string, token: string }, thunkApi) => {
+export const setNewPassword = createAsyncThunk('login/setNewPassword', async (param: { newPass: string, token: string }, {dispatch, rejectWithValue}) => {
     try {
         const res = await loginAPI.setNewPassword(param.newPass, param.token)
         // thunkApi.dispatch(setAllData(res.data))
-        thunkApi.dispatch(setIsLogged({value: false}))
+        dispatch(setIsLogged({value: false}))
         return res.data
     } catch (e: any) {
-        return thunkApi.rejectWithValue(e.response.data.error)
+        return rejectWithValue(e.response.data.error)
     }
 })
 
-export const logOut = createAsyncThunk('login/logOut', async (_, thunkAPI) => {
+export const logOut = createAsyncThunk('login/logOut', async (_, {dispatch, getState, rejectWithValue}) => {
     try{
-
         const res = loginAPI.logOut()
-        thunkAPI.dispatch(setIsLogged({value: false}))
-        thunkAPI.dispatch(setisViewHeader({value: false}))
+        dispatch(setIsLogged({value: false}))
+        dispatch(setisViewHeader({value: false}))
     }
     catch (e) {
+
+    } finally {
 
     }
 })

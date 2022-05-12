@@ -1,11 +1,15 @@
 import React, {useEffect, useState} from 'react';
 import s from './MainHeader.module.css'
 import {useLocation, useNavigate} from 'react-router-dom';
+import LogoutIcon from '@mui/icons-material/Logout';
+import {useAppDispatch} from '../../../../Hooks/hooks';
+import {logOut} from '../../../../store/reducers/s1_LoginReducer';
 
 export const MainHeader = () => {
 
     const navigate = useNavigate()
     const location = useLocation()
+    const dispatch = useAppDispatch()
 
     const [style, setStyle] = useState({
         packlist: false,
@@ -45,6 +49,10 @@ export const MainHeader = () => {
                 </button>
                 <button onClick={onProfileHandler} className={style.profile ? s.active : s.profileButton}>Profile
                 </button>
+                <div className={s.logoutButton}>
+                    <LogoutIcon sx={{marginLeft: '15px', cursor: 'pointer'}}
+                                onClick={()=>{dispatch(logOut())}}/>
+                </div>
             </div>
         </div>
     );

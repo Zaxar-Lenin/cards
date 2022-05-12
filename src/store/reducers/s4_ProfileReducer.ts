@@ -11,32 +11,36 @@ const initial = {
     profile: {} as ResponseType
 }
 
-type InitialType = typeof initial
+// type InitialType = typeof initial
 
 
 
 export const updateNameAndImg = createAsyncThunk(
     'profile/updateNameAndImg',
-    async ({avatar, name}: { avatar: string | undefined, name: string }, thunkAPI) => {
-        const response = await profileAPI.setNameAndImg(name, avatar)
-        return response.data.updatedUser
+    async ({avatar, name}: { avatar: string | undefined, name: string }, {dispatch}) => {
+        try {
+            const response = await profileAPI.setNameAndImg(name, avatar)
+            return response.data.updatedUser
+        }
+        catch (e) {
+        }
     }
 )
 
 export const setDataUser = createAsyncThunk(
     'profile/setDataUser',
-    async (_, thunkAPI) => {
-        thunkAPI.dispatch(setisLoading({value: true}))
+    async (_, {dispatch}) => {
+        dispatch(setisLoading({value: true}))
         try{
             const response = await profileAPI.authMe()
-            thunkAPI.dispatch(setIsLogged({value: true}))
-            thunkAPI.dispatch(setisInitialized({value: true}))
-            thunkAPI.dispatch(setisLoading({value: false}))
-            thunkAPI.dispatch(setisViewHeader({value: true}))
+            dispatch(setIsLogged({value: true}))
+            dispatch(setisInitialized({value: true}))
+            dispatch(setisLoading({value: false}))
+            dispatch(setisViewHeader({value: true}))
             return response.data
         }
         catch(e){
-            thunkAPI.dispatch(setisInitialized({value: true}))
+            dispatch(setisInitialized({value: true}))
         }
 
     }

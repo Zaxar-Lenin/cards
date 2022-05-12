@@ -1,3 +1,4 @@
-.header a{
+.header a {
     margin-right: 5px;
+    visibility: hidden;
 }

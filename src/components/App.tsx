@@ -19,7 +19,6 @@ export const App = () => {
         return <div><Preloader/></div>
     }
 
-
     return (
         <>
             {isViewHeader && <MainHeader/>}

@@ -70,15 +70,35 @@ export const PersonalInformation = () => {
                     />
                 </div>
                 <div className={s.button_box}>
-                    <Button onClick={handlerCancelButton}
-                            style={{backgroundColor: '#600707'}}
-                            variant="contained">Cancel</Button>
-                    <Button type="submit"
-                            style={{backgroundColor: '#600707'}}
-                            variant="contained">Save</Button>
+                    <Button variant="contained"
+                            sx={{
+                                borderRadius: '15px',
+                                width: '120px',
+                                height: '25px',
+                                textTransform: 'initial',
+                                fontSize: '14px',
+                                color:'black',
+                                backgroundColor: '#D7D8EF'
+                            }}
+                            size="small"
+                            onClick={handlerCancelButton}>
+                        Cancel</Button>
+                    <Button variant="contained"
+                            sx={{
+                                borderRadius: '15px',
+                                width: '120px',
+                                height: '25px',
+                                textTransform: 'initial',
+                                fontSize: '14px'
+                            }}
+                            size="small"
+                            onClick={handlerCancelButton}>
+                        Save</Button>
                 </div>
             </form>
         </div>
     );
 }
+
+
 

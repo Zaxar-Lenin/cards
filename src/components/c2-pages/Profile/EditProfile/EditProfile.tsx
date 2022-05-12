@@ -3,6 +3,7 @@ import s from "./EditProfile.module.css"
 import {Navigate} from 'react-router-dom';
 import {Routers} from "../../../c1-main/routers";
 import {useAppSelector} from '../../../../Hooks/hooks';
+import {Button} from '@mui/material';
 
 export const EditProfile = () => {
 
@@ -28,8 +29,20 @@ export const EditProfile = () => {
             </div>
             <div className={s.name}>{name}</div>
             <div className={s.status}>{email}</div>
-            <div onClick={handlerButton} className={s.button}>Edit Profile</div>
+            <Button variant="contained"
+                    sx={{
+                        borderRadius: '15px',
+                        width: '120px',
+                        height: '25px',
+                        textTransform: 'initial',
+                        fontSize: '14px'
+                    }}
+                    size="small"
+                    onClick={handlerButton}>
+                Edit Profile</Button>
         </div>
     );
 }
+
+
 
