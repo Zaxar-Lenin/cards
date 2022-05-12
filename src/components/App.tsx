@@ -9,6 +9,7 @@ import { MainHeader } from './c1-main/m1-header/MainHeader/MainHeader';
 export const App = () => {
     const dispatch = useAppDispatch()
     const isInitialized = useAppSelector<boolean>(state => state.app.isInitialized)
+    const isViewHeader = useAppSelector(state => state.app.isViewHeader)
 
     useEffect(() => {
         dispatch(setDataUser())
@@ -21,7 +22,7 @@ export const App = () => {
 
     return (
         <>
-            <MainHeader/>
+            {isViewHeader && <MainHeader/>}
         <div className="App">
             <Main/>
         </div>

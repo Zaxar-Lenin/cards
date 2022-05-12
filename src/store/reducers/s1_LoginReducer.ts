@@ -1,7 +1,7 @@
 import {createAction, createAsyncThunk, createSlice} from '@reduxjs/toolkit';
 import {loginAPI, LoginParamsType} from '../../API/loginAPI';
 import {setAllData} from './s4_ProfileReducer';
-import {setisInitialized, setisLoading} from './s9-AppReducer';
+import {setisInitialized, setisLoading, setisViewHeader} from './s9-AppReducer';
 
 type InitialStateType = {
     isLoggedIn: boolean,
@@ -28,6 +28,7 @@ export const loginTC = createAsyncThunk(
         const res = await loginAPI.login(data)
         thunkAPI.dispatch(setAllData(res.data))
         thunkAPI.dispatch(setIsLogged({value: true}))
+        thunkAPI.dispatch(setisViewHeader({value: true}))
 
     } catch (e: any) {
             return thunkAPI.rejectWithValue(e.response.data.error)
@@ -61,6 +62,7 @@ export const logOut = createAsyncThunk('login/logOut', async (_, thunkAPI) => {
 
         const res = loginAPI.logOut()
         thunkAPI.dispatch(setIsLogged({value: false}))
+        thunkAPI.dispatch(setisViewHeader({value: false}))
     }
     catch (e) {
 
