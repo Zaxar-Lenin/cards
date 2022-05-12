@@ -9,20 +9,25 @@ import Paper from '@mui/material/Paper';
 import {useAppDispatch, useAppSelector} from '../../../Hooks/hooks';
 import {ButtonsForPacks} from "../p1-ButtonsForPacks/ButtonsForPacks";
 import s from "./Table.module.css"
-import {useDispatch} from "react-redux";
-import {getPacksList, updateSortPacks} from "../../../store/reducers/PackListReducer";
+import {updateSortPacks} from "../../../store/reducers/s10_PackListReducer";
+import {setPackId} from "../../../store/reducers/s11_CardsListReducer";
+import {useNavigate} from "react-router-dom";
 
 
 export const CustomTable = () => {
 
-    const cardPacks = useAppSelector(state => state.packList.cardPacks)
+    const cardPacks = useAppSelector(state => state.packList.cardPacks);
+    const sortPacks = useAppSelector(state => state.packList.queryParams.sortPacks);
+    const navigate = useNavigate();
 
-    const sortPacks = useAppSelector(state => state.packList.queryParams.sortPacks)
-
-    const dispatch = useAppDispatch()
+    const dispatch = useAppDispatch();
 
     const CorrectData = (data: string): string => {
         return data.slice(0, 10).split('-').reverse().join('.');
+    }
+    const showCardsHandler = (cardsPackId: string) => {
+        dispatch(setPackId(cardsPackId));
+        navigate('/cardspack');
     }
 
     const sortHandler = (name: string) => {
@@ -81,7 +86,7 @@ export const CustomTable = () => {
                             key={row._id}
                             sx={{'&:last-child td, &:last-child th': {border: 0}}}
                         >
-                            <TableCell component="th" scope="row">
+                            <TableCell component="th" scope="row" onClick={() => showCardsHandler(row._id)}>
                                 {row.name}
                             </TableCell>
                             <TableCell align="right">{row.cardsCount}</TableCell>

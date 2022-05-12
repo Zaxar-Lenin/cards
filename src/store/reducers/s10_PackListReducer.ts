@@ -1,5 +1,5 @@
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {DeleteParamsType, GetParamsType, packAPI, PackCrards, PostParamsType} from '../../API/packAPI';
+import {DeleteParamsType, GetParamsType, packAPI, PackCards, PostParamsType} from '../../API/packAPI';
 import {RootState} from '../store';
 
 export type Query = {
@@ -13,7 +13,7 @@ export type Query = {
 }
 
 export type InitialStateType = {
-    cardPacks: PackCrards[],
+    cardPacks: PackCards[],
     queryParams: GetParamsType,
 
 }
@@ -58,7 +58,7 @@ export const addPackList = createAsyncThunk(
             )
             dispatch(getPacksList());
         } catch (e: any) {
-
+            return rejectWithValue(e.response.data.error);
         }
     }
 )
@@ -70,6 +70,7 @@ export const deletePackList = createAsyncThunk(
             await packAPI.deletePackList({id: data.id});
             dispatch(getPacksList());
         } catch (e: any) {
+            return rejectWithValue(e.response.data.error);
         }
     })
 

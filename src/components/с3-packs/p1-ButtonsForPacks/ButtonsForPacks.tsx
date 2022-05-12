@@ -1,7 +1,7 @@
 import Button from '@mui/material/Button'
 import ButtonsStyles from './ButtonsForPacks.module.css'
 import {useAppDispatch, useAppSelector} from "../../../Hooks/hooks";
-import {deletePackList} from "../../../store/reducers/PackListReducer";
+import {deletePackList} from "../../../store/reducers/s10_PackListReducer";
 
 type ButtonsForPacksPropsType = {
     packId?: string;

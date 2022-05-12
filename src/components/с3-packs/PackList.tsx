@@ -4,7 +4,7 @@ import {useDispatch} from "react-redux";
 import {Navigate} from "react-router-dom";
 import {Routers} from "../c1-main/routers";
 import {useAppDispatch, useAppSelector} from "../../Hooks/hooks";
-import {addPackList, getPacksList} from '../../store/reducers/PackListReducer';
+import {addPackList, getPacksList} from '../../store/reducers/s10_PackListReducer';
 import {Search} from "./p2-Search/Search";
 import {CustomTable} from "./Table/CustomTable";
 

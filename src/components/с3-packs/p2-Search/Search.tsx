@@ -1,5 +1,5 @@
 import React, {ChangeEvent, useEffect, useState} from "react";
-import {addPackList, setSearchValue} from "../../../store/reducers/PackListReducer";
+import {addPackList, setSearchValue} from "../../../store/reducers/s10_PackListReducer";
 import {useAppDispatch} from "../../../Hooks/hooks";
 
 export const Search = () => {
