@@ -13,13 +13,15 @@
     border: 1px;
 }
 
-.buttons > button {
+.packlistButton, .profileButton {
     height: 100%;
     width: 153px;
     border: 0;
     background: #EBE0E9;
     outline: none;
     cursor: pointer;
+    font-size: 15px;
+    font-weight: 300;
 }
 
 button:hover{
@@ -27,14 +29,20 @@ button:hover{
 }
 
 .active{
-    background: red;
+    height: 100%;
+    width: 153px;
+    border: 0;
+    background: #DCCCDB;
+    outline: none;
+    cursor: pointer;
+    border-bottom: 3px solid #21268F;
+    font-size: 15px;
+    font-weight: 300;
 }
 
 
-.packlistButton {
 
-}
 
-.profileButton {
 
-}
+
+
