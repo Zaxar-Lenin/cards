@@ -26,7 +26,7 @@ const InitialState: InitialStateType = {
         max: 0,
         sortPacks: '',
         page: 0,
-        pageCount: 100,
+        pageCount: 10,
         user_id: '',
     }
 

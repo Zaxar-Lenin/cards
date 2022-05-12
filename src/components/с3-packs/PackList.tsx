@@ -1,12 +1,12 @@
 import React, {useEffect} from 'react';
 import s from './PackList.module.css';
-import {useDispatch} from "react-redux";
 import {Navigate} from "react-router-dom";
 import {Routers} from "../c1-main/routers";
 import {useAppDispatch, useAppSelector} from "../../Hooks/hooks";
 import {addPackList, getPacksList} from '../../store/reducers/PackListReducer';
 import {Search} from "./p2-Search/Search";
 import {CustomTable} from "./Table/CustomTable";
+import BasicPagination from "./Pagination/Pagination";
 
 export const PackList = () => {
 
@@ -49,7 +49,7 @@ export const PackList = () => {
                     <span><button onClick={addPackClickHandler}>Add new pack</button></span>
                 </div>
                 <div className={s.packlistTable}><CustomTable/></div>
-                <div className={s.packlistPagination}>здесь пагинация</div>
+                <div className={s.packlistPagination}><BasicPagination/></div>
             </div>
         </div>
     );
