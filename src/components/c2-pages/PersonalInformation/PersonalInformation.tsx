@@ -83,7 +83,9 @@ export const PersonalInformation = () => {
                             size="small"
                             onClick={handlerCancelButton}>
                         Cancel</Button>
-                    <Button variant="contained"
+                    <Button
+                        type = {"submit"}
+                        variant="contained"
                             sx={{
                                 borderRadius: '15px',
                                 width: '120px',
@@ -91,8 +93,7 @@ export const PersonalInformation = () => {
                                 textTransform: 'initial',
                                 fontSize: '14px'
                             }}
-                            size="small"
-                            onClick={handlerCancelButton}>
+                            size="small">
                         Save</Button>
                 </div>
             </form>
