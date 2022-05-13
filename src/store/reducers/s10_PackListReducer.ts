@@ -16,10 +16,14 @@ export type InitialStateType = {
     cardPacksTotalCount: number | null,
     cardPacks: PackCards[],
     queryParams: GetParamsType,
+    maxCardsCount: number,
+    minCardsCount: number
 
 }
 
 const InitialState: InitialStateType = {
+    maxCardsCount: 0,
+    minCardsCount: 0,
     cardPacksTotalCount: null,
     cardPacks: [],
     queryParams: {
@@ -37,11 +41,12 @@ const InitialState: InitialStateType = {
 
 export const getPacksList = createAsyncThunk(
     'packList/getPacksList',
-    async (_, {dispatch,getState,rejectWithValue}) => {
+    async (_, {dispatch, getState, rejectWithValue}) => {
         try {
             const store = getState() as RootState;
             const res = await packAPI.getPackList(store.packList.queryParams);
             dispatch(setTotalCount(res.cardPacksTotalCount))
+            dispatch(setMaxCardsCount(res.maxCardsCount))
             return res;
         } catch (e: any) {
             return rejectWithValue(e.response.data.error);
@@ -98,8 +103,15 @@ const packSlice = createSlice({
             state.queryParams.page = action.payload;
 
         },
-        updateSortPacks(state: InitialStateType,action: PayloadAction<string>){
+        updateSortPacks(state: InitialStateType, action: PayloadAction<string>) {
             state.queryParams.sortPacks = action.payload
+        },
+        setMinMaxValue: (state, action: PayloadAction<{ value: number[] }>) => {
+            state.queryParams.min = action.payload.value[0]
+            state.queryParams.max = action.payload.value[1]
+        },
+        setMaxCardsCount: (state, action: PayloadAction<number>) => {
+            state.maxCardsCount = action.payload
         }
     },
     extraReducers: (builder) => {
@@ -110,5 +122,5 @@ const packSlice = createSlice({
 })
 
 
-export const {setTotalCount, setSearchValue, updateSortPacks, setPage,setPageCount} = packSlice.actions
+export const {setTotalCount, setSearchValue, updateSortPacks, setPage, setPageCount, setMinMaxValue, setMaxCardsCount} = packSlice.actions
 export const packReducer = packSlice.reducer

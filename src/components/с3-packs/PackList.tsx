@@ -1,12 +1,13 @@
 import React, {useEffect} from 'react';
 import s from './PackList.module.css';
-import {Navigate} from "react-router-dom";
-import {Routers} from "../c1-main/routers";
-import {useAppDispatch, useAppSelector} from "../../Hooks/hooks";
+import {Navigate} from 'react-router-dom';
+import {Routers} from '../c1-main/routers';
+import {useAppDispatch, useAppSelector} from '../../Hooks/hooks';
 import {addPackList, getPacksList} from '../../store/reducers/s10_PackListReducer';
-import {Search} from "./p2-Search/Search";
-import {CustomTable} from "./Table/CustomTable";
-import BasicPagination from "./Pagination/Pagination";
+import {Search} from './p2-Search/Search';
+import {CustomTable} from './Table/CustomTable';
+import BasicPagination from './Pagination/Pagination';
+import {Range} from '../../Assets/Range/Range';
 
 export const PackList = () => {
 
@@ -15,18 +16,20 @@ export const PackList = () => {
     const sortPacks = useAppSelector(state => state.packList.queryParams.sortPacks)
     const page = useAppSelector(state => state.packList.queryParams.page)
     const amountPacks = useAppSelector(state => state.packList.queryParams.pageCount)
+    const min = useAppSelector(state => state.packList.queryParams.min)
+    const max = useAppSelector(state => state.packList.queryParams.max)
 
     const dispatch = useAppDispatch()
 
     useEffect(() => {
         dispatch(getPacksList());
-    }, [packName, sortPacks,page,amountPacks]);
+    }, [packName, sortPacks, page, amountPacks, min, max]);
 
     const addPackClickHandler = () => {
         dispatch(addPackList({}));
     }
 
-    if (!isLoggedIn){
+    if (!isLoggedIn) {
         return <Navigate to={Routers.LOGIN}/>
     }
     return (
@@ -41,7 +44,8 @@ export const PackList = () => {
                 </div>
                 <div className={s.optionsRange}>
                     <span>Number of cards</span>
-                    <div>RANGERANGERARANG</div>
+                    {/*<div>RANGERANGERARANG</div>*/}
+                    <div><Range min={min} max={max}/></div>
                 </div>
             </div>
             <div className={s.packList}>
