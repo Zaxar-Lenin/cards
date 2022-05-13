@@ -1,0 +1,11 @@
+.pagination {
+    display: flex;
+    align-items: center;
+}
+
+.select {
+    width: 300px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}

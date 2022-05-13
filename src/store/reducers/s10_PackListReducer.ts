@@ -85,6 +85,10 @@ const packSlice = createSlice({
             state.queryParams.packName = action.payload;
 
         },
+        setPageCount: (state, action: PayloadAction<number>) => {
+            state.queryParams.pageCount = action.payload;
+
+        },
         setTotalCount: (state, action: PayloadAction<number>) => {
             state.cardPacksTotalCount = action.payload;
 
@@ -105,5 +109,5 @@ const packSlice = createSlice({
 })
 
 
-export const {setTotalCount, setSearchValue, updateSortPacks, setPage} = packSlice.actions
+export const {setTotalCount, setSearchValue, updateSortPacks, setPage,setPageCount} = packSlice.actions
 export const packReducer = packSlice.reducer

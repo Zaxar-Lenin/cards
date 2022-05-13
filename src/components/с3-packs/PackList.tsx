@@ -14,12 +14,13 @@ export const PackList = () => {
     const packName = useAppSelector(state => state.packList.queryParams.packName)
     const sortPacks = useAppSelector(state => state.packList.queryParams.sortPacks)
     const page = useAppSelector(state => state.packList.queryParams.page)
+    const amountPacks = useAppSelector(state => state.packList.queryParams.pageCount)
 
     const dispatch = useAppDispatch()
 
     useEffect(() => {
         dispatch(getPacksList());
-    }, [packName, sortPacks,page]);
+    }, [packName, sortPacks,page,amountPacks]);
 
     const addPackClickHandler = () => {
         dispatch(addPackList({}));
