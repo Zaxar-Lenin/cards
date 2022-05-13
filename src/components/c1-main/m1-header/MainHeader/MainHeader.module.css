@@ -44,6 +44,16 @@ button:hover{
     /*padding-left: 15px;*/
 }
 
+.logo {
+    position: absolute;
+    left: 6%;
+}
+
+.logo img{
+    width: 35px;
+    height: 35px;
+}
+
 
 
 

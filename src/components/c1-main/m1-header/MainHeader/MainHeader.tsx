@@ -4,6 +4,9 @@ import {useLocation, useNavigate} from 'react-router-dom';
 import LogoutIcon from '@mui/icons-material/Logout';
 import {useAppDispatch} from '../../../../Hooks/hooks';
 import {logOut} from '../../../../store/reducers/s1_LoginReducer';
+import chiken from '../../../../Assets/img/pngwing.com.png';
+
+const logo = chiken;
 
 export const MainHeader = () => {
 
@@ -44,6 +47,9 @@ export const MainHeader = () => {
     return (
         <div className={s.headerStyle}>
             <div className={s.buttons}>
+                <div className={s.logo}>
+                    <img src={chiken}/>
+                </div>
                 <button onClick={onPacksListHandler} className={style.packlist ? s.active : s.packlistButton}>Pack
                     list
                 </button>
