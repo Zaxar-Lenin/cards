@@ -10,7 +10,7 @@ import {useAppDispatch, useAppSelector} from '../../../Hooks/hooks';
 import {ButtonsForPacks} from "../p1-ButtonsForPacks/ButtonsForPacks";
 import s from "./Table.module.css"
 import {useDispatch} from "react-redux";
-import {getPacksList, updateSortPacks} from "../../../store/reducers/PackListReducer";
+import {getPacksList, updateSortPacks} from "../../../store/reducers/s10_PackListReducer";
 
 
 export const CustomTable = () => {

@@ -13,19 +13,21 @@ export type Query = {
 }
 
 export type InitialStateType = {
+    cardPacksTotalCount: number | null,
     cardPacks: PackCrards[],
     queryParams: GetParamsType,
 
 }
 
 const InitialState: InitialStateType = {
+    cardPacksTotalCount: null,
     cardPacks: [],
     queryParams: {
         packName: '',
         min: 0,
         max: 0,
         sortPacks: '',
-        page: 0,
+        page: 1,
         pageCount: 10,
         user_id: '',
     }
@@ -35,10 +37,11 @@ const InitialState: InitialStateType = {
 
 export const getPacksList = createAsyncThunk(
     'packList/getPacksList',
-    async (_, {dispatch,getState,rejectWithValue}) => {
+    async (_, {dispatch, getState, rejectWithValue}) => {
         try {
             const store = getState() as RootState;
             const res = await packAPI.getPackList(store.packList.queryParams);
+            dispatch(setTotalCount(res.cardPacksTotalCount))
             return res;
         } catch (e: any) {
             return rejectWithValue(e.response.data.error);
@@ -82,7 +85,15 @@ const packSlice = createSlice({
             state.queryParams.packName = action.payload;
 
         },
-        updateSortPacks(state: InitialStateType,action: PayloadAction<string>){
+        setTotalCount: (state, action: PayloadAction<number>) => {
+            state.cardPacksTotalCount = action.payload;
+
+        },
+        setPage: (state, action: PayloadAction<number>) => {
+            state.queryParams.page = action.payload;
+
+        },
+        updateSortPacks(state: InitialStateType, action: PayloadAction<string>) {
             state.queryParams.sortPacks = action.payload
         }
     },
@@ -94,5 +105,5 @@ const packSlice = createSlice({
 })
 
 
-export const {setSearchValue,updateSortPacks} = packSlice.actions
+export const {setTotalCount, setSearchValue, updateSortPacks, setPage} = packSlice.actions
 export const packReducer = packSlice.reducer

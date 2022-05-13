@@ -3,7 +3,7 @@ import s from './PackList.module.css';
 import {Navigate} from "react-router-dom";
 import {Routers} from "../c1-main/routers";
 import {useAppDispatch, useAppSelector} from "../../Hooks/hooks";
-import {addPackList, getPacksList} from '../../store/reducers/PackListReducer';
+import {addPackList, getPacksList} from '../../store/reducers/s10_PackListReducer';
 import {Search} from "./p2-Search/Search";
 import {CustomTable} from "./Table/CustomTable";
 import BasicPagination from "./Pagination/Pagination";
@@ -13,12 +13,13 @@ export const PackList = () => {
     const isLoggedIn = useAppSelector(state => state.login.isLoggedIn)
     const packName = useAppSelector(state => state.packList.queryParams.packName)
     const sortPacks = useAppSelector(state => state.packList.queryParams.sortPacks)
+    const page = useAppSelector(state => state.packList.queryParams.page)
 
     const dispatch = useAppDispatch()
 
     useEffect(() => {
         dispatch(getPacksList());
-    }, [packName, sortPacks]);
+    }, [packName, sortPacks,page]);
 
     const addPackClickHandler = () => {
         dispatch(addPackList({}));
