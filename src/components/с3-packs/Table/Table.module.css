@@ -8,6 +8,15 @@
     border-top: 10px solid green;
 }
 
+.sort2 span:after{
+    content: "";
+    height: 5px;
+    width: 5px;
+    border-radius: 50%;
+    background-color: #000;
+
+}
+
 .sort0 span:after {
     content: "";
     border: 10px solid transparent;

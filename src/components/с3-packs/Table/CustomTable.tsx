@@ -10,7 +10,7 @@ import {useAppDispatch, useAppSelector} from '../../../Hooks/hooks';
 import {ButtonsForPacks} from "../p1-ButtonsForPacks/ButtonsForPacks";
 import s from "./Table.module.css"
 import {useDispatch} from "react-redux";
-import {getPacksList, updateSortPacks} from "../../../store/reducers/PackListReducer";
+import {getPacksList, updateSortPacks} from "../../../store/reducers/s10_PackListReducer";
 
 
 export const CustomTable = () => {
@@ -27,17 +27,24 @@ export const CustomTable = () => {
 
     const sortHandler = (name: string) => {
         let number = sortPacks.slice(0, 1)
-        if (number === "0") {
+        if (number === "") {
             dispatch(updateSortPacks("1" + name))
-        } else {
+        } else if(number === "1") {
             dispatch(updateSortPacks("0" + name))
+        }else{
+            dispatch(updateSortPacks("1" + name))
         }
-        console.log(sortPacks)
 
     }
 
     const classChange = (name: string) => {
-        return `${s.sort} ${("0" + name) === sortPacks ? s.sort0 : s.sort1}`
+        if(sortPacks === ''){
+            return `${s.sort} ${s.sort2}`
+        }
+        else {
+            return `${s.sort} ${s.sort2}`
+        }
+
     }
 
 

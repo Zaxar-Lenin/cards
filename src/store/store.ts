@@ -9,7 +9,7 @@ import {passRecovReducer} from './reducers/s7_PassRecovReducer';
 import {configureStore} from '@reduxjs/toolkit';
 import {registrationReducer} from "./reducers/s8_RegistrationReducer";
 import {loader} from './reducers/s9-AppReducer';
-import {packReducer} from "./reducers/PackListReducer";
+import {packReducer} from "./reducers/s10_PackListReducer";
 
 const rootReducer = combineReducers({
     login: loginReducer,
