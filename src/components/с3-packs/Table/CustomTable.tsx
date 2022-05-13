@@ -9,7 +9,9 @@ import Paper from '@mui/material/Paper';
 import {useAppDispatch, useAppSelector} from '../../../Hooks/hooks';
 import {ButtonsForPacks} from "../p1-ButtonsForPacks/ButtonsForPacks";
 import s from "./Table.module.css"
-import {useDispatch} from "react-redux";
+import {updateSortPacks} from "../../../store/reducers/s10_PackListReducer";
+import {setPackId} from "../../../store/reducers/s11_CardsListReducer";
+import {useNavigate} from "react-router-dom";
 import {getPacksList, updateSortPacks} from "../../../store/reducers/s10_PackListReducer";
 
 
@@ -19,10 +21,16 @@ export const CustomTable = () => {
 
     const sortPacks = useAppSelector(state => state.packList.queryParams.sortPacks)
 
+    const navigate = useNavigate();
+
     const dispatch = useAppDispatch()
 
     const CorrectData = (data: string): string => {
         return data.slice(0, 10).split('-').reverse().join('.');
+    }
+    const showCardsHandler = (cardsPackId: string) => {
+        dispatch(setPackId(cardsPackId));
+        navigate('/cardspack');
     }
 
     const sortHandler = (name: string) => {
@@ -38,13 +46,7 @@ export const CustomTable = () => {
     }
 
     const classChange = (name: string) => {
-        if(sortPacks === ''){
-            return `${s.sort} ${s.sort2}`
-        }
-        else {
-            return `${s.sort} ${s.sort2}`
-        }
-
+        return `${s.sort} ${("0" + name) === sortPacks ? s.sort0 : s.sort1}`
     }
 
 
@@ -88,7 +90,7 @@ export const CustomTable = () => {
                             key={row._id}
                             sx={{'&:last-child td, &:last-child th': {border: 0}}}
                         >
-                            <TableCell component="th" scope="row">
+                            <TableCell component="th" scope="row" onClick={() => showCardsHandler(row._id)}>
                                 {row.name}
                             </TableCell>
                             <TableCell align="right">{row.cardsCount}</TableCell>

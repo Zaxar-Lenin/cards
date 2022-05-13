@@ -1,5 +1,5 @@
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {DeleteParamsType, GetParamsType, packAPI, PackCrards, PostParamsType} from '../../API/packAPI';
+import {DeleteParamsType, GetParamsType, packAPI, PackCards, PostParamsType} from '../../API/packAPI';
 import {RootState} from '../store';
 
 export type Query = {
@@ -14,7 +14,7 @@ export type Query = {
 
 export type InitialStateType = {
     cardPacksTotalCount: number | null,
-    cardPacks: PackCrards[],
+    cardPacks: PackCards[],
     queryParams: GetParamsType,
 
 }
@@ -37,7 +37,7 @@ const InitialState: InitialStateType = {
 
 export const getPacksList = createAsyncThunk(
     'packList/getPacksList',
-    async (_, {dispatch, getState, rejectWithValue}) => {
+    async (_, {dispatch,getState,rejectWithValue}) => {
         try {
             const store = getState() as RootState;
             const res = await packAPI.getPackList(store.packList.queryParams);
@@ -61,7 +61,7 @@ export const addPackList = createAsyncThunk(
             )
             dispatch(getPacksList());
         } catch (e: any) {
-
+            return rejectWithValue(e.response.data.error);
         }
     }
 )
@@ -73,6 +73,7 @@ export const deletePackList = createAsyncThunk(
             await packAPI.deletePackList({id: data.id});
             dispatch(getPacksList());
         } catch (e: any) {
+            return rejectWithValue(e.response.data.error);
         }
     })
 
@@ -97,7 +98,7 @@ const packSlice = createSlice({
             state.queryParams.page = action.payload;
 
         },
-        updateSortPacks(state: InitialStateType, action: PayloadAction<string>) {
+        updateSortPacks(state: InitialStateType,action: PayloadAction<string>){
             state.queryParams.sortPacks = action.payload
         }
     },

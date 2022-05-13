@@ -1,7 +1,7 @@
 import {instance} from "./instance";
 
 
-export type PackCrards = {
+export type PackCards = {
     cardsCount: number
     created: string
     grade: number
@@ -20,7 +20,7 @@ export type PackCrards = {
 }
 
 export type PackLists = {
-    cardPacks: PackCrards[],
+    cardPacks: PackCards[],
     cardPacksTotalCount: number,
     maxCardsCount: number,
     minCardsCount: number,

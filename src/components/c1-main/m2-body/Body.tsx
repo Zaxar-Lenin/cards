@@ -6,7 +6,6 @@ import PasswordRecov from './b7-passwordRecov/PasswordRecov';
 import LogOut from './b2-logOut/LogOut';
 import Error from './b5-error/Error';
 import Profile from '../../c2-pages/Profile/Profile';
-import Test from './b4-test/Test';
 import PasswordEntering from './b6-passwordEntering/PasswordEntering';
 import {SignIn} from '../../c2-pages/Login/SignInPage/SignIn';
 import {SendEmailWindow} from '../../c2-pages/Login/EmailSendWindow/SendEmailWindow';
@@ -16,6 +15,7 @@ import {PersonalInformation} from "../../c2-pages/PersonalInformation/PersonalIn
 import {Registration} from "../../c2-pages/Registration/Registration";
 import {PackList} from '../../с3-packs/PackList';
 import {ButtonsForPacks} from "../../с3-packs/p1-ButtonsForPacks/ButtonsForPacks";
+import {CardsTable} from "../../с3-packs/p3-CardsTable/CardsTable";
 
 function Body() {
     return (
@@ -32,6 +32,7 @@ function Body() {
                 <Route path = {Routers.ERROR} element={<Error/>}/>
                 <Route path = {Routers.PROFILE} element={<Profile/>}/>
                 <Route path = {Routers.TEST} element={<ButtonsForPacks/>}/>
+                <Route path = {Routers.CARDS_PACK} element={<CardsTable/>}/>
                 <Route path = {Routers.ENTERING_NEW_PASS} element={<PasswordEntering/>}/>
                 <Route path = {Routers.PASS_RECOV} element={<PasswordRecov/>}/>
                 <Route path = {Routers.PERSONAL_INFORMATION} element={<PersonalInformation/>}/>
