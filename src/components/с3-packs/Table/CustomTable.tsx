@@ -12,7 +12,6 @@ import s from "./Table.module.css"
 import {updateSortPacks} from "../../../store/reducers/s10_PackListReducer";
 import {setPackId} from "../../../store/reducers/s11_CardsListReducer";
 import {useNavigate} from "react-router-dom";
-import {getPacksList, updateSortPacks} from "../../../store/reducers/s10_PackListReducer";
 
 
 export const CustomTable = () => {
