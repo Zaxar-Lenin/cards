@@ -48,7 +48,7 @@ export const PackList = () => {
                 <h3>Pack list</h3>
                 <div className={s.packlistSearch}>
                     <Search/>
-                    <span><button onClick={addPackClickHandler}>Add new pack</button></span>
+                    <span><button style={{cursor: "pointer"}} onClick={addPackClickHandler}>Add new pack</button></span>
                 </div>
                 <div className={s.packlistTable}><CustomTable/></div>
                 <div className={s.packlistPagination}><BasicPagination/></div>

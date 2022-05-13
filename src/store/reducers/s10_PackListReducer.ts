@@ -59,6 +59,7 @@ export const addPackList = createAsyncThunk(
                     private: data.private
                 }
             )
+            dispatch(setPage(1))
             dispatch(getPacksList());
         } catch (e: any) {
             return rejectWithValue(e.response.data.error);

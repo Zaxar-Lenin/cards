@@ -89,7 +89,7 @@ export const CustomTable = () => {
                             key={row._id}
                             sx={{'&:last-child td, &:last-child th': {border: 0}}}
                         >
-                            <TableCell component="th" scope="row" onClick={() => showCardsHandler(row._id)}>
+                            <TableCell style={{cursor: "pointer"}} component="th" scope="row" onClick={() => showCardsHandler(row._id)}>
                                 {row.name}
                             </TableCell>
                             <TableCell align="right">{row.cardsCount}</TableCell>

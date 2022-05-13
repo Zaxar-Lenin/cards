@@ -8,7 +8,9 @@ import Paper from '@mui/material/Paper';
 import Rating from '@mui/material/Rating';
 import {useAppDispatch, useAppSelector} from "../../../Hooks/hooks";
 import {getCardsList, putCardsList} from "../../../store/reducers/s11_CardsListReducer";
-import {SyntheticEvent, useEffect, useState} from "react";
+import React, {SyntheticEvent, useEffect, useState} from "react";
+import {Navigate} from "react-router-dom";
+import {Routers} from "../../c1-main/routers";
 
 
 
@@ -16,6 +18,7 @@ export const CardsTable = () => {
     const dispatch = useAppDispatch();
     const cardsList = useAppSelector(store => store.cardsList.cardList);
     const userId = useAppSelector(store => store.profile.profile._id);
+    const isLoggedIn = useAppSelector(state => state.login.isLoggedIn)
 
     useEffect(() => {
         dispatch(getCardsList());
@@ -25,7 +28,9 @@ export const CardsTable = () => {
         return data.slice(0, 10).split('-').reverse().join('.');
     }
 
-
+    if (!isLoggedIn){
+        return <Navigate to={Routers.LOGIN}/>
+    }
 
     return (
         <TableContainer component={Paper}>
