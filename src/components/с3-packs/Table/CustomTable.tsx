@@ -10,26 +10,26 @@ import {useAppDispatch, useAppSelector} from '../../../Hooks/hooks';
 import {ButtonsForPacks} from "../p1-ButtonsForPacks/ButtonsForPacks";
 import s from "./Table.module.css"
 import {updateSortPacks} from "../../../store/reducers/s10_PackListReducer";
-import {setPackId} from "../../../store/reducers/s11_CardsListReducer";
+import {getCardsList} from "../../../store/reducers/s11_CardsListReducer";
 import {useNavigate} from "react-router-dom";
 
 
 export const CustomTable = () => {
 
-    const cardPacks = useAppSelector(state => state.packList.cardPacks)
+    const cardPacks = useAppSelector(state => state.packList.cardPacks);
 
-    const sortPacks = useAppSelector(state => state.packList.queryParams.sortPacks)
+    const sortPacks = useAppSelector(state => state.packList.queryParams.sortPacks);
 
     const navigate = useNavigate();
 
-    const dispatch = useAppDispatch()
+    const dispatch = useAppDispatch();
 
     const CorrectData = (data: string): string => {
         return data.slice(0, 10).split('-').reverse().join('.');
     }
     const showCardsHandler = (cardsPackId: string) => {
-        dispatch(setPackId(cardsPackId));
-        navigate('/cardspack');
+        dispatch(getCardsList({cardsPack_id: cardsPackId}));
+        navigate(`/cardspack/${cardsPackId}`);
     }
 
     const sortHandler = (name: string) => {

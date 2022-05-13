@@ -7,25 +7,24 @@ import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Rating from '@mui/material/Rating';
 import {useAppDispatch, useAppSelector} from "../../../Hooks/hooks";
-import {getCardsList, putCardsList} from "../../../store/reducers/s11_CardsListReducer";
-import {SyntheticEvent, useEffect, useState} from "react";
-
+import {getCardsList, postCard, putCardsList} from "../../../store/reducers/s11_CardsListReducer";
+import {useEffect} from "react";
+import {useParams} from "react-router-dom";
 
 
 export const CardsTable = () => {
     const dispatch = useAppDispatch();
     const cardsList = useAppSelector(store => store.cardsList.cardList);
     const userId = useAppSelector(store => store.profile.profile._id);
+    const params = useParams<{ packId: string }>();
 
     useEffect(() => {
-        dispatch(getCardsList());
+        dispatch(getCardsList({cardsPack_id: params.packId}));
     }, []);
 
     const CorrectData = (data: string): string => {
         return data.slice(0, 10).split('-').reverse().join('.');
     }
-
-
 
     return (
         <TableContainer component={Paper}>
@@ -51,15 +50,15 @@ export const CardsTable = () => {
                             <TableCell align="left">{CorrectData(card.updated)}</TableCell>
                             <TableCell align="left">
                                 {userId !== cardsList.packUserId ?
-                                <Rating name="read-only" value={card.grade} readOnly /> :
-                                <Rating
-                                name="simple-controlled"
-                                value={card.grade}
-                                onChange={(event, newValue) => {
-                                    dispatch(putCardsList({_id: card._id, grade: newValue as number}));
-                                }}
-                            />}
-                                </TableCell>
+                                    <Rating name="read-only" value={card.grade} readOnly/> :
+                                    <Rating
+                                        name="simple-controlled"
+                                        value={card.grade}
+                                        onChange={(event, newValue) => {
+                                            dispatch(putCardsList({_id: card._id, grade: newValue as number}));
+                                        }}
+                                    />}
+                            </TableCell>
                         </TableRow>
                     ))}
                 </TableBody>

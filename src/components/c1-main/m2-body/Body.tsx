@@ -32,7 +32,7 @@ function Body() {
                 <Route path = {Routers.ERROR} element={<Error/>}/>
                 <Route path = {Routers.PROFILE} element={<Profile/>}/>
                 <Route path = {Routers.TEST} element={<ButtonsForPacks/>}/>
-                <Route path = {Routers.CARDS_PACK} element={<CardsTable/>}/>
+                <Route path = {`${Routers.CARDS_PACK}/:packId`} element={<CardsTable/>}/>
                 <Route path = {Routers.ENTERING_NEW_PASS} element={<PasswordEntering/>}/>
                 <Route path = {Routers.PASS_RECOV} element={<PasswordRecov/>}/>
                 <Route path = {Routers.PERSONAL_INFORMATION} element={<PersonalInformation/>}/>

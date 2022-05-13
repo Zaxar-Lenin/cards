@@ -1,4 +1,11 @@
-import {cardsAPI, CardsListType, CardType, GetCardsParamsType, PutCardParamsType} from "../../API/cardsAPI";
+import {
+    cardsAPI,
+    CardsListType,
+    CardType,
+    GetCardsParamsType,
+    PostCardParamsType,
+    PutCardParamsType
+} from "../../API/cardsAPI";
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {RootState} from "../store";
 
@@ -31,13 +38,45 @@ const InitialState: InitialStateType = {
 
 export const getCardsList = createAsyncThunk(
     'cards/getCardsList',
-    async (_, {dispatch, getState, rejectWithValue}) => {
+    async (params: Partial<GetCardsParamsType>, {dispatch, getState, rejectWithValue}) => {
         try {
             const store = getState() as RootState;
-            const res = await cardsAPI.getCardsList(store.cardsList.queryParams);
+            const queryParams = store.cardsList.queryParams;
+            const res = await cardsAPI.getCardsList({
+                cardAnswer: queryParams.cardAnswer,
+                cardQuestion: queryParams.cardQuestion,
+                cardsPack_id: params.cardsPack_id ?  params.cardsPack_id : queryParams.cardsPack_id,
+                min: queryParams.min,
+                max: queryParams.max,
+                sortCards: queryParams.sortCards,
+                page: queryParams.page,
+                pageCount: queryParams.pageCount
+            });
             return res;
         } catch (e: any) {
             return rejectWithValue(e.response.data.error);
+        }
+    }
+)
+
+export const postCard = createAsyncThunk(
+    'cards/postCard',
+    async (data: PostCardParamsType, {dispatch, rejectWithValue}) => {
+        try {
+            await cardsAPI.postCard({
+                cardsPack_id: data.cardsPack_id,
+                question: data.question ? data.question : "no question",
+                answer: data.answer ? data.answer : "no answer",
+                grade: data.grade,
+                shots: data.shots,
+                answerImg: data.answerImg,
+                questionImg: data.questionImg,
+                questionVideo: data.questionVideo,
+                answerVideo: data.answerVideo
+            })
+            //dispatch(getCardsList({}));
+        } catch (e: any) {
+
         }
     }
 )
@@ -47,7 +86,7 @@ export const putCardsList = createAsyncThunk(
     async (data: PutCardParamsType, {dispatch, rejectWithValue}) => {
         try {
             await cardsAPI.putCard({_id: data._id, grade: data.grade});
-            //dispatch(getCardsList());
+            dispatch(getCardsList({}));
         } catch (e: any) {
             return rejectWithValue(e.response.data.error);
         }
