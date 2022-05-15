@@ -1,6 +1,7 @@
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {DeleteParamsType, GetParamsType, packAPI, PackCards, PostParamsType} from '../../API/packAPI';
 import {RootState} from '../store';
+import {setisLoading} from './s9-AppReducer';
 
 export type Query = {
     cardPacksTotalCount: number | null,
@@ -41,15 +42,19 @@ const InitialState: InitialStateType = {
 
 export const getPacksList = createAsyncThunk(
     'packList/getPacksList',
-    async (_, {dispatch, getState, rejectWithValue}) => {
+    async (paramsId: string = '', {dispatch, getState, rejectWithValue}) => {
         try {
+            dispatch(setisLoading({value:true}))
             const store = getState() as RootState;
-            const res = await packAPI.getPackList(store.packList.queryParams);
+            const res = await packAPI.getPackList({ ...store.packList.queryParams, user_id: paramsId,});
             dispatch(setTotalCount(res.cardPacksTotalCount))
             dispatch(setMaxCardsCount(res.maxCardsCount))
             return res;
         } catch (e: any) {
             return rejectWithValue(e.response.data.error);
+        }
+        finally {
+            dispatch(setisLoading({value:false}))
         }
     })
 
@@ -64,7 +69,7 @@ export const addPackList = createAsyncThunk(
                     private: data.private
                 }
             )
-            dispatch(getPacksList());
+            dispatch(getPacksList(''));
         } catch (e: any) {
             return rejectWithValue(e.response.data.error);
         }
@@ -76,7 +81,7 @@ export const deletePackList = createAsyncThunk(
     async (data: DeleteParamsType, {dispatch, rejectWithValue}) => {
         try {
             await packAPI.deletePackList({id: data.id});
-            dispatch(getPacksList());
+            dispatch(getPacksList(''));
         } catch (e: any) {
             return rejectWithValue(e.response.data.error);
         }
@@ -112,6 +117,9 @@ const packSlice = createSlice({
         },
         setMaxCardsCount: (state, action: PayloadAction<number>) => {
             state.maxCardsCount = action.payload
+        },
+        setId: (state, action: PayloadAction<string>) => {
+            state.queryParams.user_id = action.payload
         }
     },
     extraReducers: (builder) => {
@@ -122,5 +130,5 @@ const packSlice = createSlice({
 })
 
 
-export const {setTotalCount, setSearchValue, updateSortPacks, setPage, setPageCount, setMinMaxValue, setMaxCardsCount} = packSlice.actions
+export const {setTotalCount, setSearchValue, updateSortPacks, setPage, setPageCount, setMinMaxValue, setMaxCardsCount, setId} = packSlice.actions
 export const packReducer = packSlice.reducer

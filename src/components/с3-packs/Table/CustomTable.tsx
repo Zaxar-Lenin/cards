@@ -11,7 +11,8 @@ import {ButtonsForPacks} from "../p1-ButtonsForPacks/ButtonsForPacks";
 import s from "./Table.module.css"
 import {updateSortPacks} from "../../../store/reducers/s10_PackListReducer";
 import {getCardsList} from "../../../store/reducers/s11_CardsListReducer";
-import {useNavigate} from "react-router-dom";
+import {Navigate, useNavigate} from 'react-router-dom';
+import {Routers} from '../../c1-main/routers';
 
 
 export const CustomTable = () => {
@@ -47,6 +48,7 @@ export const CustomTable = () => {
     const classChange = (name: string) => {
         return `${s.sort} ${("0" + name) === sortPacks ? s.sort0 : s.sort1}`
     }
+
 
 
     return (

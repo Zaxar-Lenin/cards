@@ -8,6 +8,7 @@ import {
 } from "../../API/cardsAPI";
 import {createAsyncThunk, createSlice, PayloadAction} from "@reduxjs/toolkit";
 import {RootState} from "../store";
+import {setisLoading} from './s9-AppReducer';
 
 export type InitialStateType = {
     cardList: CardsListType;
@@ -40,6 +41,7 @@ export const getCardsList = createAsyncThunk(
     'cards/getCardsList',
     async (params: Partial<GetCardsParamsType>, {dispatch, getState, rejectWithValue}) => {
         try {
+            dispatch(setisLoading({value:true}))
             const store = getState() as RootState;
             const queryParams = store.cardsList.queryParams;
             const res = await cardsAPI.getCardsList({
@@ -55,6 +57,9 @@ export const getCardsList = createAsyncThunk(
             return res;
         } catch (e: any) {
             return rejectWithValue(e.response.data.error);
+        }
+        finally {
+            dispatch(setisLoading({value:false}))
         }
     }
 )

@@ -9,7 +9,11 @@ import Rating from '@mui/material/Rating';
 import {useAppDispatch, useAppSelector} from "../../../Hooks/hooks";
 import {getCardsList, postCard, putCardsList} from "../../../store/reducers/s11_CardsListReducer";
 import {useEffect} from "react";
-import {useParams} from "react-router-dom";
+import {Navigate, useParams} from 'react-router-dom';
+import {Routers} from '../../c1-main/routers';
+import * as React from 'react';
+import s from '../PackList.module.css';
+import loadingPic from '../../../Assets/img/animated-chicken-image-0103.gif';
 
 
 export const CardsTable = () => {
@@ -17,6 +21,8 @@ export const CardsTable = () => {
     const cardsList = useAppSelector(store => store.cardsList.cardList);
     const userId = useAppSelector(store => store.profile.profile._id);
     const params = useParams<{ packId: string }>();
+    const isLoggedIn = useAppSelector(state => state.login.isLoggedIn);
+    const isLoading = useAppSelector(state => state.app.isLoading);
 
     useEffect(() => {
         dispatch(getCardsList({cardsPack_id: params.packId}));
@@ -25,6 +31,11 @@ export const CardsTable = () => {
     const CorrectData = (data: string): string => {
         return data.slice(0, 10).split('-').reverse().join('.');
     }
+
+    if (!isLoggedIn){
+        return <Navigate to={Routers.LOGIN}/>
+    }
+
 
     return (
         <TableContainer component={Paper}>
@@ -37,6 +48,7 @@ export const CardsTable = () => {
                         <TableCell align="left">Grade</TableCell>
                     </TableRow>
                 </TableHead>
+                {isLoading && <div className={s.logoPic}><img style={{marginLeft: '300px'}} src={loadingPic} alt=""/></div>}
                 <TableBody>
                     {cardsList.cards.map((card) => (
                         <TableRow
