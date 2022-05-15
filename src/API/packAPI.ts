@@ -36,7 +36,7 @@ export type GetParamsType = {
     sortPacks: string
     page: number
     pageCount: number
-    user_id: string
+    user_id: string | null
 }
 
 export type PostParamsType = {

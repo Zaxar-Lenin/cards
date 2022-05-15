@@ -13,15 +13,9 @@ import loadingPic from '../../Assets/img/animated-chicken-image-0103.gif'
 export const PackList = () => {
 
     const isLoggedIn = useAppSelector(state => state.login.isLoggedIn)
-    const packName = useAppSelector(state => state.packList.queryParams.packName)
-    const sortPacks = useAppSelector(state => state.packList.queryParams.sortPacks)
-    const page = useAppSelector(state => state.packList.queryParams.page)
-    const amountPacks = useAppSelector(state => state.packList.queryParams.pageCount)
-    const min = useAppSelector(state => state.packList.queryParams.min)
-    const max = useAppSelector(state => state.packList.queryParams.max)
     const isLoading = useAppSelector(state => state.app.isLoading)
     const userId = useAppSelector(store => store.profile.profile._id);
-    const currentId = useAppSelector(store=> store.packList.queryParams.user_id)
+    const {packName, sortPacks, page, pageCount, min, max, user_id} = useAppSelector(state => state.packList.queryParams)
 
     const dispatch = useAppDispatch()
 
@@ -29,7 +23,7 @@ export const PackList = () => {
 
     useEffect(() => {
         dispatch(getPacksList(searchParams.get('user_id') as string));
-    }, [packName, sortPacks, page, amountPacks, min, max, currentId]);
+    }, [packName, sortPacks, page, pageCount, min, max, user_id]);
 
     const addPackClickHandler = () => {
         dispatch(addPackList({}));

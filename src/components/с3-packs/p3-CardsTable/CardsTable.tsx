@@ -39,6 +39,7 @@ export const CardsTable = () => {
 
     return (
         <TableContainer component={Paper}>
+            {isLoading && <div className={s.logoPic}><img style={{marginLeft: '300px'}} src={loadingPic} alt=""/></div>}
             <Table sx={{minWidth: 650}} aria-label="simple table">
                 <TableHead>
                     <TableRow>
@@ -48,8 +49,9 @@ export const CardsTable = () => {
                         <TableCell align="left">Grade</TableCell>
                     </TableRow>
                 </TableHead>
-                {isLoading && <div className={s.logoPic}><img style={{marginLeft: '300px'}} src={loadingPic} alt=""/></div>}
+
                 <TableBody>
+
                     {cardsList.cards.map((card) => (
                         <TableRow
                             key={card._id}
