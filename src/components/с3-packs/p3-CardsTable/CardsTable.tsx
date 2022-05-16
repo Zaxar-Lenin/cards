@@ -18,11 +18,13 @@ import cardTableStyles from './CardsTable.module.css'
 import loadingPic from '../../../Assets/img/animated-chicken-image-0103.gif';
 import {ButtonsForCardsTable} from "../p4-ButtonsForCardsTable/ButtonsForCardsTable";
 import {Search} from "../p2-Search/Search";
+import {SearchForCardsTable} from "../p5-SearchForCardsTable.tsx/SearchForCardsTable";
 
 
 export const CardsTable = () => {
     const dispatch = useAppDispatch();
     const cardsList = useAppSelector(store => store.cardsList.cardList);
+    const question = useAppSelector(store => store.cardsList.queryParams.cardQuestion);
     const packName = useAppSelector(store => store.packList.queryParams.packName)
     const userId = useAppSelector(store => store.profile.profile._id);
     const isLoggedIn = useAppSelector(state => state.login.isLoggedIn);
@@ -31,7 +33,7 @@ export const CardsTable = () => {
 
     useEffect(() => {
         dispatch(getCardsList({cardsPack_id: params.packId}));
-    }, []);
+    }, [question]);
 
     const CorrectData = (data: string): string => {
         return data.slice(0, 10).split('-').reverse().join('.');
@@ -45,7 +47,7 @@ export const CardsTable = () => {
     return (
         <div className={cardTableStyles.mainClass}>
             <h1><KeyboardBackspaceIcon />Pack Name (change)</h1>
-            <div></div>
+            <div><Search table='cards'/></div>
             <TableContainer component={Paper}>
                 {isLoading &&
                 <div className={s.logoPic}><img style={{marginLeft: '300px'}} src={loadingPic} alt=""/></div>}
@@ -56,7 +58,7 @@ export const CardsTable = () => {
                             <TableCell align="left">Answer</TableCell>
                             <TableCell align="left">Last Updated</TableCell>
                             <TableCell align="left">Grade</TableCell>
-                            {userId === cardsList.packUserId && <TableCell align="left">ACtions</TableCell>}
+                            {userId === cardsList.packUserId && <TableCell align="left">Actions</TableCell>}
                         </TableRow>
                     </TableHead>
 

@@ -62,7 +62,7 @@ export const PackList = () => {
             <div className={s.packList}>
                 <h3>Pack list</h3>
                 <div className={s.packlistSearch}>
-                    <Search/>
+                    <Search table='packs'/>
                     <span><button onClick={addPackClickHandler}>Add new pack</button></span>
                 </div>
                 <div className={s.packlistTable}>

@@ -114,6 +114,9 @@ const cardsSlice = createSlice({
     reducers: {
         setPackId: (state, action: PayloadAction<string>) => {
             state.queryParams.cardsPack_id = action.payload;
+        },
+        setSearchCardsValue: (state, action:PayloadAction<string>) => {
+            state.queryParams.cardQuestion = action.payload;
         }
     },
     extraReducers: (builder) => {
@@ -123,5 +126,5 @@ const cardsSlice = createSlice({
     }
 })
 
-export const {setPackId} = cardsSlice.actions;
+export const {setPackId, setSearchCardsValue} = cardsSlice.actions;
 export const cardsReducer = cardsSlice.reducer;
