@@ -10,6 +10,6 @@ export const enum Routers {
     ENTERING_NEW_PASS = "/newpassword",
     TEST = "/test",
     PERSONAL_INFORMATION = "/personalInformation",
-    PACK_LIST = "/packlist",
+    PACK_LIST = "/packlist/:packId",
     CARDS_PACK = "/cardspack"
 }
