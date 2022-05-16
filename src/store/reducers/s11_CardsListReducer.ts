@@ -1,7 +1,7 @@
 import {
     cardsAPI,
     CardsListType,
-    CardType,
+    CardType, DeleteCardParamsType,
     GetCardsParamsType,
     PostCardParamsType,
     PutCardParamsType
@@ -41,13 +41,13 @@ export const getCardsList = createAsyncThunk(
     'cards/getCardsList',
     async (params: Partial<GetCardsParamsType>, {dispatch, getState, rejectWithValue}) => {
         try {
-            dispatch(setisLoading({value:true}))
+            dispatch(setisLoading({value: true}))
             const store = getState() as RootState;
             const queryParams = store.cardsList.queryParams;
             const res = await cardsAPI.getCardsList({
                 cardAnswer: queryParams.cardAnswer,
                 cardQuestion: queryParams.cardQuestion,
-                cardsPack_id: params.cardsPack_id ?  params.cardsPack_id : queryParams.cardsPack_id,
+                cardsPack_id: params.cardsPack_id ? params.cardsPack_id : queryParams.cardsPack_id,
                 min: queryParams.min,
                 max: queryParams.max,
                 sortCards: queryParams.sortCards,
@@ -57,9 +57,8 @@ export const getCardsList = createAsyncThunk(
             return res;
         } catch (e: any) {
             return rejectWithValue(e.response.data.error);
-        }
-        finally {
-            dispatch(setisLoading({value:false}))
+        } finally {
+            dispatch(setisLoading({value: false}))
         }
     }
 )
@@ -98,11 +97,22 @@ export const putCardsList = createAsyncThunk(
     }
 )
 
+export const deleteCard = createAsyncThunk(
+    'cards/deleteCard',
+    async (data: DeleteCardParamsType, {dispatch, rejectWithValue}) => {
+        try {
+            await cardsAPI.deleteCard({id: data.id});
+        } catch (e: any) {
+            return rejectWithValue(e.response.data.error);
+        }
+    }
+)
+
 const cardsSlice = createSlice({
     name: 'cards',
     initialState: InitialState,
     reducers: {
-        setPackId: (state, action:PayloadAction<string>) => {
+        setPackId: (state, action: PayloadAction<string>) => {
             state.queryParams.cardsPack_id = action.payload;
         }
     },

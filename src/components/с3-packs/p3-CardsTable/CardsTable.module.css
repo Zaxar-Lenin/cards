@@ -1,0 +1,6 @@
+.mainClass {
+    display: grid;
+    border-radius: 10px;
+    background-color: white;
+    grid-gap: 10px 10px;
+}

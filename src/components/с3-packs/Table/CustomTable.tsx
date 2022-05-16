@@ -10,9 +10,7 @@ import {useAppDispatch, useAppSelector} from '../../../Hooks/hooks';
 import {ButtonsForPacks} from "../p1-ButtonsForPacks/ButtonsForPacks";
 import s from "./Table.module.css"
 import {updateSortPacks} from "../../../store/reducers/s10_PackListReducer";
-import {getCardsList} from "../../../store/reducers/s11_CardsListReducer";
-import {Navigate, useNavigate} from 'react-router-dom';
-import {Routers} from '../../c1-main/routers';
+import {useNavigate} from 'react-router-dom';
 
 
 export const CustomTable = () => {
@@ -29,7 +27,6 @@ export const CustomTable = () => {
         return data.slice(0, 10).split('-').reverse().join('.');
     }
     const showCardsHandler = (cardsPackId: string) => {
-        dispatch(getCardsList({cardsPack_id: cardsPackId}));
         navigate(`/cardspack/${cardsPackId}`);
     }
 
