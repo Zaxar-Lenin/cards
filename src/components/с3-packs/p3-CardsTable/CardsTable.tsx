@@ -8,7 +8,7 @@ import Paper from '@mui/material/Paper';
 import Rating from '@mui/material/Rating';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import {useAppDispatch, useAppSelector} from "../../../Hooks/hooks";
-import {getCardsList, putCardsList} from "../../../store/reducers/s11_CardsListReducer";
+import {getCardsList} from "../../../store/reducers/s11_CardsListReducer";
 import * as React from "react";
 import {useEffect} from "react";
 import {Navigate, useParams} from 'react-router-dom';
@@ -18,7 +18,6 @@ import cardTableStyles from './CardsTable.module.css'
 import loadingPic from '../../../Assets/img/animated-chicken-image-0103.gif';
 import {ButtonsForCardsTable} from "../p4-ButtonsForCardsTable/ButtonsForCardsTable";
 import {Search} from "../p2-Search/Search";
-import {SearchForCardsTable} from "../p5-SearchForCardsTable.tsx/SearchForCardsTable";
 
 
 export const CardsTable = () => {
