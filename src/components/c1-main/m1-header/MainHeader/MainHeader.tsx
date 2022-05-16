@@ -20,7 +20,7 @@ export const MainHeader = () => {
     })
 
     useEffect(() => {
-        if (location.pathname === '/packlist' || '/cardspack') {
+        if (location.pathname === '/packlist') {
             setStyle({
                 packlist: true,
                 profile: false,

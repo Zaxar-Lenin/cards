@@ -1,0 +1,40 @@
+.container {
+    max-width: 350px;
+    max-height: 600px;
+    background: white;
+    margin: 60px auto 0;
+    border-radius: 8px;
+}
+
+.header {
+    display: flex;
+    justify-content: center;
+    padding-top: 25px;
+    padding-bottom: 25px;
+    font-weight: bold;
+}
+
+.contentBlock {
+    display: flex;
+    flex-direction: column;
+    justify-content: start;
+    align-items: start;
+}
+
+.questionBlock{
+    margin-left: 30px;
+    font-size: 14px;
+}
+
+.questionBlock span {
+    font-weight: bold;
+}
+
+.buttons{
+    display: flex;
+    justify-content: space-around;
+    width: 100%;
+    margin-top: 40px;
+    margin-bottom: 30px;
+
+}

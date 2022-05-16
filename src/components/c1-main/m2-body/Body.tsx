@@ -16,6 +16,7 @@ import {Registration} from "../../c2-pages/Registration/Registration";
 import {PackList} from '../../с3-packs/PackList';
 import {ButtonsForPacks} from "../../с3-packs/p1-ButtonsForPacks/ButtonsForPacks";
 import {CardsTable} from "../../с3-packs/p3-CardsTable/CardsTable";
+import {Learn} from '../../c4-learn/Learn/Learn';
 
 function Body() {
     return (
@@ -37,6 +38,7 @@ function Body() {
                 <Route path = {Routers.PASS_RECOV} element={<PasswordRecov/>}/>
                 <Route path = {Routers.PERSONAL_INFORMATION} element={<PersonalInformation/>}/>
                 <Route path = {Routers.PACK_LIST} element={<PackList/>}/>
+                <Route path = {Routers.LEARN} element={<Learn/>}/>
             </Routes>
         </div>
     );

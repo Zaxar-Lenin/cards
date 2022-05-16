@@ -23,7 +23,7 @@ export const LoginForm = () => {
 
     const formik = useFormik({
         initialValues: {
-            email: 'petuhalkonaftov@mail.ru',
+            email: 'testforcardproject@list.ru',
             password: '12345678',
             rememberme: false
         },

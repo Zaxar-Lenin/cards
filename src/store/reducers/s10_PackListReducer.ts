@@ -44,17 +44,16 @@ export const getPacksList = createAsyncThunk(
     'packList/getPacksList',
     async (paramsId: string = '', {dispatch, getState, rejectWithValue}) => {
         try {
-            dispatch(setisLoading({value:true}))
+            dispatch(setisLoading({value: true}))
             const store = getState() as RootState;
-            const res = await packAPI.getPackList({ ...store.packList.queryParams, user_id: paramsId,});
+            const res = await packAPI.getPackList({...store.packList.queryParams, user_id: paramsId,});
             dispatch(setTotalCount(res.cardPacksTotalCount))
             dispatch(setMaxCardsCount(res.maxCardsCount))
             return res;
         } catch (e: any) {
             return rejectWithValue(e.response.data.error);
-        }
-        finally {
-            dispatch(setisLoading({value:false}))
+        } finally {
+            dispatch(setisLoading({value: false}))
         }
     })
 
@@ -130,5 +129,14 @@ const packSlice = createSlice({
 })
 
 
-export const {setTotalCount, setSearchValue, updateSortPacks, setPage, setPageCount, setMinMaxValue, setMaxCardsCount, setId} = packSlice.actions
+export const {
+    setTotalCount,
+    setSearchValue,
+    updateSortPacks,
+    setPage,
+    setPageCount,
+    setMinMaxValue,
+    setMaxCardsCount,
+    setId
+} = packSlice.actions
 export const packReducer = packSlice.reducer

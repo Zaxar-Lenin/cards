@@ -7,7 +7,6 @@ function Header() {
 
     return (
         <>
-            {/*{isLoading && <Proggres/>}*/}
             <div className={s.header}>
                 <NavLink className={s.list} to={Routers.LOGIN}>LOGIN</NavLink>
                 <NavLink to={Routers.LOGOUT}>LOGOUT</NavLink>
