@@ -34,7 +34,7 @@ const InitialState: InitialStateType = {
         sortPacks: '',
         page: 1,
         pageCount: 10,
-        user_id: '',
+        user_id: null,
     }
 
 }

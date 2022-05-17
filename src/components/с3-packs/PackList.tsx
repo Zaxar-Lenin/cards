@@ -37,7 +37,7 @@ export const PackList = () => {
     const allHandlerButton = ()=>{
         const searchParamObj = Object.fromEntries(searchParams)
         delete searchParamObj.user_id
-        setSearchParams({...searchParamObj})
+        setSearchParams({user_id: ''})
         dispatch(setId(searchParams.get('user_id') as string))
     }
 
