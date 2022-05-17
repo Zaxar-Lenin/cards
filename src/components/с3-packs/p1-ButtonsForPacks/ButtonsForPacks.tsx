@@ -8,6 +8,7 @@ type ButtonsForPacksPropsType = {
     packId?: string;
     ownerId?: string;
     packName?: string;
+    setActive?: (n: boolean) => void
 }
 
 export const ButtonsForPacks = (props: ButtonsForPacksPropsType) => {

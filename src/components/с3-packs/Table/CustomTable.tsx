@@ -15,7 +15,11 @@ import {Navigate, useNavigate} from 'react-router-dom';
 import {Routers} from '../../c1-main/routers';
 
 
-export const CustomTable = () => {
+type CustomTablePropsType = {
+    setActive: (n: boolean) => void
+}
+
+export const CustomTable = (props: CustomTablePropsType) => {
 
     const cardPacks = useAppSelector(state => state.packList.cardPacks);
 
@@ -46,63 +50,74 @@ export const CustomTable = () => {
     }
 
     const classChange = (name: string) => {
-        return `${s.sort} ${("0" + name) === sortPacks ? s.sort0 : s.sort1}`
+        if (("") === sortPacks) {
+            return `${s.sort} ${s.sort2}`
+        } else if (("0" + name) === sortPacks) {
+            return `${s.sort} ${s.sort0}`
+        } else if (("1" + name) === sortPacks) {
+            return `${s.sort} ${s.sort1}`
+        } else {
+            return `${s.sort} ${s.sort2}`
+        }
     }
 
 
-
     return (
-        <TableContainer component={Paper}>
-            <Table sx={{minWidth: 650}} aria-label="simple table">
-                <TableHead>
-                    <TableRow>
-                        <TableCell className={classChange("name")} onClick={() => {
-                            sortHandler("name")
-                        }}>
-                            <span>Name</span>
-                        </TableCell>
-                        <TableCell className={classChange("cardsCount")}
-                                   onClick={() => {
-                                       sortHandler("cardsCount")
-                                   }}
-                                   align="right">
-                            <span>Cards</span>
-                        </TableCell>
-                        <TableCell className={classChange("updated")}
-                                   onClick={() => {
-                                       sortHandler("updated")
-                                   }}
-                                   align="right">
-                            <span>Last Update</span>
-                        </TableCell>
-                        <TableCell className={classChange("user_name")}
-                                   onClick={() => {
-                                       sortHandler("user_name")
-                                   }}
-                                   align="right">
-                            <span>Created by</span>
-                        </TableCell>
-                        <TableCell align="left">Actions</TableCell>
-                    </TableRow>
-                </TableHead>
-                <TableBody>
-                    {cardPacks.map((row) => (
-                        <TableRow
-                            key={row._id}
-                            sx={{'&:last-child td, &:last-child th': {border: 0}}}
-                        >
-                            <TableCell component="th" scope="row" onClick={() => showCardsHandler(row._id)}>
-                                {row.name}
+        <>
+            <TableContainer component={Paper}>
+                <Table sx={{minWidth: 650}} aria-label="simple table">
+                    <TableHead>
+                        <TableRow>
+                            <TableCell className={classChange("name")} onClick={() => {
+                                sortHandler("name")
+                            }}>
+                                <span>Name</span>
                             </TableCell>
-                            <TableCell align="right">{row.cardsCount}</TableCell>
-                            <TableCell align="right">{CorrectData(row.updated)}</TableCell>
-                            <TableCell align="right">{row.user_name}</TableCell>
-                            <TableCell align="right">{<ButtonsForPacks packId={row._id} ownerId={row.user_id} packName={row.name}/>}</TableCell>
+                            <TableCell className={classChange("cardsCount")}
+                                       onClick={() => {
+                                           sortHandler("cardsCount")
+                                       }}
+                                       align="right">
+                                <span>Cards</span>
+                            </TableCell>
+                            <TableCell className={classChange("updated")}
+                                       onClick={() => {
+                                           sortHandler("updated")
+                                       }}
+                                       align="right">
+                                <span>Last Update</span>
+                            </TableCell>
+                            <TableCell className={classChange("user_name")}
+                                       onClick={() => {
+                                           sortHandler("user_name")
+                                       }}
+                                       align="right">
+                                <span>Created by</span>
+                            </TableCell>
+                            <TableCell align="left">Actions</TableCell>
                         </TableRow>
-                    ))}
-                </TableBody>
-            </Table>
-        </TableContainer>
+                    </TableHead>
+                    <TableBody>
+                        {cardPacks.map((row) => (
+                            <TableRow
+                                key={row._id}
+                                sx={{'&:last-child td, &:last-child th': {border: 0}}}
+                            >
+                                <TableCell style = {{cursor: "pointer"}} component="th" scope="row" onClick={() => showCardsHandler(row._id)}>
+                                    {row.name}
+                                </TableCell>
+                                <TableCell align="right">{row.cardsCount}</TableCell>
+                                <TableCell align="right">{CorrectData(row.updated)}</TableCell>
+                                <TableCell align="right">{row.user_name}</TableCell>
+                                <TableCell align="right">{<ButtonsForPacks setActive={props.setActive} packId={row._id}
+                                                                           ownerId={row.user_id}
+                                                                           packName={row.name}/>}</TableCell>
+                            </TableRow>
+                        ))}
+                    </TableBody>
+                </Table>
+            </TableContainer>
+        </>
     );
 }
 

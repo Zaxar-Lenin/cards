@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import s from './PackList.module.css';
 import {Navigate, useSearchParams} from 'react-router-dom';
 import {Routers} from '../c1-main/routers';
@@ -20,6 +20,10 @@ export const PackList = () => {
     const dispatch = useAppDispatch()
 
     const [searchParams, setSearchParams] = useSearchParams();
+
+    const [activeDelete, setActiveDelete] = useState(false)
+
+    const [activeAdd, setActiveAdd] = useState(false)
 
     useEffect(() => {
         dispatch(getPacksList(searchParams.get('user_id') as string));
@@ -69,7 +73,7 @@ export const PackList = () => {
                     {
                     isLoading
                     ? <div className={s.logoPic}><img src={loadingPic} alt=""/></div>
-                    : <CustomTable/>
+                    : <CustomTable setActive={setActiveDelete}/>
                     }
                 </div>
                 <div className={s.packlistPagination}><BasicPagination/></div>
