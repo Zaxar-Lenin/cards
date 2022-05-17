@@ -9,6 +9,8 @@ import {CustomTable} from './Table/CustomTable';
 import BasicPagination from './Pagination/Pagination';
 import {Range} from '../../Assets/Range/Range';
 import loadingPic from '../../Assets/img/animated-chicken-image-0103.gif'
+import {ModelWindowDelete} from "../../Assets/ModelWindow/ModelDelete/ModelWindowDelete";
+import {ModelWindowAdd} from "../../Assets/ModelWindow/ModeleAdd/ModelWindowAdd";
 
 export const PackList = () => {
 
@@ -19,18 +21,18 @@ export const PackList = () => {
 
     const dispatch = useAppDispatch()
 
-    const [searchParams, setSearchParams] = useSearchParams();
-
     const [activeDelete, setActiveDelete] = useState(false)
 
     const [activeAdd, setActiveAdd] = useState(false)
+
+    const [searchParams, setSearchParams] = useSearchParams();
 
     useEffect(() => {
         dispatch(getPacksList(searchParams.get('user_id') as string));
     }, [packName, sortPacks, page, pageCount, min, max, user_id]);
 
     const addPackClickHandler = () => {
-        dispatch(addPackList({}));
+        setActiveAdd(true)
     }
 
     const myHandlerButton = () => {
@@ -66,18 +68,20 @@ export const PackList = () => {
             <div className={s.packList}>
                 <h3>Pack list</h3>
                 <div className={s.packlistSearch}>
-                    <Search/>
+                    <Search table='packs'/>
                     <span><button onClick={addPackClickHandler}>Add new pack</button></span>
                 </div>
                 <div className={s.packlistTable}>
                     {
                     isLoading
                     ? <div className={s.logoPic}><img src={loadingPic} alt=""/></div>
-                    : <CustomTable setActive={setActiveDelete}/>
+                    : <CustomTable setActive={setActiveDelete} />
                     }
                 </div>
                 <div className={s.packlistPagination}><BasicPagination/></div>
             </div>
+            <ModelWindowDelete active={activeDelete} setActive={setActiveDelete}/>
+            <ModelWindowAdd active = {activeAdd} setActive = {setActiveAdd}/>
         </div>
     );
 };

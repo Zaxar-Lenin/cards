@@ -1,7 +1,7 @@
 import {
     cardsAPI,
     CardsListType,
-    CardType,
+    CardType, DeleteCardParamsType,
     GetCardsParamsType,
     PostCardParamsType,
     PutCardParamsType
@@ -41,13 +41,13 @@ export const getCardsList = createAsyncThunk(
     'cards/getCardsList',
     async (params: Partial<GetCardsParamsType>, {dispatch, getState, rejectWithValue}) => {
         try {
-            dispatch(setisLoading({value:true}))
+            dispatch(setisLoading({value: true}))
             const store = getState() as RootState;
             const queryParams = store.cardsList.queryParams;
             const res = await cardsAPI.getCardsList({
                 cardAnswer: queryParams.cardAnswer,
                 cardQuestion: queryParams.cardQuestion,
-                cardsPack_id: params.cardsPack_id ?  params.cardsPack_id : queryParams.cardsPack_id,
+                cardsPack_id: params.cardsPack_id ? params.cardsPack_id : queryParams.cardsPack_id,
                 min: queryParams.min,
                 max: queryParams.max,
                 sortCards: queryParams.sortCards,
@@ -57,18 +57,17 @@ export const getCardsList = createAsyncThunk(
             return res;
         } catch (e: any) {
             return rejectWithValue(e.response.data.error);
-        }
-        finally {
-            dispatch(setisLoading({value:false}))
+        } finally {
+            dispatch(setisLoading({value: false}))
         }
     }
 )
 
-export const postCard = createAsyncThunk(
+export const addCard = createAsyncThunk(
     'cards/postCard',
     async (data: PostCardParamsType, {dispatch, rejectWithValue}) => {
         try {
-            await cardsAPI.postCard({
+            const res = await cardsAPI.postCard({
                 cardsPack_id: data.cardsPack_id,
                 question: data.question ? data.question : "no question",
                 answer: data.answer ? data.answer : "no answer",
@@ -79,6 +78,8 @@ export const postCard = createAsyncThunk(
                 questionVideo: data.questionVideo,
                 answerVideo: data.answerVideo
             })
+            console.log(res);
+            return res.data.newCard;
             //dispatch(getCardsList({}));
         } catch (e: any) {
 
@@ -98,20 +99,42 @@ export const putCardsList = createAsyncThunk(
     }
 )
 
+export const deleteCard = createAsyncThunk(
+    'cards/deleteCard',
+    async (data: DeleteCardParamsType, {dispatch, rejectWithValue}) => {
+        try {
+            const res = await cardsAPI.deleteCard({id: data.id});
+            console.log(res);
+            return res.data.deletedCard;
+        } catch (e: any) {
+            return rejectWithValue(e.response.data.error);
+        }
+    }
+)
+
 const cardsSlice = createSlice({
     name: 'cards',
     initialState: InitialState,
     reducers: {
-        setPackId: (state, action:PayloadAction<string>) => {
+        setPackId: (state, action: PayloadAction<string>) => {
             state.queryParams.cardsPack_id = action.payload;
+        },
+        setSearchCardsValue: (state, action:PayloadAction<string>) => {
+            state.queryParams.cardQuestion = action.payload;
         }
     },
     extraReducers: (builder) => {
         builder.addCase(getCardsList.fulfilled, (state, action) => {
             state.cardList = action.payload.data;
         });
+        builder.addCase(addCard.fulfilled, (state, action:PayloadAction<CardType>) => {
+            state.cardList.cards.unshift(action.payload);
+        });
+        builder.addCase(deleteCard.fulfilled, (state, action:PayloadAction<CardType>) => {
+            state.cardList.cards.filter(card => card._id !== action.payload._id);
+        })
     }
 })
 
-export const {setPackId} = cardsSlice.actions;
+export const {setPackId, setSearchCardsValue} = cardsSlice.actions;
 export const cardsReducer = cardsSlice.reducer;

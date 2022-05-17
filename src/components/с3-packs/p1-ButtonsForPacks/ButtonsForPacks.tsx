@@ -7,8 +7,8 @@ import {useNavigate, useParams} from 'react-router-dom';
 type ButtonsForPacksPropsType = {
     packId?: string;
     ownerId?: string;
-    packName?: string;
     setActive?: (n: boolean) => void
+    packName?: string;
 }
 
 export const ButtonsForPacks = (props: ButtonsForPacksPropsType) => {
@@ -17,7 +17,9 @@ export const ButtonsForPacks = (props: ButtonsForPacksPropsType) => {
     const userId = useAppSelector(store => store.profile.profile._id);
 
     const deletePackHandler = () => {
-        dispatch(deletePackList({id: props.packId}))
+        props.setActive && props.setActive(true)
+        navigate(`/packlist/${props.packId}`);
+
     }
 
     const onLearnHandler = (packId: string, packName: string) => {
