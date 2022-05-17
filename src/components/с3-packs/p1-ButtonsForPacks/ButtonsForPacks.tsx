@@ -1,19 +1,24 @@
 import Button from '@mui/material/Button'
 import ButtonsStyles from './ButtonsForPacks.module.css'
 import {useAppDispatch, useAppSelector} from "../../../Hooks/hooks";
-import {deletePackList} from "../../../store/reducers/s10_PackListReducer";
+import {useNavigate} from "react-router-dom";
 
 type ButtonsForPacksPropsType = {
     packId?: string;
     ownerId?: string;
+    setActive?: (n: boolean) => void
 }
 
 export const ButtonsForPacks = (props: ButtonsForPacksPropsType) => {
-    const dispatch = useAppDispatch();
+
     const userId = useAppSelector(store => store.profile.profile._id);
 
+    const navigate = useNavigate();
+
     const deletePackHandler = () => {
-        dispatch(deletePackList({id: props.packId}))
+        props.setActive && props.setActive(true)
+        navigate(`/packlist/${props.packId}`);
+
     }
 
     return (

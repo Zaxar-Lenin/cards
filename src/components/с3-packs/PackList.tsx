@@ -1,4 +1,4 @@
-import React, {useEffect} from 'react';
+import React, {useEffect, useState} from 'react';
 import s from './PackList.module.css';
 import {Navigate, useSearchParams} from 'react-router-dom';
 import {Routers} from '../c1-main/routers';
@@ -9,6 +9,8 @@ import {CustomTable} from './Table/CustomTable';
 import BasicPagination from './Pagination/Pagination';
 import {Range} from '../../Assets/Range/Range';
 import loadingPic from '../../Assets/img/animated-chicken-image-0103.gif'
+import {ModelWindowDelete} from "../../Assets/ModelWindow/ModelDelete/ModelWindowDelete";
+import {ModelWindowAdd} from "../../Assets/ModelWindow/ModeleAdd/ModelWindowAdd";
 
 export const PackList = () => {
 
@@ -19,14 +21,19 @@ export const PackList = () => {
 
     const dispatch = useAppDispatch()
 
+    const [activeDelete, setActiveDelete] = useState(false)
+
+    const [activeAdd, setActiveAdd] = useState(false)
+
     const [searchParams, setSearchParams] = useSearchParams();
 
     useEffect(() => {
         dispatch(getPacksList(searchParams.get('user_id') as string));
     }, [packName, sortPacks, page, pageCount, min, max, user_id]);
 
+
     const addPackClickHandler = () => {
-        dispatch(addPackList({}));
+        setActiveAdd(true)
     }
 
     const myHandlerButton = () => {
@@ -69,11 +76,13 @@ export const PackList = () => {
                     {
                     isLoading
                     ? <div className={s.logoPic}><img src={loadingPic} alt=""/></div>
-                    : <CustomTable/>
+                    : <CustomTable setActive={setActiveDelete} />
                     }
                 </div>
                 <div className={s.packlistPagination}><BasicPagination/></div>
             </div>
+            <ModelWindowDelete active={activeDelete} setActive={setActiveDelete}/>
+            <ModelWindowAdd active = {activeAdd} setActive = {setActiveAdd}/>
         </div>
     );
 };

@@ -3,22 +3,26 @@
 }
 
 .sort1 span:after {
+    margin: 5px;
     content: "";
-    border: 10px solid transparent;
-    border-top: 10px solid green;
+    border: 6px solid transparent;
+    border-top: 6px solid green;
 }
 
-.sort2 span:after{
+.sort2 span:before{
     content: "";
-    height: 5px;
-    width: 5px;
-    border-radius: 50%;
-    background-color: #000;
+    margin: 5px;
+    min-height: 2px;
+    border: 1px solid #5d44f8;
+    /*border-radius: 50%;*/
+
+    /*background-color: #5d44f8;*/
 
 }
 
 .sort0 span:after {
+    margin: 5px;
     content: "";
-    border: 10px solid transparent;
-    border-bottom: 10px solid red;
+    border: 6px solid transparent;
+    border-bottom: 6px solid red;
 }
