@@ -97,7 +97,7 @@ export const CustomTable = () => {
                             <TableCell align="right">{row.cardsCount}</TableCell>
                             <TableCell align="right">{CorrectData(row.updated)}</TableCell>
                             <TableCell align="right">{row.user_name}</TableCell>
-                            <TableCell align="right">{<ButtonsForPacks packId={row._id} ownerId={row.user_id}/>}</TableCell>
+                            <TableCell align="right">{<ButtonsForPacks packId={row._id} ownerId={row.user_id} packName={row.name}/>}</TableCell>
                         </TableRow>
                     ))}
                 </TableBody>
