@@ -15,7 +15,7 @@ export const ModelWindowDelete = (props: ModelWindowDeletePropsType) => {
 
     const dispatch = useAppDispatch();
 
-    const params = useParams<{ packId: string }>();
+    const params = useParams();
 
     const modelWindowHandler = () => {
         props.setActive(false)
@@ -24,7 +24,7 @@ export const ModelWindowDelete = (props: ModelWindowDeletePropsType) => {
         e.stopPropagation()
     }
     const deleteHandler = () => {
-        dispatch(deletePackList({id: params.packId}))
+        dispatch(deletePackList({id: params["*"]}))
         props.setActive(false)
     }
 

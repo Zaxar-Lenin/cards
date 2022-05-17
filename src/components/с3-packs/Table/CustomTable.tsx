@@ -49,7 +49,16 @@ export const CustomTable = (props: CustomTablePropsType) => {
     }
 
     const classChange = (name: string) => {
-        return `${s.sort} ${("0" + name) === sortPacks ? s.sort0 : s.sort1}`
+        if(("") === sortPacks){
+            return `${s.sort} ${s.sort2}`
+        }else if (("0"+ name) === sortPacks){
+            return `${s.sort} ${s.sort0}`
+        }else if (("1"+ name) === sortPacks){
+            return `${s.sort} ${s.sort1}`
+        }else{
+            return `${s.sort} ${s.sort2}`
+        }
+
     }
 
 
@@ -94,7 +103,7 @@ export const CustomTable = (props: CustomTablePropsType) => {
                                 key={row._id}
                                 sx={{'&:last-child td, &:last-child th': {border: 0}}}
                             >
-                                <TableCell component="th" scope="row" onClick={() => showCardsHandler(row._id)}>
+                                <TableCell style = {{cursor: "pointer"}} component="th" scope="row" onClick={() => showCardsHandler(row._id)}>
                                     {row.name}
                                 </TableCell>
                                 <TableCell align="right">{row.cardsCount}</TableCell>
