@@ -6,9 +6,10 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import Rating from '@mui/material/Rating';
+import Button from '@mui/material/Button'
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
 import {useAppDispatch, useAppSelector} from "../../../Hooks/hooks";
-import {getCardsList} from "../../../store/reducers/s11_CardsListReducer";
+import {addCard, getCardsList} from "../../../store/reducers/s11_CardsListReducer";
 import * as React from "react";
 import {useEffect} from "react";
 import {Navigate, useParams} from 'react-router-dom';
@@ -32,21 +33,38 @@ export const CardsTable = () => {
 
     useEffect(() => {
         dispatch(getCardsList({cardsPack_id: params.packId}));
-    }, [question]);
-
-    const CorrectData = (data: string): string => {
-        return data.slice(0, 10).split('-').reverse().join('.');
-    }
+    }, [question, cardsList.cards.length]);
 
     if (!isLoggedIn) {
         return <Navigate to={Routers.LOGIN}/>
     }
 
+    const addCardHandler = () => {
+        dispatch(addCard({cardsPack_id: params.packId as string}));
+    }
+    const correctData = (data: string): string => {
+        return data.slice(0, 10).split('-').reverse().join('.');
+    }
 
     return (
         <div className={cardTableStyles.mainClass}>
             <h1><KeyboardBackspaceIcon />Pack Name (change)</h1>
-            <div><Search table='cards'/></div>
+            <div>
+                <Search table='cards'/>
+                <span><Button variant="outlined"
+                              size="small"
+                              sx={{
+                                  gridArea: 'delete',
+                                  backgroundColor:'#21268F',
+                                  color: 'white',
+                                  ":hover": {color: '#1976D2'},
+                                  borderRadius: '25px',
+                                  boxShadow: '5'
+                              }}
+                              onClick={addCardHandler}
+                >Add new card</Button>
+                </span>
+            </div>
             <TableContainer component={Paper}>
                 {isLoading &&
                 <div className={s.logoPic}><img style={{marginLeft: '300px'}} src={loadingPic} alt=""/></div>}
@@ -72,7 +90,7 @@ export const CardsTable = () => {
                                     {card.question}
                                 </TableCell>
                                 <TableCell align="left">{card.answer}</TableCell>
-                                <TableCell align="left">{CorrectData(card.updated)}</TableCell>
+                                <TableCell align="left">{correctData(card.updated)}</TableCell>
                                 <TableCell align="left"><Rating name="read-only" value={card.grade}
                                                                 readOnly/></TableCell>
                                 {userId === cardsList.packUserId &&

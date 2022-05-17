@@ -63,11 +63,11 @@ export const getCardsList = createAsyncThunk(
     }
 )
 
-export const postCard = createAsyncThunk(
+export const addCard = createAsyncThunk(
     'cards/postCard',
     async (data: PostCardParamsType, {dispatch, rejectWithValue}) => {
         try {
-            await cardsAPI.postCard({
+            const res = await cardsAPI.postCard({
                 cardsPack_id: data.cardsPack_id,
                 question: data.question ? data.question : "no question",
                 answer: data.answer ? data.answer : "no answer",
@@ -78,6 +78,8 @@ export const postCard = createAsyncThunk(
                 questionVideo: data.questionVideo,
                 answerVideo: data.answerVideo
             })
+            console.log(res);
+            return res.data.newCard;
             //dispatch(getCardsList({}));
         } catch (e: any) {
 
@@ -101,7 +103,9 @@ export const deleteCard = createAsyncThunk(
     'cards/deleteCard',
     async (data: DeleteCardParamsType, {dispatch, rejectWithValue}) => {
         try {
-            await cardsAPI.deleteCard({id: data.id});
+            const res = await cardsAPI.deleteCard({id: data.id});
+            console.log(res);
+            return res.data.deletedCard;
         } catch (e: any) {
             return rejectWithValue(e.response.data.error);
         }
@@ -123,6 +127,12 @@ const cardsSlice = createSlice({
         builder.addCase(getCardsList.fulfilled, (state, action) => {
             state.cardList = action.payload.data;
         });
+        builder.addCase(addCard.fulfilled, (state, action:PayloadAction<CardType>) => {
+            state.cardList.cards.unshift(action.payload);
+        });
+        builder.addCase(deleteCard.fulfilled, (state, action:PayloadAction<CardType>) => {
+            state.cardList.cards.filter(card => card._id !== action.payload._id);
+        })
     }
 })
 
