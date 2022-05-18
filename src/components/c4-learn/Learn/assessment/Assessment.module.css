@@ -26,7 +26,7 @@
 .questionBlock span {
     font-weight: bold;
     margin-left: 20px;
-    font-size: 14px;
+    font-size: 15px;
 }
 
 .buttons{
@@ -44,7 +44,7 @@
 }
 
 .checkBoxes {
-    margin-top: 10px;
+    margin-top: 15%;
     font-size: 15px;
 }
 

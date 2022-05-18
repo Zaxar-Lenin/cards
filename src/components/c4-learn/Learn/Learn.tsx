@@ -42,10 +42,9 @@ export const Learn = () => {
             setCard(getCard(cardsList.cards))
         }
         return () => {
-            console.log('End')
         }
 
-    }, [first, card, cardsList.cards])
+    }, [cardsList.cards])
 
     const onClickCancel = () => {
         navigate('/packlist')
