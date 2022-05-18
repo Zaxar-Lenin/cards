@@ -1,35 +1,48 @@
 import React, {MouseEvent} from 'react';
 import s from "./ModelWindowDelete.module.css";
 import {Button} from '@mui/material';
-import {useParams} from "react-router-dom";
-import {deletePackList} from "../../../store/reducers/s10_PackListReducer";
-import {useAppDispatch} from "../../../Hooks/hooks";
+import {useNavigate, URLSearchParamsInit, useParams} from "react-router-dom";
+import {deletePackList, setId} from "../../../store/reducers/s10_PackListReducer";
+import {useAppDispatch, useAppSelector} from "../../../Hooks/hooks";
 
 type ModelWindowDeletePropsType = {
     setActive: (n: boolean) => void
     active: boolean
-    packId?: string;
+    packId: string | null;
+    isMyPack: boolean
 }
 
-export const ModelWindowDelete = (props: ModelWindowDeletePropsType) => {
+export const ModelWindowDelete = ({
+                                      setActive,
+                                      active,
+                                      packId,
+                                      isMyPack,
+                                  }: ModelWindowDeletePropsType) => {
 
     const dispatch = useAppDispatch();
 
-    const params = useParams();
+    const userId = useAppSelector(store => store.profile.profile._id);
+
+    const navigate = useNavigate()
 
     const modelWindowHandler = () => {
-        props.setActive(false)
+        setActive(false)
     }
     const modelContenHandler = (e: MouseEvent<HTMLDivElement>) => {
         e.stopPropagation()
     }
     const deleteHandler = () => {
-        dispatch(deletePackList({id: params["*"]}))
-        props.setActive(false)
+        if(isMyPack) {
+            packId && dispatch(deletePackList({id: packId, packId: userId}))
+            setActive(false)
+        }else{
+            packId && dispatch(deletePackList({id: packId, packId: ""}))
+            setActive(false)
+        }
     }
 
-    let classWindow = props.active ? (s.active + " " + s.model) : s.model
-    let classContent = props.active ? (s.active + " " + s.model__content) : s.model__content
+    let classWindow = active ? (s.active + " " + s.model) : s.model
+    let classContent = active ? (s.active + " " + s.model__content) : s.model__content
 
     return (
         <div className={classWindow} onClick={modelWindowHandler}>

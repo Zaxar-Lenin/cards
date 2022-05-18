@@ -40,14 +40,27 @@ export type GetParamsType = {
 }
 
 export type PostParamsType = {
-        name?: string;
-        deckCover?: string;
-        private?: boolean;
+    name?: string;
+    deckCover?: string;
+    private?: boolean;
+
+}
+export type PostDataType = {
+    name?: string;
+    deckCover?: string;
+    private?: boolean;
+    packId: string
 
 }
 
 export type DeleteParamsType = {
     id: string | undefined;
+
+}
+
+export type DeleteDataType = {
+    id: string | undefined;
+    packId: string
 }
 
 export type PutParamsType = {

@@ -1,7 +1,7 @@
 import React, {MouseEvent} from 'react';
 import s from "./ModelWindowAdd.module.css";
 import {Button} from '@mui/material';
-import {addPackList} from "../../../store/reducers/s10_PackListReducer";
+import {addPackList, deletePackList} from "../../../store/reducers/s10_PackListReducer";
 import {useAppDispatch, useAppSelector} from "../../../Hooks/hooks";
 import {useFormik} from "formik";
 import TextField from "@mui/material/TextField";
@@ -9,11 +9,18 @@ import TextField from "@mui/material/TextField";
 type ModelWindowAddPropsType = {
     setActive: (n: boolean) => void
     active: boolean
+    isMyPack: boolean
 }
 
-export const ModelWindowAdd = (props: ModelWindowAddPropsType) => {
+export const ModelWindowAdd = ({
+                                   setActive,
+                                   active,
+                                   isMyPack,
+                               }: ModelWindowAddPropsType) => {
 
     const dispatch = useAppDispatch();
+
+    const userId = useAppSelector(store => store.profile.profile._id);
 
     const name = useAppSelector(state => state.packList.queryParams.packName)
 
@@ -22,22 +29,25 @@ export const ModelWindowAdd = (props: ModelWindowAddPropsType) => {
             name: name,
         },
         onSubmit: values => {
-            dispatch(addPackList({name: values.name}))
-            props.setActive(false)
-
+            if (isMyPack) {
+                dispatch(addPackList({name: values.name, packId: userId}))
+            } else {
+                dispatch(addPackList({name: values.name, packId: ""}))
+            }
+            setActive(false)
         },
     });
 
     const modelWindowHandler = () => {
-        props.setActive(false)
+        setActive(false)
     }
 
     const modelContenHandler = (e: MouseEvent<HTMLDivElement>) => {
         e.stopPropagation()
     }
 
-    let classWindow = props.active ? (s.active + " " + s.model) : s.model
-    let classContent = props.active ? (s.active + " " + s.model__content) : s.model__content
+    let classWindow = active ? (s.active + " " + s.model) : s.model
+    let classContent = active ? (s.active + " " + s.model__content) : s.model__content
 
     return (
         <div className={classWindow} onClick={modelWindowHandler}>

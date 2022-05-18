@@ -21,13 +21,13 @@ export const MainHeader = () => {
     })
 
     useEffect(() => {
-        if (location.pathname === "/packlist") {
+        if (location.pathname === "/packlist" || location.pathname === "/cardspack") {
             setStyle({
                 packlist: true,
                 profile: false,
             })
         }
-    }, [])
+    }, [location.pathname])
 
     const onPacksListHandler = () => {
         setStyle({
