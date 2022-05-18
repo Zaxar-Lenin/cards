@@ -11,6 +11,7 @@ import {registrationReducer} from "./reducers/s8_RegistrationReducer";
 import {loader} from './reducers/s9-AppReducer';
 import {packReducer} from "./reducers/s10_PackListReducer";
 import {cardsReducer} from "./reducers/s11_CardsListReducer";
+import {assessmentReducer} from './reducers/s12_AssessmentReducer';
 
 const rootReducer = combineReducers({
     login: loginReducer,
@@ -23,7 +24,8 @@ const rootReducer = combineReducers({
     passRecov: passRecovReducer,
     app: loader,
     packList: packReducer,
-    cardsList: cardsReducer
+    cardsList: cardsReducer,
+    assessment: assessmentReducer
 })
 
 export const store = configureStore({

@@ -17,6 +17,7 @@ import {PackList} from '../../с3-packs/PackList';
 import {ButtonsForPacks} from "../../с3-packs/p1-ButtonsForPacks/ButtonsForPacks";
 import {CardsTable} from "../../с3-packs/p3-CardsTable/CardsTable";
 import {Learn} from '../../c4-learn/Learn/Learn';
+import {Assessment} from '../../c4-learn/Learn/assessment/Assessment';
 
 function Body() {
     return (
@@ -39,6 +40,7 @@ function Body() {
                 <Route path = {Routers.PERSONAL_INFORMATION} element={<PersonalInformation/>}/>
                 <Route path = {`${Routers.PACK_LIST}/*`} element={<PackList/>}/>
                 <Route path = {`${Routers.LEARN}/:packId/:packName`} element={<Learn/>}/>
+                <Route path = {`${Routers.ASSESSMENT}`} element={<Assessment/>}/>
             </Routes>
         </div>
     );

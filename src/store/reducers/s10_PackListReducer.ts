@@ -23,7 +23,7 @@ export type InitialStateType = {
 }
 
 const InitialState: InitialStateType = {
-    maxCardsCount: 0,
+    maxCardsCount: 103,
     minCardsCount: 0,
     cardPacksTotalCount: null,
     cardPacks: [],

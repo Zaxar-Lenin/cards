@@ -12,5 +12,6 @@ export const enum Routers {
     PERSONAL_INFORMATION = "/personalInformation",
     PACK_LIST = "/packlist",
     CARDS_PACK = "/cardspack",
-    LEARN = "/learn"
+    LEARN = "/learn",
+    ASSESSMENT ="/assessment",
 }

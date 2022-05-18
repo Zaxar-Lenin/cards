@@ -1,11 +1,12 @@
 import React, {useEffect, useState} from 'react';
 import s from './Learn.module.css';
 import {useAppDispatch, useAppSelector} from '../../../Hooks/hooks';
-import {useNavigate, useParams} from 'react-router-dom';
+import {Navigate, useNavigate, useParams} from 'react-router-dom';
 import {getCardsList} from '../../../store/reducers/s11_CardsListReducer';
 import {CardType} from '../../../API/cardsAPI';
-import {selectCardsList} from '../../../store/selectors/Selectors';
+import {selectCardsList, selectIsLoggedIn} from '../../../store/selectors/Selectors';
 import {LearnButtons} from './learnButtons/LearnButtons';
+import {Routers} from '../../c1-main/routers';
 
 const getCard = (cards: CardType[]) => {
     const sum = cards.reduce((acc, card) => acc + (6 - card.grade) ** 2, 0);
@@ -22,16 +23,15 @@ const getCard = (cards: CardType[]) => {
 export const Learn = () => {
 
     const navigate = useNavigate()
+    const {packId, packName} = useParams()
 
     const dispatch = useAppDispatch()
 
-    const {packId, packName} = useParams()
-
     const cardsList = useAppSelector(selectCardsList)
+    const isLoggedIn = useAppSelector(selectIsLoggedIn);
 
     const [first, setFirst] = useState(true)
     const [card, setCard] = useState<Partial<CardType>>({})
-
 
     useEffect(() => {
         if (first) {
@@ -53,6 +53,10 @@ export const Learn = () => {
 
     const onClickShowAnswer = () => {
 
+    }
+
+    if (!isLoggedIn){
+        return <Navigate to={Routers.LOGIN}/>
     }
 
     return (

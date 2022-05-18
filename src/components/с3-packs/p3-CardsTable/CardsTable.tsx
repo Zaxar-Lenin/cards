@@ -35,15 +35,15 @@ export const CardsTable = () => {
         dispatch(getCardsList({cardsPack_id: params.packId}));
     }, [question, cardsList.cards.length]);
 
-    if (!isLoggedIn) {
-        return <Navigate to={Routers.LOGIN}/>
-    }
-
     const addCardHandler = () => {
         dispatch(addCard({cardsPack_id: params.packId as string}));
     }
     const correctData = (data: string): string => {
         return data.slice(0, 10).split('-').reverse().join('.');
+    }
+
+    if (!isLoggedIn){
+        return <Navigate to={Routers.LOGIN}/>
     }
 
     return (
