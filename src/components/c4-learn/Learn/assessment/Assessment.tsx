@@ -5,38 +5,51 @@ import Radio from '@mui/material/Radio';
 import RadioGroup from '@mui/material/RadioGroup';
 import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
+import {useNavigate, useParams} from 'react-router-dom';
+import {useAppDispatch, useAppSelector} from '../../../../Hooks/hooks';
+import {setCardGrade} from '../../../../store/reducers/s12_AssessmentReducer';
 
-//const grades = ['Did not know', 'Forgot', 'A lot of thought', 'Confused', 'Knew the answer']
 
 export const Assessment = () => {
 
-    // const [grades, setGrades] = useState([
-    //     {id: 1, name: 'Did not know', isCheck: false},
-    //     {id: 2, name: 'Forgot', isCheck: false},
-    //     {id: 3, name: 'A lot of thought', isCheck: false},
-    //     {id: 4, name: 'Confused', isCheck: false},
-    //     {id: 5, name: 'Knew the answer', isCheck: false},
-    // ])
-    const [value, setValue] = useState('')
-    const [grade, setGrade] = useState<number>()
+    const navigate = useNavigate()
+    const {
+        cardId,
+        packName,
+        question,
+        answer
+    } = useParams()
 
+    const dispatch = useAppDispatch()
+
+    const [value, setValue] = useState('')
+
+    // const cardsPackId = useAppSelector(store => store.assessment.cardsPackId)
+    const cardsPackId = useAppSelector(store => store.assessment.updatedGrade.cardsPack_id)
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setValue((event.target as HTMLInputElement).value);
     };
 
+    const onTempHanlder = () => {
+        dispatch(setCardGrade({grade: +value, card_id: cardId as string}))
+    }
+
+    const onTempCancelHanlder = ()=>{
+        navigate(`/learn/${cardsPackId}/${packName}`)
+    }
 
     return (
         <>
             <div className={s.container}>
                 <div className={s.header}>
-                    Learn 'some PackName'
+                    Learn {packName}
                 </div>
                 <div className={s.contentBlock}>
                     <div className={s.questionBlock}>
-                        <span>Question:</span> some question
+                        <span>Question:</span> {question}
                         <br/>
-                        <span>Answer:</span> some Answer
+                        <span>Answer:</span> {answer}
                     </div>
                     <div className={s.gradesBlock}>
                         <h5>Rate yourself:</h5>
@@ -64,6 +77,8 @@ export const Assessment = () => {
                         }}
                                       onClickShowAnswer={() => {
                                       }}/>
+                        <button onClick={onTempHanlder}>tempo</button>
+                        <button onClick={onTempCancelHanlder}>cancel</button>
                     </div>
                 </div>
             </div>

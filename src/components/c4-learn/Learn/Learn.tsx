@@ -28,7 +28,7 @@ export const Learn = () => {
     const dispatch = useAppDispatch()
 
     const cardsList = useAppSelector(selectCardsList)
-    const isLoggedIn = useAppSelector(selectIsLoggedIn);
+    const isLoggedIn = useAppSelector(selectIsLoggedIn)
 
     const [first, setFirst] = useState(true)
     const [card, setCard] = useState<Partial<CardType>>({})
@@ -51,7 +51,7 @@ export const Learn = () => {
     }
 
     const onClickShowAnswer = () => {
-
+        navigate(`/assessment/${card._id}/${packName}/${card.question}/${card.answer}`)
     }
 
     if (!isLoggedIn){

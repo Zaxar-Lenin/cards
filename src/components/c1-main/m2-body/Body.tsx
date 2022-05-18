@@ -40,7 +40,7 @@ function Body() {
                 <Route path = {Routers.PERSONAL_INFORMATION} element={<PersonalInformation/>}/>
                 <Route path = {`${Routers.PACK_LIST}/*`} element={<PackList/>}/>
                 <Route path = {`${Routers.LEARN}/:packId/:packName`} element={<Learn/>}/>
-                <Route path = {`${Routers.ASSESSMENT}`} element={<Assessment/>}/>
+                <Route path = {`${Routers.ASSESSMENT}/:cardId/:packName/:question/:answer`} element={<Assessment/>}/>
             </Routes>
         </div>
     );
