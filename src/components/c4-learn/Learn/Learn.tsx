@@ -4,9 +4,10 @@ import {useAppDispatch, useAppSelector} from '../../../Hooks/hooks';
 import {Navigate, useNavigate, useParams} from 'react-router-dom';
 import {getCardsList} from '../../../store/reducers/s11_CardsListReducer';
 import {CardType} from '../../../API/cardsAPI';
-import {selectCardsList, selectIsLoggedIn} from '../../../store/selectors/Selectors';
+import {selectCardsList, selectIsLoading, selectIsLoggedIn} from '../../../store/selectors/Selectors';
 import {LearnButtons} from './learnButtons/LearnButtons';
 import {Routers} from '../../c1-main/routers';
+import {AssessmentLoader} from '../../../Assets/Preloader/assessmentLoader/AssessmentLoader';
 
 const getCard = (cards: CardType[]) => {
     const sum = cards.reduce((acc, card) => acc + (6 - card.grade) ** 2, 0);
@@ -30,6 +31,7 @@ export const Learn = () => {
 
     const cardsList = useAppSelector(selectCardsList)
     const isLoggedIn = useAppSelector(selectIsLoggedIn)
+    const isLoading = useAppSelector(selectIsLoading)
 
     const [first, setFirst] = useState(true)
     const [card, setCard] = useState<Partial<CardType>>({})
@@ -52,22 +54,22 @@ export const Learn = () => {
     }
 
     const onClickSubmit = () => {
-        console.log(packId + 'из learn')
         navigate(`/assessment/${card._id}/${packName}/${card.question}/${card.answer}`)
     }
 
-    if (!isLoggedIn){
+    if (!isLoggedIn) {
         return <Navigate to={Routers.LOGIN}/>
     }
 
     return (
+        <>
         <div className={s.container}>
             <div className={s.header}>
                 Learn {packName}
             </div>
             <div className={s.contentBlock}>
                 <div className={s.questionBlock}>
-                    <span>Question:</span> {card.question}
+                    <span>Question:</span> {!isLoading && card.question}
                 </div>
                 <div className={s.buttons}>
                     <LearnButtons onClickCancel={onClickCancel}
@@ -77,6 +79,14 @@ export const Learn = () => {
                 </div>
             </div>
         </div>
+            {
+                isLoading
+                &&
+                <div style={{zIndex: '1000', position: 'relative', bottom: '147px', left: '260px'}}>
+                    <AssessmentLoader/>
+                </div>
+            }
+        </>
     );
 };
 

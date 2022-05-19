@@ -1,14 +1,11 @@
 import React, {useEffect, useState} from 'react';
 import s from './Assessment.module.css';
 import {LearnButtons} from '../learnButtons/LearnButtons';
-import Radio from '@mui/material/Radio';
-import RadioGroup from '@mui/material/RadioGroup';
-import FormControlLabel from '@mui/material/FormControlLabel';
-import FormControl from '@mui/material/FormControl';
 import {useNavigate, useParams} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from '../../../../Hooks/hooks';
 import {setCardGrade, setStatus} from '../../../../store/reducers/s12_AssessmentReducer';
 import {selectAssessmentError, selectCardsPackId, selectStatus} from '../../../../store/selectors/Selectors';
+import {Checkboxes} from '../checkboxes/Checkboxes.';
 
 
 export const Assessment = () => {
@@ -39,8 +36,8 @@ export const Assessment = () => {
 
     },[status])
 
-    const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-        setValue((event.target as HTMLInputElement).value);
+    const handleChange = (value: string) => {
+        setValue(value);
     };
 
     const onCancelHandler = () => {
@@ -49,7 +46,6 @@ export const Assessment = () => {
 
     const onNextHandler =   () => {
         dispatch(setCardGrade({grade: +value, card_id: cardId as string}))
-        console.log(cardsPackId + " из оценки")
     }
 
     return (
@@ -68,22 +64,7 @@ export const Assessment = () => {
                         {errorMsg && <div style={{color: 'red'}}>{errorMsg}</div>}
                         <h5>Rate yourself:</h5>
                         <div className={s.checkBoxes}>
-                            <FormControl>
-                                <RadioGroup
-                                    aria-labelledby="demo-controlled-radio-buttons-group"
-                                    name="controlled-radio-buttons-group"
-                                    value={value}
-                                    onChange={handleChange}
-                                >
-                                    <FormControlLabel value="5" control={<Radio size="small"/>}
-                                                      label="Knew the answer"/>
-                                    <FormControlLabel value="4" control={<Radio size="small"/>} label="Confused"/>
-                                    <FormControlLabel value="3" control={<Radio size="small"/>}
-                                                      label="A lot of thought"/>
-                                    <FormControlLabel value="2" control={<Radio size="small"/>} label="Forgot"/>
-                                    <FormControlLabel value="1" control={<Radio size="small"/>} label="Did not know"/>
-                                </RadioGroup>
-                            </FormControl>
+                            <Checkboxes value={value} handleChange={handleChange}/>
                         </div>
                     </div>
                     <div className={s.buttons}>
