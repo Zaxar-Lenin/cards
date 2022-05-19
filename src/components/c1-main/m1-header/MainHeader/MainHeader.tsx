@@ -13,7 +13,6 @@ export const MainHeader = () => {
     const navigate = useNavigate()
     const location = useLocation()
     const dispatch = useAppDispatch()
-    console.log(location)
 
     const [style, setStyle] = useState({
         packlist: false,

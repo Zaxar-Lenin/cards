@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import s from './Assessment.module.css';
 import {LearnButtons} from '../learnButtons/LearnButtons';
 import Radio from '@mui/material/Radio';
@@ -7,8 +7,8 @@ import FormControlLabel from '@mui/material/FormControlLabel';
 import FormControl from '@mui/material/FormControl';
 import {useNavigate, useParams} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from '../../../../Hooks/hooks';
-import {setCardGrade} from '../../../../store/reducers/s12_AssessmentReducer';
-import {selectAssessmentError, selectCardsPackId} from '../../../../store/selectors/Selectors';
+import {setCardGrade, setStatus} from '../../../../store/reducers/s12_AssessmentReducer';
+import {selectAssessmentError, selectCardsPackId, selectStatus} from '../../../../store/selectors/Selectors';
 
 
 export const Assessment = () => {
@@ -25,9 +25,19 @@ export const Assessment = () => {
 
     const cardsPackId = useAppSelector(selectCardsPackId)
     const errorMsg = useAppSelector(selectAssessmentError)
-    console.log(cardsPackId)
+    const status = useAppSelector(selectStatus)
 
     const [value, setValue] = useState('')
+
+    useEffect(()=> {
+        if(status === 'success') {
+            navigate(`/learn/${cardsPackId}/${packName}`)
+        }
+        return ()=>{
+            dispatch(setStatus('idle'))
+        }
+
+    },[status])
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setValue((event.target as HTMLInputElement).value);
@@ -37,11 +47,9 @@ export const Assessment = () => {
         navigate('/packlist')
     }
 
-    const onNextHandler =  async () => {
-        const res = await dispatch(setCardGrade({grade: +value, card_id: cardId as string}))
-        if(res.type === 'assessment/setGrade/fulfilled'){
-            navigate(`/learn/${cardsPackId}/${packName}`)
-        }
+    const onNextHandler =   () => {
+        dispatch(setCardGrade({grade: +value, card_id: cardId as string}))
+        console.log(cardsPackId + " из оценки")
     }
 
     return (

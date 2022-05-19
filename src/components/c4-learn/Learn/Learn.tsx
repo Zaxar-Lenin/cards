@@ -52,6 +52,7 @@ export const Learn = () => {
     }
 
     const onClickSubmit = () => {
+        console.log(packId + 'из learn')
         navigate(`/assessment/${card._id}/${packName}/${card.question}/${card.answer}`)
     }
 
