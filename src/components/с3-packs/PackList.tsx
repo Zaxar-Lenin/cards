@@ -11,6 +11,7 @@ import {Range} from '../../Assets/Range/Range';
 import loadingPic from '../../Assets/img/animated-chicken-image-0103.gif'
 import {ModelWindowDelete} from "../../Assets/ModelWindow/ModelDelete/ModelWindowDelete";
 import {ModelWindowAdd} from "../../Assets/ModelWindow/ModeleAdd/ModelWindowAdd";
+import {ModelWindowUpdate} from "../../Assets/ModelWindow/ModeleUpdate/ModelWindowUpdate";
 
 export const PackList = () => {
 
@@ -33,13 +34,19 @@ export const PackList = () => {
 
     const [activeDelete, setActiveDelete] = useState(false)
 
+    const cardPacks = useAppSelector(state => state.packList.cardPacks);
+
     const [isMyPack, setIsMyPack] = useState(false)
 
     const [activeAdd, setActiveAdd] = useState(false)
 
+    const [activeUpdate, setActiveUpdate] = useState(false)
+
     const [searchParams, setSearchParams] = useSearchParams();
 
     const idPack = searchParams.get('packId')
+
+    let namePack = cardPacks.find(f => f._id === idPack)
 
     useEffect(() => {
         dispatch(getPacksList(searchParams.get('user_id') as string));
@@ -95,12 +102,14 @@ export const PackList = () => {
                             : <CustomTable
                                 isMyPack={isMyPack}
                                 setSearchParams={setSearchParams}
-                                setActive={setActiveDelete}/>
+                                setActiveDelete={setActiveDelete}
+                                setActiveUpdate={setActiveUpdate}/>
                     }
                 </div>
                 <div className={s.packlistPagination}><BasicPagination/></div>
             </div>
             <ModelWindowDelete
+                namePack = {namePack && namePack.name}
                 isMyPack={isMyPack}
                 packId={idPack}
                 active={activeDelete}
@@ -109,6 +118,11 @@ export const PackList = () => {
                 isMyPack={isMyPack}
                 active={activeAdd}
                 setActive={setActiveAdd}/>
+            <ModelWindowUpdate
+                packId={idPack}
+                isMyPack={isMyPack}
+                active={activeUpdate}
+                setActive={setActiveUpdate}/>
         </div>
     );
 };

@@ -10,10 +10,12 @@ type ModelWindowDeletePropsType = {
     active: boolean
     packId: string | null;
     isMyPack: boolean
+    namePack?: string
 }
 
 export const ModelWindowDelete = ({
                                       setActive,
+                                      namePack,
                                       active,
                                       packId,
                                       isMyPack,
@@ -48,7 +50,7 @@ export const ModelWindowDelete = ({
         <div className={classWindow} onClick={modelWindowHandler}>
             <div className={classContent} onClick={modelContenHandler}>
                 <div className={s.title}>Delete Pack</div>
-                <div className={s.text}>Do you really want to remove Pack Name - Name?
+                <div className={s.text}>Do you really want to remove Pack Name - {namePack}?
                     All cards will be excluded from this course
                 </div>
                 <div className={s.buttons}>

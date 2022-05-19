@@ -7,7 +7,8 @@ import {URLSearchParamsInit, useNavigate, useParams, useSearchParams} from 'reac
 type ButtonsForPacksPropsType = {
     packId?: string;
     ownerId?: string;
-    setActive?: (n: boolean) => void
+    setActiveDelete?: (n: boolean) => void
+    setActiveUpdate?: (n: boolean) => void
     packName?: string;
     setSearchParams:
         (nextInit: URLSearchParamsInit, navigateOptions?:
@@ -22,7 +23,8 @@ export const ButtonsForPacks = (
     {
         packId,
         ownerId,
-        setActive,
+        setActiveDelete,
+        setActiveUpdate,
         packName,
         setSearchParams,
         isMyPack
@@ -33,7 +35,14 @@ export const ButtonsForPacks = (
 
 
     const deletePackHandler = () => {
-        setActive && setActive(true)
+        setActiveDelete && setActiveDelete(true)
+        if (packId) {
+            isMyPack ? setSearchParams({packId, userId}) : setSearchParams({packId})
+        }
+        ;
+    }
+    const updatePackHandler = () => {
+        setActiveUpdate && setActiveUpdate(true)
         if (packId) {
             isMyPack ? setSearchParams({packId, userId}) : setSearchParams({packId})
         }
@@ -62,6 +71,7 @@ export const ButtonsForPacks = (
                         Delete
                     </Button>
                     <Button
+                        onClick={updatePackHandler}
                         variant="outlined"
                         size="small"
                         sx={{gridArea: 'edit'}}

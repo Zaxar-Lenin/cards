@@ -6,7 +6,7 @@ import {
     packAPI,
     PackCards,
     PostDataType,
-    PostParamsType
+    PostParamsType, UpdateDataType
 } from '../../API/packAPI';
 import {RootState} from '../store';
 import {setisLoading} from './s9-AppReducer';
@@ -74,6 +74,23 @@ export const addPackList = createAsyncThunk(
                     name: data.name,
                     deckCover: data.deckCover,
                     private: data.private
+                }
+            )
+            dispatch(getPacksList(data.packId));
+        } catch (e: any) {
+            return rejectWithValue(e.response.data.error);
+        }
+    }
+)
+
+export const updatePackList = createAsyncThunk(
+    'packList/updatePackList',
+    async (data: UpdateDataType, {dispatch, rejectWithValue}) => {
+        try {
+            await packAPI.updatePackList(
+                {
+                    name: data.name,
+                    _id: data._id
                 }
             )
             dispatch(getPacksList(data.packId));

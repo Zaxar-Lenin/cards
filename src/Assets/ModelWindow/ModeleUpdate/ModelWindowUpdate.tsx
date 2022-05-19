@@ -1,7 +1,7 @@
 import React, {MouseEvent} from 'react';
-import s from "./ModelWindowAdd.module.css";
+import s from "./ModelWindowUpdate.module.css";
 import {Button} from '@mui/material';
-import {addPackList, deletePackList} from "../../../store/reducers/s10_PackListReducer";
+import {addPackList, deletePackList, updatePackList} from "../../../store/reducers/s10_PackListReducer";
 import {useAppDispatch, useAppSelector} from "../../../Hooks/hooks";
 import {useFormik} from "formik";
 import TextField from "@mui/material/TextField";
@@ -10,13 +10,15 @@ type ModelWindowAddPropsType = {
     setActive: (n: boolean) => void
     active: boolean
     isMyPack: boolean
+    packId: string | null;
 }
 
-export const ModelWindowAdd = ({
-                                   setActive,
-                                   active,
-                                   isMyPack,
-                               }: ModelWindowAddPropsType) => {
+export const ModelWindowUpdate = ({
+                                      setActive,
+                                      packId,
+                                      active,
+                                      isMyPack,
+                                  }: ModelWindowAddPropsType) => {
 
     const dispatch = useAppDispatch();
 
@@ -33,11 +35,12 @@ export const ModelWindowAdd = ({
                 values.name = "Name pack"
             }
             if (isMyPack) {
-                dispatch(addPackList({name: values.name, packId: userId}))
+                packId && dispatch(updatePackList({name: values.name, packId: userId, _id:packId}))
             } else {
-                dispatch(addPackList({name: values.name, packId: ""}))
+                packId && dispatch(updatePackList({name: values.name, packId: "",_id: packId}))
             }
             setActive(false)
+            values.name = ""
         },
     });
 
@@ -56,7 +59,7 @@ export const ModelWindowAdd = ({
         <div className={classWindow} onClick={modelWindowHandler}>
             <div className={classContent} onClick={modelContenHandler}>
                 <form onSubmit={formik.handleSubmit}>
-                    <div className={s.title}>Add new pack</div>
+                    <div className={s.title}>Update name pack</div>
                     <div className={s.textInput}>
                         <TextField
                             style={{

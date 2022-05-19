@@ -16,7 +16,8 @@ import {Routers} from '../../c1-main/routers';
 
 
 type CustomTablePropsType = {
-    setActive: (n: boolean) => void
+    setActiveDelete: (n: boolean) => void
+    setActiveUpdate: (n: boolean) => void
     setSearchParams:
         (nextInit: URLSearchParamsInit, navigateOptions?:
             {
@@ -28,9 +29,10 @@ type CustomTablePropsType = {
 
 export const CustomTable = (
     {
-        setActive,
+        setActiveDelete,
         setSearchParams,
-        isMyPack
+        isMyPack,
+        setActiveUpdate,
     }: CustomTablePropsType) => {
 
     const cardPacks = useAppSelector(state => state.packList.cardPacks);
@@ -126,7 +128,8 @@ export const CustomTable = (
                                     <ButtonsForPacks
                                         isMyPack = {isMyPack}
                                         setSearchParams={setSearchParams}
-                                        setActive={setActive}
+                                        setActiveDelete={setActiveDelete}
+                                        setActiveUpdate = {setActiveUpdate}
                                         packId={row._id}
                                         ownerId={row.user_id}
                                         packName={row.name}/>
