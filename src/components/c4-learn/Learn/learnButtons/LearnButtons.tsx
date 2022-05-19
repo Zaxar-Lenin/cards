@@ -1,19 +1,20 @@
-import React from 'react';
+import React, {ReactNode} from 'react';
 import {Button} from '@mui/material';
 
 type LearnButtonsType = {
     onClickCancel: () => void
-    onClickShowAnswer: () => void
+    onClickSubmit: () => void
+    children?: ReactNode
 }
 
-export const LearnButtons = ({onClickCancel, onClickShowAnswer}: LearnButtonsType) => {
+export const LearnButtons = ({onClickCancel, onClickSubmit, children}: LearnButtonsType) => {
 
     const onCancelHandler = () => {
         onClickCancel()
     }
 
     const onShowAnswerHandler = () => {
-        onClickShowAnswer()
+        onClickSubmit()
     }
 
     return (
@@ -41,7 +42,8 @@ export const LearnButtons = ({onClickCancel, onClickShowAnswer}: LearnButtonsTyp
                     }}
                     size="small"
                     onClick={onShowAnswerHandler}>
-                Show answer</Button>
+                {children}
+            </Button>
         </>
     );
 };

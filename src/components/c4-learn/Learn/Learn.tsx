@@ -20,6 +20,7 @@ const getCard = (cards: CardType[]) => {
     return cards[res.id + 1];
 }
 
+
 export const Learn = () => {
 
     const navigate = useNavigate()
@@ -50,7 +51,7 @@ export const Learn = () => {
         navigate('/packlist')
     }
 
-    const onClickShowAnswer = () => {
+    const onClickSubmit = () => {
         navigate(`/assessment/${card._id}/${packName}/${card.question}/${card.answer}`)
     }
 
@@ -69,7 +70,9 @@ export const Learn = () => {
                 </div>
                 <div className={s.buttons}>
                     <LearnButtons onClickCancel={onClickCancel}
-                                  onClickShowAnswer={onClickShowAnswer}/>
+                                  onClickSubmit={onClickSubmit}>
+                        Show answer
+                    </LearnButtons>
                 </div>
             </div>
         </div>

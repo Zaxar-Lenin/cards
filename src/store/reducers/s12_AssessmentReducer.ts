@@ -1,33 +1,23 @@
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
 import {assessmentAPI, ParamsData, UpdatedGradeType} from '../../API/assessmentAPI';
-import {log} from 'util';
 
 type InitialStateType = {
-    grade: number
-    cardsPackId: string
-    updatedGrade: UpdatedGradeType
+    assessmentError: string | null
+    cardInfo: UpdatedGradeType | null
 }
 
 const initialState: InitialStateType = {
-    grade: 0,
-    cardsPackId: '',
-    updatedGrade: {
-        _id: '',
-        cardsPack_id: '',
-        card_id: '',
-        user_id: '',
-        grade: 0,
-        shots: 0,
-    }
+    assessmentError: null,
+    cardInfo: null
 }
 
-export const setCardGrade = createAsyncThunk('assessment/setGrade', (data:ParamsData, {dispatch}) => {
+export const setCardGrade = createAsyncThunk('assessment/setGrade', async (data:ParamsData, {dispatch, rejectWithValue}) => {
     try {
-        const res = assessmentAPI.setGrade(data)
-        // dispatch(setCardsPackId())
+        dispatch(setErrorMsg(''))
+        const res = await assessmentAPI.setGrade(data)
         return res
-    }catch (e) {
-
+    }catch (e: any) {
+        return rejectWithValue(e.response.data.error)
     }
 })
 
@@ -35,16 +25,19 @@ const slice = createSlice({
     name: 'assessment',
     initialState: initialState,
     reducers: {
-        setCardsPackId: (state, action: PayloadAction<string>) => {
-            state.cardsPackId = action.payload
+        setErrorMsg: (state, action: PayloadAction<string>) => {
+            state.assessmentError = action.payload
         },
     },
     extraReducers: (builder) => {
         builder.addCase(setCardGrade.fulfilled, (state, action)=> {
-            // @ts-ignore
-            state.updatedGrade.cardsPack_id = action.payload.data.updatedGrade.cardsPack_id as string
+            state.cardInfo = action.payload.updatedGrade as UpdatedGradeType
+        })
+        builder.addCase(setCardGrade.rejected, (state, action)=> {
+            state.assessmentError = action.payload as string
         })
     }
 })
 
+export const {setErrorMsg} = slice.actions
 export const assessmentReducer = slice.reducer

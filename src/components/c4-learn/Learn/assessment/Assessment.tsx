@@ -8,6 +8,7 @@ import FormControl from '@mui/material/FormControl';
 import {useNavigate, useParams} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from '../../../../Hooks/hooks';
 import {setCardGrade} from '../../../../store/reducers/s12_AssessmentReducer';
+import {selectAssessmentError, selectCardsPackId} from '../../../../store/selectors/Selectors';
 
 
 export const Assessment = () => {
@@ -22,21 +23,25 @@ export const Assessment = () => {
 
     const dispatch = useAppDispatch()
 
-    const [value, setValue] = useState('')
+    const cardsPackId = useAppSelector(selectCardsPackId)
+    const errorMsg = useAppSelector(selectAssessmentError)
+    console.log(cardsPackId)
 
-    // const cardsPackId = useAppSelector(store => store.assessment.cardsPackId)
-    const cardsPackId = useAppSelector(store => store.assessment.updatedGrade.cardsPack_id)
+    const [value, setValue] = useState('')
 
     const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
         setValue((event.target as HTMLInputElement).value);
     };
 
-    const onTempHanlder = () => {
-        dispatch(setCardGrade({grade: +value, card_id: cardId as string}))
+    const onCancelHandler = () => {
+        navigate('/packlist')
     }
 
-    const onTempCancelHanlder = ()=>{
-        navigate(`/learn/${cardsPackId}/${packName}`)
+    const onNextHandler =  async () => {
+        const res = await dispatch(setCardGrade({grade: +value, card_id: cardId as string}))
+        if(res.type === 'assessment/setGrade/fulfilled'){
+            navigate(`/learn/${cardsPackId}/${packName}`)
+        }
     }
 
     return (
@@ -52,6 +57,7 @@ export const Assessment = () => {
                         <span>Answer:</span> {answer}
                     </div>
                     <div className={s.gradesBlock}>
+                        {errorMsg && <div style={{color: 'red'}}>{errorMsg}</div>}
                         <h5>Rate yourself:</h5>
                         <div className={s.checkBoxes}>
                             <FormControl>
@@ -73,12 +79,10 @@ export const Assessment = () => {
                         </div>
                     </div>
                     <div className={s.buttons}>
-                        <LearnButtons onClickCancel={() => {
-                        }}
-                                      onClickShowAnswer={() => {
-                                      }}/>
-                        <button onClick={onTempHanlder}>tempo</button>
-                        <button onClick={onTempCancelHanlder}>cancel</button>
+                        <LearnButtons onClickCancel={onCancelHandler}
+                                      onClickSubmit={onNextHandler}>
+                            Next
+                        </LearnButtons>
                     </div>
                 </div>
             </div>
