@@ -36,14 +36,13 @@ export const CustomTable = (props: CustomTablePropsType) => {
         dispatch(getCardsList({cardsPack_id: cardsPackId}));
         navigate(`/cardspack/${cardsPackId}`);
     }
-
     const sortHandler = (name: string) => {
         let number = sortPacks.slice(0, 1)
         if (number === "") {
             dispatch(updateSortPacks("1" + name))
-        } else if(number === "1") {
+        } else if (number === "1") {
             dispatch(updateSortPacks("0" + name))
-        }else{
+        } else {
             dispatch(updateSortPacks("1" + name))
         }
 
@@ -104,13 +103,15 @@ export const CustomTable = (props: CustomTablePropsType) => {
                                 key={row._id}
                                 sx={{'&:last-child td, &:last-child th': {border: 0}}}
                             >
-                                <TableCell style = {{cursor: "pointer"}} component="th" scope="row" onClick={() => showCardsHandler(row._id)}>
+                                <TableCell style={{cursor: "pointer"}} component="th" scope="row"
+                                           onClick={() => showCardsHandler(row._id)}>
                                     {row.name}
                                 </TableCell>
                                 <TableCell align="right">{row.cardsCount}</TableCell>
                                 <TableCell align="right">{CorrectData(row.updated)}</TableCell>
                                 <TableCell align="right">{row.user_name}</TableCell>
-                                <TableCell align="right">{<ButtonsForPacks setActive={props.setActive} packId={row._id}
+                                <TableCell align="right">{<ButtonsForPacks setActive={props.setActive}
+                                                                           packId={row._id}
                                                                            ownerId={row.user_id}
                                                                            packName={row.name}/>}</TableCell>
                             </TableRow>

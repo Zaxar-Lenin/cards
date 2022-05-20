@@ -4,3 +4,9 @@
     background-color: white;
     grid-gap: 10px 10px;
 }
+
+.textFields {
+    display: grid;
+    grid-gap: 40px 40px;
+    grid-template-rows: 1fr 1fr;
+}
