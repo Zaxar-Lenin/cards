@@ -11,15 +11,29 @@ import {ButtonsForPacks} from "../p1-ButtonsForPacks/ButtonsForPacks";
 import s from "./Table.module.css"
 import {updateSortPacks} from "../../../store/reducers/s10_PackListReducer";
 import {getCardsList} from "../../../store/reducers/s11_CardsListReducer";
-import {Navigate, useNavigate} from 'react-router-dom';
+import {Navigate, URLSearchParamsInit, useNavigate} from 'react-router-dom';
 import {Routers} from '../../c1-main/routers';
 
 
 type CustomTablePropsType = {
-    setActive: (n: boolean) => void
+    setActiveDelete: (n: boolean) => void
+    setActiveUpdate: (n: boolean) => void
+    setSearchParams:
+        (nextInit: URLSearchParamsInit, navigateOptions?:
+            {
+                replace?: boolean | undefined;
+                state?: any;
+            } | undefined) => void
+    isMyPack: boolean
 }
 
-export const CustomTable = (props: CustomTablePropsType) => {
+export const CustomTable = (
+    {
+        setActiveDelete,
+        setSearchParams,
+        isMyPack,
+        setActiveUpdate,
+    }: CustomTablePropsType) => {
 
     const cardPacks = useAppSelector(state => state.packList.cardPacks);
 
@@ -41,9 +55,9 @@ export const CustomTable = (props: CustomTablePropsType) => {
         let number = sortPacks.slice(0, 1)
         if (number === "") {
             dispatch(updateSortPacks("1" + name))
-        } else if(number === "1") {
+        } else if (number === "1") {
             dispatch(updateSortPacks("0" + name))
-        }else{
+        } else {
             dispatch(updateSortPacks("1" + name))
         }
 
@@ -60,7 +74,6 @@ export const CustomTable = (props: CustomTablePropsType) => {
             return `${s.sort} ${s.sort2}`
         }
     }
-
 
 
     return (
@@ -104,15 +117,23 @@ export const CustomTable = (props: CustomTablePropsType) => {
                                 key={row._id}
                                 sx={{'&:last-child td, &:last-child th': {border: 0}}}
                             >
-                                <TableCell style = {{cursor: "pointer"}} component="th" scope="row" onClick={() => showCardsHandler(row._id)}>
+                                <TableCell style={{cursor: "pointer"}} component="th" scope="row"
+                                           onClick={() => showCardsHandler(row._id)}>
                                     {row.name}
                                 </TableCell>
                                 <TableCell align="right">{row.cardsCount}</TableCell>
                                 <TableCell align="right">{CorrectData(row.updated)}</TableCell>
                                 <TableCell align="right">{row.user_name}</TableCell>
-                                <TableCell align="right">{<ButtonsForPacks setActive={props.setActive} packId={row._id}
-                                                                           ownerId={row.user_id}
-                                                                           packName={row.name}/>}</TableCell>
+                                <TableCell align="right">{
+                                    <ButtonsForPacks
+                                        isMyPack = {isMyPack}
+                                        setSearchParams={setSearchParams}
+                                        setActiveDelete={setActiveDelete}
+                                        setActiveUpdate = {setActiveUpdate}
+                                        packId={row._id}
+                                        ownerId={row.user_id}
+                                        packName={row.name}/>
+                                }</TableCell>
                             </TableRow>
                         ))}
                     </TableBody>

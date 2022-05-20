@@ -2,24 +2,51 @@ import Button from '@mui/material/Button'
 import ButtonsStyles from './ButtonsForPacks.module.css'
 import {useAppDispatch, useAppSelector} from "../../../Hooks/hooks";
 import {deletePackList} from "../../../store/reducers/s10_PackListReducer";
-import {useNavigate, useParams} from 'react-router-dom';
+import {URLSearchParamsInit, useNavigate, useParams, useSearchParams} from 'react-router-dom';
 
 type ButtonsForPacksPropsType = {
     packId?: string;
     ownerId?: string;
-    setActive?: (n: boolean) => void
+    setActiveDelete?: (n: boolean) => void
+    setActiveUpdate?: (n: boolean) => void
     packName?: string;
+    setSearchParams:
+        (nextInit: URLSearchParamsInit, navigateOptions?:
+            {
+                replace?: boolean | undefined;
+                state?: any;
+            } | undefined) => void
+    isMyPack: boolean
 }
 
-export const ButtonsForPacks = (props: ButtonsForPacksPropsType) => {
+export const ButtonsForPacks = (
+    {
+        packId,
+        ownerId,
+        setActiveDelete,
+        setActiveUpdate,
+        packName,
+        setSearchParams,
+        isMyPack
+    }: ButtonsForPacksPropsType) => {
     const navigate = useNavigate()
     const dispatch = useAppDispatch();
     const userId = useAppSelector(store => store.profile.profile._id);
 
-    const deletePackHandler = () => {
-        props.setActive && props.setActive(true)
-        navigate(`/packlist/${props.packId}`);
 
+    const deletePackHandler = () => {
+        setActiveDelete && setActiveDelete(true)
+        if (packId) {
+            isMyPack ? setSearchParams({packId, userId}) : setSearchParams({packId})
+        }
+        ;
+    }
+    const updatePackHandler = () => {
+        setActiveUpdate && setActiveUpdate(true)
+        if (packId) {
+            isMyPack ? setSearchParams({packId, userId}) : setSearchParams({packId})
+        }
+        ;
     }
 
     const onLearnHandler = (packId: string, packName: string) => {
@@ -29,14 +56,14 @@ export const ButtonsForPacks = (props: ButtonsForPacksPropsType) => {
     return (
         <div className={ButtonsStyles.mainButtonsStyle}>
             {
-                userId === props.ownerId &&
+                userId === ownerId &&
                 <div className={ButtonsStyles.buttonGroupStyle}>
                     <Button variant="outlined"
                             size="small"
                             onClick={deletePackHandler}
                             sx={{
                                 gridArea: 'delete',
-                                backgroundColor:'#F1453D',
+                                backgroundColor: '#F1453D',
                                 color: 'white',
                                 ":hover": {color: '#1976D2'}
                             }}
@@ -44,6 +71,7 @@ export const ButtonsForPacks = (props: ButtonsForPacksPropsType) => {
                         Delete
                     </Button>
                     <Button
+                        onClick={updatePackHandler}
                         variant="outlined"
                         size="small"
                         sx={{gridArea: 'edit'}}
@@ -56,7 +84,9 @@ export const ButtonsForPacks = (props: ButtonsForPacksPropsType) => {
                 variant="outlined"
                 size="small"
                 sx={{gridArea: 'learn'}}
-                onClick={()=> {onLearnHandler(props.packId as string, props.packName as string)}}
+                onClick={() => {
+                    onLearnHandler(packId as string, packName as string)
+                }}
             >
                 Learn
             </Button>

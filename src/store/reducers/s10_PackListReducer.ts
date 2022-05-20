@@ -1,5 +1,13 @@
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {DeleteParamsType, GetParamsType, packAPI, PackCards, PostParamsType} from '../../API/packAPI';
+import {
+    DeleteDataType,
+    DeleteParamsType,
+    GetParamsType,
+    packAPI,
+    PackCards,
+    PostDataType,
+    PostParamsType, UpdateDataType
+} from '../../API/packAPI';
 import {RootState} from '../store';
 import {setisLoading} from './s9-AppReducer';
 
@@ -59,7 +67,7 @@ export const getPacksList = createAsyncThunk(
 
 export const addPackList = createAsyncThunk(
     'packList/addPackList',
-    async (data: PostParamsType, {dispatch, rejectWithValue}) => {
+    async (data: PostDataType, {dispatch, rejectWithValue}) => {
         try {
             await packAPI.postPackList(
                 {
@@ -68,7 +76,24 @@ export const addPackList = createAsyncThunk(
                     private: data.private
                 }
             )
-            dispatch(getPacksList(''));
+            dispatch(getPacksList(data.packId));
+        } catch (e: any) {
+            return rejectWithValue(e.response.data.error);
+        }
+    }
+)
+
+export const updatePackList = createAsyncThunk(
+    'packList/updatePackList',
+    async (data: UpdateDataType, {dispatch, rejectWithValue}) => {
+        try {
+            await packAPI.updatePackList(
+                {
+                    name: data.name,
+                    _id: data._id
+                }
+            )
+            dispatch(getPacksList(data.packId));
         } catch (e: any) {
             return rejectWithValue(e.response.data.error);
         }
@@ -77,10 +102,10 @@ export const addPackList = createAsyncThunk(
 
 export const deletePackList = createAsyncThunk(
     'packList/deletePackList',
-    async (data: DeleteParamsType, {dispatch, rejectWithValue}) => {
+    async (data: DeleteDataType, {dispatch, rejectWithValue}) => {
         try {
             await packAPI.deletePackList({id: data.id});
-            dispatch(getPacksList(''));
+            dispatch(getPacksList(data.packId));
         } catch (e: any) {
             return rejectWithValue(e.response.data.error);
         }

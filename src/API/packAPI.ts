@@ -40,14 +40,38 @@ export type GetParamsType = {
 }
 
 export type PostParamsType = {
-        name?: string;
-        deckCover?: string;
-        private?: boolean;
+    name?: string;
+    deckCover?: string;
+    private?: boolean;
+
+}
+export type PostDataType = {
+    name?: string;
+    deckCover?: string;
+    private?: boolean;
+    packId: string
+
+}
+export type UpdateDataType = {
+    name: string;
+    _id: string;
+    packId: string
 
 }
 
 export type DeleteParamsType = {
     id: string | undefined;
+
+}
+export type UpdateParamsType = {
+    _id: string | undefined;
+    name: string
+
+}
+
+export type DeleteDataType = {
+    id: string | undefined;
+    packId: string
 }
 
 export type PutParamsType = {
@@ -67,6 +91,9 @@ export const packAPI = {
         return instance.post('cards/pack', {cardsPack});
     },
     deletePackList(params: DeleteParamsType) {
-        return instance.delete('cards/pack', {params});
+        return instance.delete('cards/pack',{params});
+    },
+    updatePackList(cardsPack: UpdateParamsType) {
+        return instance.put('cards/pack', {cardsPack});
     }
 }

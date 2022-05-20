@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import s from './PackList.module.css';
-import {Navigate, useSearchParams} from 'react-router-dom';
+import {Navigate, useNavigate, useSearchParams} from 'react-router-dom';
 import {Routers} from '../c1-main/routers';
 import {useAppDispatch, useAppSelector} from '../../Hooks/hooks';
 import {addPackList, getPacksList, setId} from '../../store/reducers/s10_PackListReducer';
@@ -11,21 +11,42 @@ import {Range} from '../../Assets/Range/Range';
 import loadingPic from '../../Assets/img/animated-chicken-image-0103.gif'
 import {ModelWindowDelete} from "../../Assets/ModelWindow/ModelDelete/ModelWindowDelete";
 import {ModelWindowAdd} from "../../Assets/ModelWindow/ModeleAdd/ModelWindowAdd";
+import {ModelWindowUpdate} from "../../Assets/ModelWindow/ModeleUpdate/ModelWindowUpdate";
 
 export const PackList = () => {
 
     const isLoggedIn = useAppSelector(state => state.login.isLoggedIn)
     const isLoading = useAppSelector(state => state.app.isLoading)
     const userId = useAppSelector(store => store.profile.profile._id);
-    const {packName, sortPacks, page, pageCount, min, max, user_id} = useAppSelector(state => state.packList.queryParams)
+    const {
+        packName,
+        sortPacks,
+        page,
+        pageCount,
+        min,
+        max,
+        user_id
+    } = useAppSelector(state => state.packList.queryParams)
 
     const dispatch = useAppDispatch()
 
+    const navigate = useNavigate()
+
     const [activeDelete, setActiveDelete] = useState(false)
+
+    const cardPacks = useAppSelector(state => state.packList.cardPacks);
+
+    const [isMyPack, setIsMyPack] = useState(false)
 
     const [activeAdd, setActiveAdd] = useState(false)
 
+    const [activeUpdate, setActiveUpdate] = useState(false)
+
     const [searchParams, setSearchParams] = useSearchParams();
+
+    const idPack = searchParams.get('packId')
+
+    let namePack = cardPacks.find(f => f._id === idPack)
 
     useEffect(() => {
         dispatch(getPacksList(searchParams.get('user_id') as string));
@@ -36,15 +57,18 @@ export const PackList = () => {
     }
 
     const myHandlerButton = () => {
-        setSearchParams({user_id:userId})
+        setSearchParams({user_id: userId})
         dispatch(setId(searchParams.get('user_id') as string))
+        console.log(searchParams.get('user_id'))
+        setIsMyPack(true)
     }
 
-    const allHandlerButton = ()=>{
+    const allHandlerButton = () => {
         const searchParamObj = Object.fromEntries(searchParams)
         delete searchParamObj.user_id
         setSearchParams({user_id: ''})
         dispatch(setId(searchParams.get('user_id') as string))
+        setIsMyPack(false)
     }
 
     if (!isLoggedIn) {
@@ -73,15 +97,32 @@ export const PackList = () => {
                 </div>
                 <div className={s.packlistTable}>
                     {
-                    isLoading
-                    ? <div className={s.logoPic}><img src={loadingPic} alt=""/></div>
-                    : <CustomTable setActive={setActiveDelete} />
+                        isLoading
+                            ? <div className={s.logoPic}><img src={loadingPic} alt=""/></div>
+                            : <CustomTable
+                                isMyPack={isMyPack}
+                                setSearchParams={setSearchParams}
+                                setActiveDelete={setActiveDelete}
+                                setActiveUpdate={setActiveUpdate}/>
                     }
                 </div>
                 <div className={s.packlistPagination}><BasicPagination/></div>
             </div>
-            <ModelWindowDelete active={activeDelete} setActive={setActiveDelete}/>
-            <ModelWindowAdd active = {activeAdd} setActive = {setActiveAdd}/>
+            <ModelWindowDelete
+                namePack = {namePack && namePack.name}
+                isMyPack={isMyPack}
+                packId={idPack}
+                active={activeDelete}
+                setActive={setActiveDelete}/>
+            <ModelWindowAdd
+                isMyPack={isMyPack}
+                active={activeAdd}
+                setActive={setActiveAdd}/>
+            <ModelWindowUpdate
+                packId={idPack}
+                isMyPack={isMyPack}
+                active={activeUpdate}
+                setActive={setActiveUpdate}/>
         </div>
     );
 };
