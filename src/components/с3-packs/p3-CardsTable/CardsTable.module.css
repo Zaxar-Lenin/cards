@@ -10,3 +10,11 @@
     grid-gap: 40px 40px;
     grid-template-rows: 1fr 1fr;
 }
+
+.searchCards {
+    display: grid;
+    grid-gap: 20px 20px;
+    grid-template-columns: 4fr 1fr;
+    margin-left: 10px;
+    margin-right: 10px;
+}

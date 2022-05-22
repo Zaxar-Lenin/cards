@@ -3,7 +3,7 @@ import s from './PackList.module.css';
 import {Navigate, useSearchParams} from 'react-router-dom';
 import {Routers} from '../c1-main/routers';
 import {useAppDispatch, useAppSelector} from '../../Hooks/hooks';
-import {addPackList, getPacksList, setId} from '../../store/reducers/s10_PackListReducer';
+import {getPacksList, setId} from '../../store/reducers/s10_PackListReducer';
 import {Search} from './p2-Search/Search';
 import {CustomTable} from './Table/CustomTable';
 import BasicPagination from './Pagination/Pagination';

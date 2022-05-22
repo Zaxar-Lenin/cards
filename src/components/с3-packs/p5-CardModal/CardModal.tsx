@@ -1,4 +1,4 @@
-import addCardStyle from './AddNewCardModal.module.css'
+import addCardStyle from './CardModal.module.css'
 
 type ModalPropsType = {
     active: boolean;
@@ -7,7 +7,7 @@ type ModalPropsType = {
 }
 
 
-export const Modal = ({active, setActive, children}: ModalPropsType) => {
+export const CardModal = ({active, setActive, children}: ModalPropsType) => {
     return (
         <div className={active ? `${addCardStyle.modal} ${addCardStyle.active}` : addCardStyle.modal}
              onClick={() => setActive(false)}>

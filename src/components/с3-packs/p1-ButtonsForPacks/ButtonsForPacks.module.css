@@ -18,3 +18,25 @@
 .learnButtonStyle {
     grid-area: learn;
 }
+
+.modalDelete {
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
+    grid-template-rows: 3fr 1fr;
+    grid-auto-flow: column;
+    grid-template-areas:
+            "text text text"
+            "cancel . delete";
+}
+
+.cancelButton {
+    grid-area: cancel;
+}
+
+.deleteButton {
+    grid-area: delete;
+}
+
+.deleteMessage {
+    grid-area: text;
+}

@@ -20,7 +20,7 @@ import cardTableStyles from './CardsTable.module.css'
 import loadingPic from '../../../Assets/img/animated-chicken-image-0103.gif';
 import {ButtonsForCardsTable} from "../p4-ButtonsForCardsTable/ButtonsForCardsTable";
 import {Search} from "../p2-Search/Search";
-import {Modal} from "../p5-AddNewCardModal/AddNewCardModal";
+import {CardModal} from "../p5-CardModal/CardModal";
 import regButtonStyle from "../../c2-pages/Registration/Registration.module.css";
 import style from "../../c2-pages/Login/LoginForm.module.css";
 import {useFormik} from "formik";
@@ -33,18 +33,16 @@ type ErrorType = {
 
 export const CardsTable = () => {
     const dispatch = useAppDispatch();
+    const params = useParams<{ packId: string, packName: string }>();
+    const navigate = useNavigate();
+    const [modalAddCardActive, setModalAddCardActive] = useState<boolean>(false);
+
     const cardsList = useAppSelector(store => store.cardsList.cardList);
     const question = useAppSelector(store => store.cardsList.queryParams.cardQuestion);
-    const packName = useAppSelector(store => store.packList.queryParams.packName)
     const userId = useAppSelector(store => store.profile.profile._id);
     const isLoggedIn = useAppSelector(state => state.login.isLoggedIn);
     const isLoading = useAppSelector(state => state.app.isLoading);
-    const params = useParams<{ packId: string}>();
-    const navigate = useNavigate();
-    console.log(params)
-    const [modalAddCardActive, setModalAddCardActive] = useState<boolean>(false);
-    const [modalDeleteCardActive, setModalDeleteCardActive] = useState<boolean>(false);
-    const [modalEditCardActive, setModalEditCardActive] = useState<boolean>(false);
+
 
     const formik = useFormik({
         initialValues: {
@@ -77,6 +75,7 @@ export const CardsTable = () => {
         dispatch(getCardsList({cardsPack_id: params.packId}));
     }, [question, cardsList.cards.length]);
 
+
     if (!isLoggedIn) {
         return <Navigate to={Routers.LOGIN}/>
     }
@@ -91,9 +90,6 @@ export const CardsTable = () => {
     const backButtonHandler = () => {
         navigate(Routers.PACK_LIST);
     }
-    const deleteCardHandler = () => {
-        setModalDeleteCardActive(true);
-    }
 
     const correctData = (data: string): string => {
         return data.slice(0, 10).split('-').reverse().join('.');
@@ -101,8 +97,8 @@ export const CardsTable = () => {
 
     return (
         <div className={cardTableStyles.mainClass}>
-            <h1><KeyboardBackspaceIcon onClick={backButtonHandler}/>   Card Pack</h1>
-            <div>
+            <h1><KeyboardBackspaceIcon onClick={backButtonHandler}/> {params.packName}</h1>
+            <div className={cardTableStyles.searchCards}>
                 <Search table='cards'/>
                 {userId === cardsList.packUserId &&
                 <span><Button variant="outlined"
@@ -149,27 +145,28 @@ export const CardsTable = () => {
                                                                 readOnly/></TableCell>
                                 {userId === cardsList.packUserId &&
                                 <TableCell><ButtonsForCardsTable cardId={card._id}
-                                                                 packId={card.cardsPack_id}/></TableCell>}
+                                                                 packId={card.cardsPack_id}
+                                                                 packName={params.packName as string}/></TableCell>}
                             </TableRow>
                         ))}
                     </TableBody>
                 </Table>
             </TableContainer>
-            <Modal active={modalAddCardActive} setActive={setModalAddCardActive}>
+            <CardModal active={modalAddCardActive} setActive={setModalAddCardActive}>
                 <form onSubmit={formik.handleSubmit}>
                     <div>
                         <div className={cardTableStyles.textFields}>
                             <TextField
-                            id="question"
-                            label="Question"
-                            multiline
-                            variant="standard"
-                            value={formik.values.question}
-                            onChange={formik.handleChange}
-                            error={formik.touched.question && Boolean(formik.errors.question)}
-                            helperText={formik.touched.question && formik.errors.question}
-                            onBlur={formik.handleBlur}
-                        />
+                                id="question"
+                                label="Question"
+                                multiline
+                                variant="standard"
+                                value={formik.values.question}
+                                onChange={formik.handleChange}
+                                error={formik.touched.question && Boolean(formik.errors.question)}
+                                helperText={formik.touched.question && formik.errors.question}
+                                onBlur={formik.handleBlur}
+                            />
                             <TextField
                                 id="answer"
                                 label="Answer"
@@ -217,7 +214,7 @@ export const CardsTable = () => {
                         </div>
                     </div>
                 </form>
-            </Modal>
+            </CardModal>
 
         </div>
     )

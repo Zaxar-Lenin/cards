@@ -33,12 +33,12 @@ function Body() {
                 <Route path = {Routers.ERROR} element={<Error/>}/>
                 <Route path = {Routers.PROFILE} element={<Profile/>}/>
                 <Route path = {Routers.TEST} element={<ButtonsForPacks/>}/>
-                <Route path = {`${Routers.CARDS_PACK}/:packId`} element={<CardsTable/>}/>
+                <Route path = {`${Routers.CARDS_PACK}/:packId/:packName`} element={<CardsTable/>}/>
                 <Route path = {Routers.ENTERING_NEW_PASS} element={<PasswordEntering/>}/>
                 <Route path = {Routers.PASS_RECOV} element={<PasswordRecov/>}/>
                 <Route path = {Routers.PERSONAL_INFORMATION} element={<PersonalInformation/>}/>
                 <Route path = {`${Routers.PACK_LIST}/*`} element={<PackList/>}/>
-                <Route path = {`${Routers.LEARN}/:packId`} element={<Learn/>}/>
+                <Route path = {`${Routers.LEARN}/:packId/:packName`} element={<Learn/>}/>
             </Routes>
         </div>
     );

@@ -11,8 +11,7 @@ import {ButtonsForPacks} from "../p1-ButtonsForPacks/ButtonsForPacks";
 import s from "./Table.module.css"
 import {updateSortPacks} from "../../../store/reducers/s10_PackListReducer";
 import {getCardsList} from "../../../store/reducers/s11_CardsListReducer";
-import {Navigate, useNavigate} from 'react-router-dom';
-import {Routers} from '../../c1-main/routers';
+import {useNavigate} from 'react-router-dom';
 
 
 type CustomTablePropsType = {
@@ -32,9 +31,9 @@ export const CustomTable = (props: CustomTablePropsType) => {
     const CorrectData = (data: string): string => {
         return data.slice(0, 10).split('-').reverse().join('.');
     }
-    const showCardsHandler = (cardsPackId: string) => {
+    const showCardsHandler = (cardsPackId: string, packName: string) => {
         dispatch(getCardsList({cardsPack_id: cardsPackId}));
-        navigate(`/cardspack/${cardsPackId}`);
+        navigate(`/cardspack/${cardsPackId}/${packName}`);
     }
     const sortHandler = (name: string) => {
         let number = sortPacks.slice(0, 1)
@@ -104,7 +103,7 @@ export const CustomTable = (props: CustomTablePropsType) => {
                                 sx={{'&:last-child td, &:last-child th': {border: 0}}}
                             >
                                 <TableCell style={{cursor: "pointer"}} component="th" scope="row"
-                                           onClick={() => showCardsHandler(row._id)}>
+                                           onClick={() => showCardsHandler(row._id, row.name)}>
                                     {row.name}
                                 </TableCell>
                                 <TableCell align="right">{row.cardsCount}</TableCell>
