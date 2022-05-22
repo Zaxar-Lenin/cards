@@ -16,15 +16,15 @@ import {Routers} from '../../c1-main/routers';
 
 
 type CustomTablePropsType = {
-    setActiveDelete: (n: boolean) => void
-    setActiveUpdate: (n: boolean) => void
+    setActiveDelete: (n: boolean) => void;
+    setActiveUpdate: (n: boolean) => void;
     setSearchParams:
         (nextInit: URLSearchParamsInit, navigateOptions?:
             {
                 replace?: boolean | undefined;
                 state?: any;
-            } | undefined) => void
-    isMyPack: boolean
+            } | undefined) => void;
+    isMyPack: boolean;
 }
 
 export const CustomTable = (
@@ -46,11 +46,10 @@ export const CustomTable = (
     const CorrectData = (data: string): string => {
         return data.slice(0, 10).split('-').reverse().join('.');
     }
-    const showCardsHandler = (cardsPackId: string) => {
+    const showCardsHandler = (cardsPackId: string, packName: string) => {
         dispatch(getCardsList({cardsPack_id: cardsPackId}));
-        navigate(`/cardspack/${cardsPackId}`);
+        navigate(`/cardspack/${cardsPackId}/${packName}`);
     }
-
     const sortHandler = (name: string) => {
         let number = sortPacks.slice(0, 1)
         if (number === "") {
@@ -118,7 +117,7 @@ export const CustomTable = (
                                 sx={{'&:last-child td, &:last-child th': {border: 0}}}
                             >
                                 <TableCell style={{cursor: "pointer"}} component="th" scope="row"
-                                           onClick={() => showCardsHandler(row._id)}>
+                                           onClick={() => showCardsHandler(row._id, row.name)}>
                                     {row.name}
                                 </TableCell>
                                 <TableCell align="right">{row.cardsCount}</TableCell>

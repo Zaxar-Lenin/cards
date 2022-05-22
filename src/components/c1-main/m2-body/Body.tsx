@@ -14,7 +14,6 @@ import {CreateNewPassword} from '../../c2-pages/Login/EmailSendWindow/CreatNewPa
 import {PersonalInformation} from "../../c2-pages/PersonalInformation/PersonalInformation";
 import {Registration} from "../../c2-pages/Registration/Registration";
 import {PackList} from '../../с3-packs/PackList';
-import {ButtonsForPacks} from "../../с3-packs/p1-ButtonsForPacks/ButtonsForPacks";
 import {CardsTable} from "../../с3-packs/p3-CardsTable/CardsTable";
 import {Learn} from '../../c4-learn/Learn/Learn';
 import {Assessment} from '../../c4-learn/Learn/assessment/Assessment';
@@ -34,7 +33,7 @@ function Body() {
                 <Route path = {Routers.ERROR} element={<Error/>}/>
                 <Route path = {Routers.PROFILE} element={<Profile/>}/>
                 {/*<Route path = {Routers.TEST} element={<ButtonsForPacks/>}/>*/}
-                <Route path = {`${Routers.CARDS_PACK}/:packId`} element={<CardsTable/>}/>
+                <Route path = {`${Routers.CARDS_PACK}/:packId/:packName`} element={<CardsTable/>}/>
                 <Route path = {Routers.ENTERING_NEW_PASS} element={<PasswordEntering/>}/>
                 <Route path = {Routers.PASS_RECOV} element={<PasswordRecov/>}/>
                 <Route path = {Routers.PERSONAL_INFORMATION} element={<PersonalInformation/>}/>
