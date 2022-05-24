@@ -1,13 +1,5 @@
 import {createAsyncThunk, createSlice, PayloadAction} from '@reduxjs/toolkit';
-import {
-    DeleteDataType,
-    DeleteParamsType,
-    GetParamsType,
-    packAPI,
-    PackCards,
-    PostDataType,
-    PostParamsType, UpdateDataType
-} from '../../API/packAPI';
+import {DeleteDataType, GetParamsType, packAPI, PackCards, PostDataType, UpdateDataType} from '../../API/packAPI';
 import {RootState} from '../store';
 import {setisLoading} from './s9-AppReducer';
 

@@ -1,5 +1,4 @@
 import {instance} from './instance';
-import {createAsyncThunk} from '@reduxjs/toolkit';
 
 export const assessmentAPI = {
     setGrade (data:ParamsData) {
@@ -28,9 +27,6 @@ export type UpdatedGradeType = {
     updated: string
 }
 
-// export type AssessmentResponseType = {
-//     updatedGrade: UpdatedGradeType
-// }
 
 
 
