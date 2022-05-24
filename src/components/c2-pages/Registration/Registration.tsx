@@ -8,6 +8,7 @@ import React from "react";
 import styleSignIn from '../Login/SignInPage/SignIn.module.css'
 import {registerUser} from "../../../store/reducers/s8_RegistrationReducer";
 import regButtonStyle from './Registration.module.css'
+import {selectRegistrationErrorMsg, selectRegistrationSuccess} from '../../../store/selectors/Selectors';
 
 type ErrorType = {
     email?: string;
@@ -20,8 +21,8 @@ export const Registration = () => {
     const navigate = useNavigate();
     const dispatch = useAppDispatch();
 
-    const registrationSuccess = useAppSelector(state => state.registration.registrationSuccess)
-    const errorMsg = useAppSelector(state => state.registration.errorMessage)
+    const registrationSuccess = useAppSelector(selectRegistrationSuccess)
+    const errorMsg = useAppSelector(selectRegistrationErrorMsg)
 
     const formik = useFormik({
         initialValues: {

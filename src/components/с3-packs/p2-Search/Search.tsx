@@ -1,13 +1,14 @@
-import React, {ChangeEvent, useEffect, useState} from "react";
-import {addPackList, setSearchValue} from "../../../store/reducers/s10_PackListReducer";
-import {useAppDispatch} from "../../../Hooks/hooks";
-import {setSearchCardsValue} from "../../../store/reducers/s11_CardsListReducer";
+import React, {ChangeEvent, useEffect, useState} from 'react';
+import {setSearchValue} from '../../../store/reducers/s10_PackListReducer';
+import {useAppDispatch} from '../../../Hooks/hooks';
+import {setSearchCardsValue} from '../../../store/reducers/s11_CardsListReducer';
 
 type SearchPropsType = {
     table: 'cards' | 'packs';
 }
 
 export const Search = (props: SearchPropsType) => {
+
     const dispatch = useAppDispatch();
 
     const [inputValue, setInputValue] = useState('');
@@ -21,6 +22,7 @@ export const Search = (props: SearchPropsType) => {
             clearTimeout(time);
         }
     }, [inputValue]);
+
     const onChangeInputHandler = (e: ChangeEvent<HTMLInputElement>) => {
         setInputValue(e.currentTarget.value);
     }

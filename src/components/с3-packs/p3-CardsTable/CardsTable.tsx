@@ -9,22 +9,20 @@ import Rating from '@mui/material/Rating';
 import Button from '@mui/material/Button';
 import TextField from '@mui/material/TextField';
 import KeyboardBackspaceIcon from '@mui/icons-material/KeyboardBackspace';
-import {useAppDispatch, useAppSelector} from "../../../Hooks/hooks";
-import {addCard, getCardsList} from "../../../store/reducers/s11_CardsListReducer";
-import * as React from "react";
-import {useEffect, useState} from "react";
+import {useAppDispatch, useAppSelector} from '../../../Hooks/hooks';
+import {addCard, getCardsList} from '../../../store/reducers/s11_CardsListReducer';
+import * as React from 'react';
+import {useEffect, useState} from 'react';
 import {Navigate, useNavigate, useParams} from 'react-router-dom';
 import {Routers} from '../../c1-main/routers';
-import s from '../PackList.module.css';
 import cardTableStyles from './CardsTable.module.css'
-import loadingPic from '../../../Assets/img/animated-chicken-image-0103.gif';
-import {ButtonsForCardsTable} from "../p4-ButtonsForCardsTable/ButtonsForCardsTable";
-import {Search} from "../p2-Search/Search";
-import {CardModal} from "../p5-CardModal/CardModal";
-import regButtonStyle from "../../c2-pages/Registration/Registration.module.css";
-import style from "../../c2-pages/Login/LoginForm.module.css";
-import {useFormik} from "formik";
-
+import {ButtonsForCardsTable} from '../p4-ButtonsForCardsTable/ButtonsForCardsTable';
+import {Search} from '../p2-Search/Search';
+import {CardModal} from '../p5-CardModal/CardModal';
+import regButtonStyle from '../../c2-pages/Registration/Registration.module.css';
+import style from '../../c2-pages/Login/LoginForm.module.css';
+import {useFormik} from 'formik';
+import {selectCardsList, selectIsLoggedIn, selectQuestion, selectUserId} from '../../../store/selectors/Selectors';
 
 type ErrorType = {
     question?: string;
@@ -37,11 +35,10 @@ export const CardsTable = () => {
     const navigate = useNavigate();
     const [modalAddCardActive, setModalAddCardActive] = useState<boolean>(false);
 
-    const cardsList = useAppSelector(store => store.cardsList.cardList);
-    const question = useAppSelector(store => store.cardsList.queryParams.cardQuestion);
-    const userId = useAppSelector(store => store.profile.profile._id);
-    const isLoggedIn = useAppSelector(state => state.login.isLoggedIn);
-    const isLoading = useAppSelector(state => state.app.isLoading);
+    const cardsList = useAppSelector(selectCardsList);
+    const question = useAppSelector(selectQuestion);
+    const userId = useAppSelector(selectUserId);
+    const isLoggedIn = useAppSelector(selectIsLoggedIn);
 
 
     const formik = useFormik({
@@ -115,8 +112,6 @@ export const CardsTable = () => {
                 </span>}
             </div>
             <TableContainer component={Paper}>
-                {isLoading &&
-                <div className={s.logoPic}><img style={{marginLeft: '300px'}} src={loadingPic} alt=""/></div>}
                 <Table sx={{minWidth: 650}} aria-label="simple table">
                     <TableHead sx={{backgroundColor: '#ECECF9'}}>
                         <TableRow>

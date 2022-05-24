@@ -2,11 +2,11 @@ import React, {useEffect, useState} from 'react';
 import s from './MainHeader.module.css'
 import {useLocation, useNavigate} from 'react-router-dom';
 import LogoutIcon from '@mui/icons-material/Logout';
-import {useAppDispatch} from '../../../../Hooks/hooks';
+import {useAppDispatch, useAppSelector} from '../../../../Hooks/hooks';
 import {logOut} from '../../../../store/reducers/s1_LoginReducer';
 import chiken from '../../../../Assets/img/pngwing.com.png';
-
-const logo = chiken;
+import {LinearProgress} from '@mui/material';
+import {selectIsLoading} from '../../../../store/selectors/Selectors';
 
 export const MainHeader = () => {
 
@@ -18,6 +18,8 @@ export const MainHeader = () => {
         packlist: false,
         profile: true
     })
+
+    const isLoading = useAppSelector(selectIsLoading)
 
     useEffect(() => {
         if (location.pathname === "/packlist" || location.pathname === "/cardspack") {
@@ -60,6 +62,9 @@ export const MainHeader = () => {
                                 onClick={()=>{dispatch(logOut())}}/>
                 </div>
             </div>
+            {
+                isLoading && <LinearProgress color="secondary" />
+            }
         </div>
     );
 };

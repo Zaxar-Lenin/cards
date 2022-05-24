@@ -7,17 +7,17 @@ import {Navigate} from "react-router-dom";
 import {useFormik} from "formik";
 import {useAppDispatch, useAppSelector} from '../../../Hooks/hooks';
 import {updateNameAndImg} from "../../../store/reducers/s4_ProfileReducer";
+import {selectAvatar, selectEmail, selectName} from '../../../store/selectors/Selectors';
 
 export const PersonalInformation = () => {
-    const name = useAppSelector<string>(state => state.profile.profile.name)
-
-    const avatar = useAppSelector<string | undefined>(state => state.profile.profile.avatar)
-
-    const email = useAppSelector<string>(state => state.profile.profile.email)
-
-    const [edit, setEdit] = useState(true)
 
     const dispatch = useAppDispatch()
+
+    const name = useAppSelector(selectName)
+    const avatar = useAppSelector<string | undefined>(selectAvatar)
+    const email = useAppSelector<string>(selectEmail)
+
+    const [edit, setEdit] = useState(true)
 
     const formik = useFormik({
         initialValues: {

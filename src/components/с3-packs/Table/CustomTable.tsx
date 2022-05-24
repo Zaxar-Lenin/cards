@@ -7,12 +7,12 @@ import TableHead from '@mui/material/TableHead';
 import TableRow from '@mui/material/TableRow';
 import Paper from '@mui/material/Paper';
 import {useAppDispatch, useAppSelector} from '../../../Hooks/hooks';
-import {ButtonsForPacks} from "../p1-ButtonsForPacks/ButtonsForPacks";
-import s from "./Table.module.css"
-import {updateSortPacks} from "../../../store/reducers/s10_PackListReducer";
-import {getCardsList} from "../../../store/reducers/s11_CardsListReducer";
-import {Navigate, URLSearchParamsInit, useNavigate} from 'react-router-dom';
-import {Routers} from '../../c1-main/routers';
+import {ButtonsForPacks} from '../p1-ButtonsForPacks/ButtonsForPacks';
+import s from './Table.module.css'
+import {updateSortPacks} from '../../../store/reducers/s10_PackListReducer';
+import {getCardsList} from '../../../store/reducers/s11_CardsListReducer';
+import {URLSearchParamsInit, useNavigate} from 'react-router-dom';
+import {selectCardPacks, selectSortPacks} from '../../../store/selectors/Selectors';
 
 
 type CustomTablePropsType = {
@@ -35,45 +35,45 @@ export const CustomTable = (
         setActiveUpdate,
     }: CustomTablePropsType) => {
 
-    const cardPacks = useAppSelector(state => state.packList.cardPacks);
-
-    const sortPacks = useAppSelector(state => state.packList.queryParams.sortPacks);
-
     const navigate = useNavigate();
 
     const dispatch = useAppDispatch();
 
+    const cardPacks = useAppSelector(selectCardPacks);
+    const sortPacks = useAppSelector(selectSortPacks);
+
     const CorrectData = (data: string): string => {
         return data.slice(0, 10).split('-').reverse().join('.');
     }
+
     const showCardsHandler = (cardsPackId: string, packName: string) => {
         dispatch(getCardsList({cardsPack_id: cardsPackId}));
         navigate(`/cardspack/${cardsPackId}/${packName}`);
     }
+
     const sortHandler = (name: string) => {
         let number = sortPacks.slice(0, 1)
-        if (number === "") {
-            dispatch(updateSortPacks("1" + name))
-        } else if (number === "1") {
-            dispatch(updateSortPacks("0" + name))
+        if (number === '') {
+            dispatch(updateSortPacks('1' + name))
+        } else if (number === '1') {
+            dispatch(updateSortPacks('0' + name))
         } else {
-            dispatch(updateSortPacks("1" + name))
+            dispatch(updateSortPacks('1' + name))
         }
 
     }
 
     const classChange = (name: string) => {
-        if (("") === sortPacks) {
+        if (('') === sortPacks) {
             return `${s.sort} ${s.sort2}`
-        } else if (("0" + name) === sortPacks) {
+        } else if (('0' + name) === sortPacks) {
             return `${s.sort} ${s.sort0}`
-        } else if (("1" + name) === sortPacks) {
+        } else if (('1' + name) === sortPacks) {
             return `${s.sort} ${s.sort1}`
         } else {
             return `${s.sort} ${s.sort2}`
         }
     }
-
 
     return (
         <>
@@ -81,28 +81,28 @@ export const CustomTable = (
                 <Table sx={{minWidth: 650}} aria-label="simple table">
                     <TableHead>
                         <TableRow>
-                            <TableCell className={classChange("name")} onClick={() => {
-                                sortHandler("name")
+                            <TableCell className={classChange('name')} onClick={() => {
+                                sortHandler('name')
                             }}>
                                 <span>Name</span>
                             </TableCell>
-                            <TableCell className={classChange("cardsCount")}
+                            <TableCell className={classChange('cardsCount')}
                                        onClick={() => {
-                                           sortHandler("cardsCount")
+                                           sortHandler('cardsCount')
                                        }}
                                        align="right">
                                 <span>Cards</span>
                             </TableCell>
-                            <TableCell className={classChange("updated")}
+                            <TableCell className={classChange('updated')}
                                        onClick={() => {
-                                           sortHandler("updated")
+                                           sortHandler('updated')
                                        }}
                                        align="right">
                                 <span>Last Update</span>
                             </TableCell>
-                            <TableCell className={classChange("user_name")}
+                            <TableCell className={classChange('user_name')}
                                        onClick={() => {
-                                           sortHandler("user_name")
+                                           sortHandler('user_name')
                                        }}
                                        align="right">
                                 <span>Created by</span>
@@ -116,7 +116,7 @@ export const CustomTable = (
                                 key={row._id}
                                 sx={{'&:last-child td, &:last-child th': {border: 0}}}
                             >
-                                <TableCell style={{cursor: "pointer"}} component="th" scope="row"
+                                <TableCell style={{cursor: 'pointer'}} component="th" scope="row"
                                            onClick={() => showCardsHandler(row._id, row.name)}>
                                     {row.name}
                                 </TableCell>
@@ -125,10 +125,10 @@ export const CustomTable = (
                                 <TableCell align="right">{row.user_name}</TableCell>
                                 <TableCell align="right">{
                                     <ButtonsForPacks
-                                        isMyPack = {isMyPack}
+                                        isMyPack={isMyPack}
                                         setSearchParams={setSearchParams}
                                         setActiveDelete={setActiveDelete}
-                                        setActiveUpdate = {setActiveUpdate}
+                                        setActiveUpdate={setActiveUpdate}
                                         packId={row._id}
                                         ownerId={row.user_id}
                                         packName={row.name}/>

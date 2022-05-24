@@ -2,6 +2,7 @@ import React, {ChangeEvent, useState} from 'react';
 import s from './Email.module.css'
 import {Button, TextField} from '@mui/material';
 import {useAppSelector} from '../../../../../Hooks/hooks';
+import {selectErrorMsg} from '../../../../../store/selectors/Selectors';
 
 type FromType = {
     buttonName: string
@@ -15,7 +16,7 @@ export const ResetPassForm = ({buttonName, children, onClick, label, type}: From
 
     const [value, setValue] = useState('')
 
-    const errorMsg = useAppSelector<string | null>(state=> state.login.errorMessage)
+    const errorMsg = useAppSelector(selectErrorMsg)
 
     const onChangeHandler = (e: ChangeEvent<HTMLTextAreaElement>) => {
         setValue(e.currentTarget.value)

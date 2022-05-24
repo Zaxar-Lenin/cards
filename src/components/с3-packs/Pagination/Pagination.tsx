@@ -7,17 +7,16 @@ import s from "./Pagination.module.css"
 import MenuItem from '@mui/material/MenuItem';
 import FormControl from '@mui/material/FormControl';
 import Select, {SelectChangeEvent} from '@mui/material/Select';
+import {selectAmountPacks, selectPage, selectTotalCount} from '../../../store/selectors/Selectors';
 
 
 export default function BasicPagination() {
 
     const dispatch = useAppDispatch()
 
-    const totalCount = useAppSelector(state => state.packList.cardPacksTotalCount)
-
-    const amountPacks = useAppSelector(state => state.packList.queryParams.pageCount)
-
-    const page = useAppSelector(state => state.packList.queryParams.page)
+    const totalCount = useAppSelector(selectTotalCount)
+    const amountPacks = useAppSelector(selectAmountPacks)
+    const page = useAppSelector(selectPage)
 
     const setPageHandler = (num: number) => {
         dispatch(setPage(num))

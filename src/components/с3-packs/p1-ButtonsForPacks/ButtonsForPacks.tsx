@@ -1,8 +1,8 @@
 import Button from '@mui/material/Button'
 import ButtonsStyles from './ButtonsForPacks.module.css'
-import {useAppDispatch, useAppSelector} from "../../../Hooks/hooks";
-import {deletePackList} from "../../../store/reducers/s10_PackListReducer";
-import {URLSearchParamsInit, useNavigate, useParams, useSearchParams} from 'react-router-dom';
+import {useAppSelector} from '../../../Hooks/hooks';
+import {URLSearchParamsInit, useNavigate} from 'react-router-dom';
+import {selectIsLoading, selectUserId} from '../../../store/selectors/Selectors';
 
 type ButtonsForPacksPropsType = {
     packId?: string;
@@ -29,9 +29,11 @@ export const ButtonsForPacks = (
         setSearchParams,
         isMyPack
     }: ButtonsForPacksPropsType) => {
+
     const navigate = useNavigate()
-    const dispatch = useAppDispatch();
-    const userId = useAppSelector(store => store.profile.profile._id);
+
+    const userId = useAppSelector(selectUserId);
+    const isLoading = useAppSelector(selectIsLoading);
 
 
     const deletePackHandler = () => {
@@ -39,14 +41,12 @@ export const ButtonsForPacks = (
         if (packId) {
             isMyPack ? setSearchParams({packId, userId}) : setSearchParams({packId})
         }
-        ;
     }
     const updatePackHandler = () => {
         setActiveUpdate && setActiveUpdate(true)
         if (packId) {
             isMyPack ? setSearchParams({packId, userId}) : setSearchParams({packId})
         }
-        ;
     }
 
     const onLearnHandler = (packId: string, packName: string) => {
@@ -58,19 +58,22 @@ export const ButtonsForPacks = (
             {
                 userId === ownerId &&
                 <div className={ButtonsStyles.buttonGroupStyle}>
-                    <Button variant="outlined"
-                            size="small"
-                            onClick={deletePackHandler}
-                            sx={{
-                                gridArea: 'delete',
-                                backgroundColor: '#F1453D',
-                                color: 'white',
-                                ":hover": {color: '#1976D2'}
-                            }}
+                    <Button
+                        disabled={isLoading}
+                        variant="outlined"
+                        size="small"
+                        onClick={deletePackHandler}
+                        sx={{
+                            gridArea: 'delete',
+                            backgroundColor: '#F1453D',
+                            color: 'white',
+                            ':hover': {color: '#1976D2'}
+                        }}
                     >
                         Delete
                     </Button>
                     <Button
+                        disabled={isLoading}
                         onClick={updatePackHandler}
                         variant="outlined"
                         size="small"
@@ -81,6 +84,7 @@ export const ButtonsForPacks = (
                 </div>
             }
             <Button
+                disabled={isLoading}
                 variant="outlined"
                 size="small"
                 sx={{gridArea: 'learn'}}

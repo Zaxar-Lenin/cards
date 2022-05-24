@@ -4,14 +4,13 @@ import {Navigate} from 'react-router-dom';
 import {Routers} from "../../../c1-main/routers";
 import {useAppSelector} from '../../../../Hooks/hooks';
 import {Button} from '@mui/material';
+import {selectAvatar, selectEmail, selectName} from '../../../../store/selectors/Selectors';
 
 export const EditProfile = () => {
 
-    const name = useAppSelector<string>(state => state.profile.profile.name)
-
-    const avatar = useAppSelector<string | undefined>(state => state.profile.profile.avatar)
-
-    const email = useAppSelector<string>(state => state.profile.profile.email)
+    const name = useAppSelector<string>(selectName)
+    const avatar = useAppSelector<string | undefined>(selectAvatar)
+    const email = useAppSelector<string>(selectEmail)
 
     const [edit, setEdit] = useState(false)
 

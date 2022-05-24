@@ -1,11 +1,17 @@
 import React, {useEffect, useState} from 'react';
 import s from './Assessment.module.css';
 import {LearnButtons} from '../learnButtons/LearnButtons';
-import {useNavigate, useParams} from 'react-router-dom';
+import {Navigate, useNavigate, useParams} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from '../../../../Hooks/hooks';
 import {setCardGrade, setStatus} from '../../../../store/reducers/s12_AssessmentReducer';
-import {selectAssessmentError, selectCardsPackId, selectStatus} from '../../../../store/selectors/Selectors';
+import {
+    selectAssessmentError,
+    selectCardsPackId,
+    selectIsLoggedIn,
+    selectStatus
+} from '../../../../store/selectors/Selectors';
 import {Checkboxes} from '../checkboxes/Checkboxes.';
+import {Routers} from '../../../c1-main/routers';
 
 
 export const Assessment = () => {
@@ -23,18 +29,19 @@ export const Assessment = () => {
     const cardsPackId = useAppSelector(selectCardsPackId)
     const errorMsg = useAppSelector(selectAssessmentError)
     const status = useAppSelector(selectStatus)
+    const isLoggedIn = useAppSelector(selectIsLoggedIn)
 
     const [value, setValue] = useState('')
 
-    useEffect(()=> {
-        if(status === 'success') {
+    useEffect(() => {
+        if (status === 'success') {
             navigate(`/learn/${cardsPackId}/${packName}`)
         }
-        return ()=>{
+        return () => {
             dispatch(setStatus('idle'))
         }
 
-    },[status])
+    }, [status])
 
     const handleChange = (value: string) => {
         setValue(value);
@@ -44,8 +51,12 @@ export const Assessment = () => {
         navigate('/packlist')
     }
 
-    const onNextHandler =   () => {
+    const onNextHandler = () => {
         dispatch(setCardGrade({grade: +value, card_id: cardId as string}))
+    }
+
+    if (!isLoggedIn) {
+        return <Navigate to={Routers.LOGIN}/>
     }
 
     return (

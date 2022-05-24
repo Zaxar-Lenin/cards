@@ -6,6 +6,7 @@ import {loginTC} from '../../../store/reducers/s1_LoginReducer';
 import {Navigate, useNavigate} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from '../../../Hooks/hooks';
 import {Routers} from '../../c1-main/routers';
+import {selectErrorMsg, selectIsLoggedIn} from '../../../store/selectors/Selectors';
 
 type ErrorType = {
     email?: string
@@ -16,8 +17,9 @@ export const LoginForm = () => {
 
     const navigate = useNavigate()
     const dispatch = useAppDispatch();
-    const isLoggedIn = useAppSelector(state => state.login.isLoggedIn)
-    const errorMsg = useAppSelector(state => state.login.errorMessage)
+
+    const isLoggedIn = useAppSelector(selectIsLoggedIn)
+    const errorMsg = useAppSelector(selectErrorMsg)
 
     const label = {inputProps: {type: 'checkbox'}}
 

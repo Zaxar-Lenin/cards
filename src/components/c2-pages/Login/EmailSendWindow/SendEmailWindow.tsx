@@ -4,11 +4,14 @@ import {ResetPassForm} from './EmailForm/ResetPassForm';
 import {resetPassword} from '../../../../store/reducers/s1_LoginReducer';
 import {useNavigate} from 'react-router-dom';
 import {useAppDispatch, useAppSelector} from '../../../../Hooks/hooks';
+import {selectErrorMsg} from '../../../../store/selectors/Selectors';
 
 export const SendEmailWindow = () => {
+
     const redirect = useNavigate()
     const dispatch = useAppDispatch()
-    const error = useAppSelector<string | null>(state => state.login.errorMessage)
+
+    const error = useAppSelector(selectErrorMsg)
 
     useEffect(() => {
         if (error?.length === 0) {

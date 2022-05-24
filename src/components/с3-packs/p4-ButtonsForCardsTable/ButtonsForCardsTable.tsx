@@ -1,12 +1,10 @@
-import ButtonsStyles from "../p1-ButtonsForPacks/ButtonsForPacks.module.css";
-import Button from "@mui/material/Button";
-import {useAppDispatch} from "../../../Hooks/hooks";
-import {deleteCard} from "../../../store/reducers/s11_CardsListReducer";
-import {CardModal} from "../p5-CardModal/CardModal";
-import {useState} from "react";
-import style from "../../c2-pages/Login/LoginForm.module.css";
-import regButtonStyle from "../../c2-pages/Registration/Registration.module.css";
-import * as React from "react";
+import ButtonsStyles from '../p1-ButtonsForPacks/ButtonsForPacks.module.css';
+import Button from '@mui/material/Button';
+import {useAppDispatch} from '../../../Hooks/hooks';
+import {deleteCard} from '../../../store/reducers/s11_CardsListReducer';
+import {CardModal} from '../p5-CardModal/CardModal';
+import * as React from 'react';
+import {useState} from 'react';
 
 type ButtonsForCardsTableType = {
     cardId?: string;
@@ -15,7 +13,9 @@ type ButtonsForCardsTableType = {
 }
 
 export const ButtonsForCardsTable = ({cardId, packId, packName}: ButtonsForCardsTableType) => {
+
     const dispatch = useAppDispatch();
+
     const [modalDeleteCardActive, setModalDeleteCardActive] = useState<boolean>(false);
 
     const deleteButtonHandler = () => {

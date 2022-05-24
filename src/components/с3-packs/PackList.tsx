@@ -1,6 +1,6 @@
 import React, {useEffect, useState} from 'react';
 import s from './PackList.module.css';
-import {Navigate, useNavigate, useSearchParams} from 'react-router-dom';
+import {Navigate, useSearchParams} from 'react-router-dom';
 import {Routers} from '../c1-main/routers';
 import {useAppDispatch, useAppSelector} from '../../Hooks/hooks';
 import {getPacksList, setId} from '../../store/reducers/s10_PackListReducer';
@@ -8,16 +8,18 @@ import {Search} from './p2-Search/Search';
 import {CustomTable} from './Table/CustomTable';
 import BasicPagination from './Pagination/Pagination';
 import {Range} from '../../Assets/Range/Range';
-import loadingPic from '../../Assets/img/animated-chicken-image-0103.gif'
-import {ModelWindowDelete} from "../../Assets/ModelWindow/ModelDelete/ModelWindowDelete";
-import {ModelWindowAdd} from "../../Assets/ModelWindow/ModeleAdd/ModelWindowAdd";
-import {ModelWindowUpdate} from "../../Assets/ModelWindow/ModeleUpdate/ModelWindowUpdate";
+import {ModelWindowDelete} from '../../Assets/ModelWindow/ModelDelete/ModelWindowDelete';
+import {ModelWindowAdd} from '../../Assets/ModelWindow/ModeleAdd/ModelWindowAdd';
+import {ModelWindowUpdate} from '../../Assets/ModelWindow/ModeleUpdate/ModelWindowUpdate';
+import {selectCardPacks, selectIsLoggedIn, selectUserId} from '../../store/selectors/Selectors';
 
 export const PackList = () => {
 
-    const isLoggedIn = useAppSelector(state => state.login.isLoggedIn)
-    const isLoading = useAppSelector(state => state.app.isLoading)
-    const userId = useAppSelector(store => store.profile.profile._id);
+    const dispatch = useAppDispatch()
+
+    const isLoggedIn = useAppSelector(selectIsLoggedIn)
+    const userId = useAppSelector(selectUserId);
+    const cardPacks = useAppSelector(selectCardPacks);
     const {
         packName,
         sortPacks,
@@ -28,29 +30,19 @@ export const PackList = () => {
         user_id
     } = useAppSelector(state => state.packList.queryParams)
 
-    const dispatch = useAppDispatch()
-
-    const navigate = useNavigate()
-
     const [activeDelete, setActiveDelete] = useState(false)
-
-    const cardPacks = useAppSelector(state => state.packList.cardPacks);
-
     const [isMyPack, setIsMyPack] = useState(false)
-
     const [activeAdd, setActiveAdd] = useState(false)
-
     const [activeUpdate, setActiveUpdate] = useState(false)
 
     const [searchParams, setSearchParams] = useSearchParams();
 
-    const idPack = searchParams.get('packId')
-
-    let namePack = cardPacks.find(f => f._id === idPack)
-
     useEffect(() => {
         dispatch(getPacksList(searchParams.get('user_id') as string));
     }, [packName, sortPacks, page, pageCount, min, max, user_id]);
+
+    const idPack = searchParams.get('packId')
+    let namePack = cardPacks.find(f => f._id === idPack)
 
     const addPackClickHandler = () => {
         setActiveAdd(true)
@@ -86,30 +78,33 @@ export const PackList = () => {
                 </div>
                 <div className={s.optionsRange}>
                     <span>Number of cards</span>
-                    <div><Range min={min} max={max}/></div>
+                    <div>
+                        <Range min={min} max={max}/>
+                    </div>
                 </div>
             </div>
             <div className={s.packList}>
                 <h3>Pack list</h3>
                 <div className={s.packlistSearch}>
-                    <Search table='packs'/>
-                    <span><button onClick={addPackClickHandler}>Add new pack</button></span>
+                    <Search table="packs"/>
+                    <span>
+                        <button onClick={addPackClickHandler}>Add new pack</button>
+                    </span>
                 </div>
                 <div className={s.packlistTable}>
-                    {
-                        isLoading
-                            ? <div className={s.logoPic}><img src={loadingPic} alt=""/></div>
-                            : <CustomTable
-                                isMyPack={isMyPack}
-                                setSearchParams={setSearchParams}
-                                setActiveDelete={setActiveDelete}
-                                setActiveUpdate={setActiveUpdate}/>
-                    }
+                    <CustomTable
+                        isMyPack={isMyPack}
+                        setSearchParams={setSearchParams}
+                        setActiveDelete={setActiveDelete}
+                        setActiveUpdate={setActiveUpdate}/>
+
                 </div>
-                <div className={s.packlistPagination}><BasicPagination/></div>
+                <div className={s.packlistPagination}>
+                    <BasicPagination/>
+                </div>
             </div>
             <ModelWindowDelete
-                namePack = {namePack && namePack.name}
+                namePack={namePack && namePack.name}
                 isMyPack={isMyPack}
                 packId={idPack}
                 active={activeDelete}
