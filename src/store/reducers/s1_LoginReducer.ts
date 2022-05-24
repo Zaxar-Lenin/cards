@@ -3,7 +3,7 @@ import {loginAPI, LoginParamsType} from '../../API/loginAPI';
 import {setAllData} from './s4_ProfileReducer';
 import {setisInitialized, setisLoading, setisViewHeader} from './s9-AppReducer';
 
-type InitialStateType = {
+export type InitialStateType = {
     isLoggedIn: boolean,
     info: null | string,
     errorMessage: null | string
