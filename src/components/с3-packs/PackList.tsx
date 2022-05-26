@@ -28,6 +28,7 @@ export const PackList = () => {
         user_id
     } = useAppSelector(state => state.packList.queryParams)
 
+
     const dispatch = useAppDispatch()
 
     const navigate = useNavigate()
@@ -48,9 +49,12 @@ export const PackList = () => {
 
     let namePack = cardPacks.find(f => f._id === idPack)
 
+
     useEffect(() => {
         dispatch(getPacksList(searchParams.get('user_id') as string));
-    }, [packName, sortPacks, page, pageCount, min, max, user_id]);
+        searchParams.get('user_id') && setIsMyPack(true)
+    }, [packName, sortPacks, page, pageCount, min, max, user_id,isMyPack]);
+
 
     const addPackClickHandler = () => {
         setActiveAdd(true)
@@ -71,6 +75,7 @@ export const PackList = () => {
         setIsMyPack(false)
     }
 
+
     if (!isLoggedIn) {
         return <Navigate to={Routers.LOGIN}/>
     }
@@ -80,8 +85,8 @@ export const PackList = () => {
                 <div className={s.optionsButton}>
                     <span>Show packs cards</span>
                     <div className={s.buttonsMyAll}>
-                        <button onClick={myHandlerButton}>My</button>
-                        <button onClick={allHandlerButton}>All</button>
+                        <button disabled={isMyPack} onClick={myHandlerButton}>My</button>
+                        <button disabled={!isMyPack} onClick={allHandlerButton}>All</button>
                     </div>
                 </div>
                 <div className={s.optionsRange}>
