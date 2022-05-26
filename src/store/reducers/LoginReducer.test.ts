@@ -21,6 +21,7 @@ const result: ResponseType = {
 }
 
 // @ts-ignore
+//делаем фейковый ответ
 loginAPIMock.login.mockReturnValue(result)
 
 let startState: InitialStateType
