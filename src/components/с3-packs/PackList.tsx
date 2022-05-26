@@ -39,7 +39,8 @@ export const PackList = () => {
 
     useEffect(() => {
         dispatch(getPacksList(searchParams.get('user_id') as string));
-    }, [packName, sortPacks, page, pageCount, min, max, user_id]);
+        searchParams.get('user_id') && setIsMyPack(true)
+    }, [packName, sortPacks, page, pageCount, min, max, user_id,isMyPack]);
 
     const idPack = searchParams.get('packId')
     let namePack = cardPacks.find(f => f._id === idPack)
@@ -72,8 +73,8 @@ export const PackList = () => {
                 <div className={s.optionsButton}>
                     <span>Show packs cards</span>
                     <div className={s.buttonsMyAll}>
-                        <button onClick={myHandlerButton}>My</button>
-                        <button onClick={allHandlerButton}>All</button>
+                        <button disabled={isMyPack} onClick={myHandlerButton}>My</button>
+                        <button disabled={!isMyPack} onClick={allHandlerButton}>All</button>
                     </div>
                 </div>
                 <div className={s.optionsRange}>

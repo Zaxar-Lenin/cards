@@ -37,10 +37,21 @@
     height: 25px;
     border-radius: 1px;
     border: 0;
-    background: #FFFFFF
+    background: #FFFFFF;
+    cursor: pointer;
 }
-.buttonsMyAll button:hover {
+.buttonClass{
+
+}
+.buttonsMyAll buttonClass:hover {
     background: rgba(209, 203, 236, 0.99);
+}
+
+.myButton{
+    background-color: #2D2E46;
+}
+.allButton{
+    background-color: #2D2E46;
 }
 
 
